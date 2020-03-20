@@ -79,17 +79,17 @@ CREATE TABLE public.orders (
 
 CREATE TABLE public.payment_methods(
     id SERIAL NOT NULL ,
-    method_name VARCHAR(50) NOT NULL,
+    method_name VARCHAR(50) NOT NULL ,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE public.invoices(
     id SERIAL NOT NULL ,
     payment_method_id INT NOT NULL ,
-    payment_date date
+    payment_date date ,
     billing_address VARCHAR(250) ,
     PRIMARY KEY (id) ,
-    FOREIGN KEY (payment_method_id) REFERENCES public.payment_methods
+    FOREIGN KEY (payment_method_id) REFERENCES public.payment_methods (id)
 );
 
 CREATE TABLE public.services(
@@ -100,7 +100,7 @@ CREATE TABLE public.services(
     price INT NOT NULL ,
     description text ,
     PRIMARY KEY (id) ,
-    FOREIGN KEY (gig_id) REFERENCES public.gigs ,
-    FOREIGN KEY (order_id) REFERENCES public.orders ,
-    FOREIGN KEY (invoice_id) REFERENCES public.invoices
+    FOREIGN KEY (gig_id) REFERENCES public.gigs (id),
+    FOREIGN KEY (order_id) REFERENCES public.orders (id),
+    FOREIGN KEY (invoice_id) REFERENCES public.invoices (id)
  );
