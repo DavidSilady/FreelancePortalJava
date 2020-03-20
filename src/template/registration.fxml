@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrationController">
+   <children>
+      <JFXButton layoutX="135.0" layoutY="408.0" prefHeight="26.0" prefWidth="127.0" ripplerFill="#7fdac5" style="-fx-background-color: #4da895;" text="Submit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField focusColor="#7fdac5" layoutX="59.0" layoutY="179.0" prefHeight="26.0" prefWidth="279.0" promptText="Email Address" unFocusColor="#4da895" />
+      <JFXTextField focusColor="#7fdac5" layoutX="59.0" layoutY="123.0" prefHeight="26.0" prefWidth="127.0" promptText="Name" unFocusColor="#4da895" />
+      <JFXTextField focusColor="#7fdac5" layoutX="210.0" layoutY="123.0" prefHeight="26.0" prefWidth="127.0" promptText="Surname" unFocusColor="#4da895" />
+      <JFXTextField focusColor="#7fdac5" layoutX="59.0" layoutY="235.0" prefHeight="26.0" prefWidth="279.0" promptText="Password" unFocusColor="#4da895" />
+      <JFXTextField focusColor="#7fdac5" layoutX="59.0" layoutY="291.0" prefHeight="26.0" prefWidth="279.0" promptText="Confirm Password" unFocusColor="#4da895" />
+   </children>
+</AnchorPane>
