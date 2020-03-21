@@ -1,20 +1,20 @@
 DROP TABLE IF EXISTS public.freelancer_languages;
 DROP TABLE IF EXISTS public.languages;
 DROP TABLE IF EXISTS public.reviews;
-DROP TABLE IF EXISTS public.orders;
-DROP TABLE IF EXISTS public.payment_methods;
-DROP TABLE IF EXISTS public.invoices;
 DROP TABLE IF EXISTS public.services;
 DROP TABLE IF EXISTS public.gigs;
 DROP TABLE IF EXISTS public.categories;
 DROP TABLE IF EXISTS public.freelancers;
+DROP TABLE IF EXISTS public.orders;
+DROP TABLE IF EXISTS public.invoices;
 DROP TABLE IF EXISTS public.users;
+DROP TABLE IF EXISTS public.payment_methods;
 
 CREATE TABLE public.users (
     id SERIAL UNIQUE NOT NULL ,
     name VARCHAR(50) NOT NULL ,
     surname VARCHAR(50) NOT NULL ,
-    mail VARCHAR(50) NOT NULL ,
+    email VARCHAR(50) NOT NULL ,
     password TEXT NOT NULL ,
     registration_date date NOT NULL ,
     PRIMARY KEY (id)
@@ -74,7 +74,7 @@ CREATE TABLE public.orders (
     customer_id INT NOT NULL ,
     order_date date NOT NULL,
     PRIMARY KEY (id) ,
-    FOREIGN KEY (customer_id) REFERENCES public.users
+    FOREIGN KEY (customer_id) REFERENCES public.users (id)
 );
 
 CREATE TABLE public.payment_methods(
