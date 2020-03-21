@@ -1,5 +1,7 @@
 package controller;
 
+import main.DatabaseDriver;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -15,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class RegistrationController {
 	
@@ -61,7 +64,8 @@ public class RegistrationController {
 			userData.add(surname);
 			userData.add(password);
 			userData.add(strDate);
-			System.out.println(userData);
+			//System.out.println(userData);
+			DatabaseDriver.insert_user(userData);
 		}
 	}
 	
