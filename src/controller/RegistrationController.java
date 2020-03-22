@@ -41,10 +41,13 @@ public class RegistrationController {
 	private JFXPasswordField confirmPasswordTextField;
 	
 	@FXML
+	private Label somethingWrongLabel;
+	
+	@FXML
 	private Label userRegLabel;
 	
 	@FXML
-	void submitForm(ActionEvent event) {
+	void submitForm(ActionEvent event) throws Exception {
 		if (!checkAllFilled())
 			return;
 		
@@ -63,7 +66,13 @@ public class RegistrationController {
 			userData.add(password);
 			userData.add(strDate);
 			//System.out.println(userData);
-			Boolean registrationSuccess = DatabaseDriver.insert_user(userData);
+			boolean registrationSuccess = DatabaseDriver.insert_user(userData);
+			if (registrationSuccess) {
+				SceneManager sceneManager = new SceneManager();
+				sceneManager.switchScene(event, "login");
+			} else {
+				somethingWrongLabel.setOpacity(100);
+			}
 		}
 	}
 	
@@ -81,19 +90,23 @@ public class RegistrationController {
 	
 	boolean isEmpty(JFXTextField textField) {
 		if (textField.getText().equals("")) {
-			textField.setPromptText(textField.getPromptText() + " Must Be Filled");
+			if (!textField.getPromptText().contains("Must Be Filled")) // negated
+				textField.setPromptText(textField.getPromptText() + " Must Be Filled");
 			textField.setUnFocusColor(Color.valueOf("#ff3322"));
 			return true;
 		}
+		textField.setUnFocusColor(Color.valueOf("#4da895"));
 		return false;
 	}
 
 	boolean isEmpty(JFXPasswordField textField) {
 		if (textField.getText().equals("")) {
-			textField.setPromptText(textField.getPromptText() + " Must Be Filled");
+			if (!textField.getPromptText().contains("Must Be Filled")) // negated
+				textField.setPromptText(textField.getPromptText() + " Must Be Filled");
 			textField.setUnFocusColor(Color.valueOf("#ff3322"));
 			return true;
 		}
+		textField.setUnFocusColor(Color.valueOf("#4da895"));
 		return false;
 	}
 }

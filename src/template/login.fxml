@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootAnchorPane" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <JFXButton fx:id="submitButton" layoutX="128.0" layoutY="362.0" onAction="#loginUser" prefHeight="26.0" prefWidth="127.0" ripplerFill="#7fdac5" style="-fx-background-color: #4da895;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="mailTextField" focusColor="#7fdac5" layoutX="52.0" layoutY="225.0" prefHeight="26.0" prefWidth="279.0" promptText="Email Address" unFocusColor="#4da895" />
+      <JFXPasswordField fx:id="passwordTextField" focusColor="#7fdac5" layoutX="52.0" layoutY="269.0" prefHeight="26.0" prefWidth="279.0" promptText="Password" unFocusColor="#4da895" />
+      <Label fx:id="userRegLabel" layoutX="56.0" layoutY="139.0" text="User Login" textFill="#7fdac5">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

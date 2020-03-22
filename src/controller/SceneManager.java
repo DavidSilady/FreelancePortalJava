@@ -8,7 +8,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SceneManager {
-	public void setScene (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
+	public void switchScene (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
 		Parent root = fxmlLoader.load();
