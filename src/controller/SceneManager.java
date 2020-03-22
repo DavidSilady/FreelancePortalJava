@@ -9,16 +9,16 @@ import javafx.stage.Stage;
 
 public class SceneManager {
 	public void setScene (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
-		Parent signUpParent = loader.load();
-		Scene signUpScene = new Scene(signUpParent);
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
+		Parent root = fxmlLoader.load();
+		Scene fxmlScene = new Scene(root);
 		Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-		window.setScene(signUpScene);
+		window.setScene(fxmlScene);
 		window.show();
 	}
 	
-	public void changeDynamicPane(Pane dynamicPane, String name) throws Exception{
+	public void switchDynamicPane (Pane dynamicPane, String name) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + name + ".fxml"));
 		Pane pane = (Pane) fxmlLoader.load();
 		try {
@@ -32,12 +32,12 @@ public class SceneManager {
 	public void switchStage (Event actionEvent, String sceneName) throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + sceneName +".fxml"));
 		((Node) actionEvent.getSource()).getScene().getWindow().hide();
-		Parent root1 = (Parent) fxmlLoader.load();
+		Parent root = (Parent) fxmlLoader.load();
 		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
 		//stage.initStyle(StageStyle.UNDECORATED);
-		stage.setTitle("SEKS | " + sceneName);
-		stage.setScene(new Scene(root1, 1280, 720));
+		stage.setTitle("Freelance Portal | " + sceneName);
+		stage.setScene(new Scene(root, 1280, 720));
 		stage.show();
 	}
 }
