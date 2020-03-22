@@ -1,21 +1,23 @@
 package model;
 
-import org.postgresql.Driver;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 
 public class DatabaseDriver {
-    static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
-    static final String USER = "postgres";
-    static final String PASS = "houno";
+    /*
+    Config File Format:
+    JDBC_DRIVER
+    DB_URL
+    USER
+    PASS
+     */
 
     public static boolean insert_user(List<String> userData) {
 
@@ -23,10 +25,7 @@ public class DatabaseDriver {
             Connection connection = null;
             Statement statement = null;
 
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager
-                    .getConnection(DB_URL, USER, PASS);
-            connection.setAutoCommit(false);
+            connection = establishConnection();
             statement = connection.createStatement();
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -47,10 +46,25 @@ public class DatabaseDriver {
         }
     }
     
-    private ArrayList<String> readConfig(String configFileName) {
+    private static Connection establishConnection() throws ClassNotFoundException, SQLException {
+        ArrayList<String> configInfo = readConfig("dbConfig");
+        assert configInfo != null;
+        String JDBC_DRIVER = configInfo.get(0);
+        String DB_URL = configInfo.get(1);
+        String USER = configInfo.get(2);
+        String PASS = configInfo.get(3);
+    
+        Class.forName(JDBC_DRIVER);
+        Connection connection = DriverManager
+                .getConnection(DB_URL, USER, PASS);
+        connection.setAutoCommit(false);
+        return connection;
+    }
+    
+    private static ArrayList<String> readConfig(String configFileName) {
         try {
             ArrayList<String> configInfo = new ArrayList<>();
-            File configFile = new File(configFileName);
+            File configFile = new File("config/" + configFileName);
             Scanner myReader = new Scanner(configFile);
             while (myReader.hasNextLine()) {
                 configInfo.add(myReader.nextLine());
