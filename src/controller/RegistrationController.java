@@ -60,9 +60,10 @@ public class RegistrationController {
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		String strDate = dateFormat.format(date);
 		if (password.compareTo(confirmPasswordTextField.getText()) == 0) {
-			userData.add(mail);
+			// order of columns in db
 			userData.add(name);
 			userData.add(surname);
+			userData.add(mail);
 			userData.add(password);
 			userData.add(strDate);
 			//System.out.println(userData);
