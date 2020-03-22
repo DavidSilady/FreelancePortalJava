@@ -63,7 +63,7 @@ public class RegistrationController {
 			userData.add(password);
 			userData.add(strDate);
 			//System.out.println(userData);
-			DatabaseDriver.insert_user(userData);
+			Boolean registrationSuccess = DatabaseDriver.insert_user(userData);
 		}
 	}
 	

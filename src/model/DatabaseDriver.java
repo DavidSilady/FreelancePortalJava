@@ -16,7 +16,7 @@ public class DatabaseDriver {
     static final String USER = "postgres";
     static final String PASS = "houno";
 
-    public static void insert_user(List<String> userData) {
+    public static boolean insert_user(List<String> userData) {
 
         try {
             Connection connection = null;
@@ -38,9 +38,11 @@ public class DatabaseDriver {
             statement.close();
             connection.commit();
             connection.close();
+            return true;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
+            return false;
         }
     }
 }
