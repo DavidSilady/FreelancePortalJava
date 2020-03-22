@@ -2,6 +2,8 @@ package model;
 
 import org.postgresql.Driver;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -10,11 +12,10 @@ import java.util.*;
 
 
 public class DatabaseDriver {
-
     static final String JDBC_DRIVER = "org.postgresql.Driver";
     static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     static final String USER = "postgres";
-    static final String PASS = "forceitus3r";
+    static final String PASS = "houno";
 
     public static boolean insert_user(List<String> userData) {
 
@@ -43,6 +44,23 @@ public class DatabaseDriver {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
             return false;
+        }
+    }
+    
+    private ArrayList<String> readConfig(String configFileName) {
+        try {
+            ArrayList<String> configInfo = new ArrayList<>();
+            File configFile = new File(configFileName);
+            Scanner myReader = new Scanner(configFile);
+            while (myReader.hasNextLine()) {
+                configInfo.add(myReader.nextLine());
+            }
+            myReader.close();
+            return configInfo;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return null;
         }
     }
 }
