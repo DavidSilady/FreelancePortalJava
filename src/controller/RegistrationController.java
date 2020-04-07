@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.image.ImageView;
 import model.DatabaseDriver;
 
 import com.jfoenix.controls.JFXButton;
@@ -45,6 +46,9 @@ public class RegistrationController {
 	
 	@FXML
 	private Label userRegLabel;
+	
+	@FXML
+	private ImageView logoImage;
 	
 	@FXML
 	void submitForm(ActionEvent event) throws Exception {
