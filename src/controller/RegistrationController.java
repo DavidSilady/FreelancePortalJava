@@ -48,39 +48,44 @@ public class RegistrationController {
 	
 	@FXML
 	void submitForm(ActionEvent event) throws Exception {
-		if (!checkAllFilled())
+		if (! isAllFilled())
 			return;
-		
-		ArrayList <String> userData = new ArrayList<>();
 		String mail = mailTextField.getText();
 		String name = nameTextField.getText();
 		String surname = surnameTextField.getText();
 		String password = passwordTextField.getText();
-		Date date = Calendar.getInstance().getTime();
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		String strDate = dateFormat.format(date);
 		if (password.compareTo(confirmPasswordTextField.getText()) == 0) {
-			// order of columns in db
-			userData.add(name);
-			userData.add(surname);
-			userData.add(mail);
-			userData.add(password);
-			userData.add(strDate);
-			//System.out.println(userData);
-			boolean registrationSuccess = DatabaseDriver.dbInsert(
-					"users",
-					"(name, surname, email, password, registration_date)",
-					userData);
-			if (registrationSuccess) {
-				SceneManager sceneManager = new SceneManager();
-				sceneManager.switchScene(event, "login");
-			} else {
-				somethingWrongLabel.setOpacity(100);
-			}
+			parseToDatabase(event, name, surname, mail, password);
 		}
 	}
 	
-	boolean checkAllFilled () {
+	String getDate() {
+		Date date = Calendar.getInstance().getTime();
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		return dateFormat.format(date);
+	}
+	
+	void parseToDatabase(ActionEvent event, String name, String surname, String mail, String password) throws Exception {
+		ArrayList <String> userData = new ArrayList<>();
+		// order of columns in db
+		userData.add(name);
+		userData.add(surname);
+		userData.add(mail);
+		userData.add(password);
+		userData.add(getDate());
+		boolean registrationSuccess = DatabaseDriver.dbInsert(
+				"users",
+				"(name, surname, email, password, registration_date)",
+				userData);
+		if (registrationSuccess) {
+			SceneManager sceneManager = new SceneManager();
+			sceneManager.switchScene(event, "login");
+		} else {
+			somethingWrongLabel.setOpacity(100);
+		}
+	}
+	
+	boolean isAllFilled () {
 		if (isEmpty(mailTextField))
 			return false;
 		if (isEmpty(nameTextField))
