@@ -19,22 +19,18 @@ public class DatabaseDriver {
     PASS
      */
 
-    public static boolean insert_user(List<String> userData) {
-
+    public static boolean dbInsert (String tableName, String tableColNames, ArrayList <String> insertData) {
         try {
-            Connection connection = null;
-            Statement statement = null;
-
-            connection = establishConnection();
-            statement = connection.createStatement();
-
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            String sql_code = "INSERT INTO users (name, surname, email, password, registration_date) " +
-                    "VALUES ( '" + userData.get(0) + "','" + userData.get(1) + "','" + userData.get(2) + "','" + userData.get(3) + "','" +
-            formatter.parse(userData.get(4)) + "')";
-            System.out.println(sql_code);
-
-            statement.executeUpdate(sql_code);
+            Connection connection = establishConnection();
+            Statement statement = connection.createStatement();
+            StringBuilder query = new StringBuilder("INSERT INTO " + tableName + tableColNames + " VALUES (");
+            for (String data : insertData) {
+                query.append("'").append(data).append("', ");
+            }
+            query.delete(query.length() - 2, query.length());
+            query.append(");");
+            System.out.println(query);
+            statement.executeUpdate(query.toString());
             statement.close();
             connection.commit();
             connection.close();

@@ -67,7 +67,10 @@ public class RegistrationController {
 			userData.add(password);
 			userData.add(strDate);
 			//System.out.println(userData);
-			boolean registrationSuccess = DatabaseDriver.insert_user(userData);
+			boolean registrationSuccess = DatabaseDriver.dbInsert(
+					"users",
+					"(name, surname, email, password, registration_date)",
+					userData);
 			if (registrationSuccess) {
 				SceneManager sceneManager = new SceneManager();
 				sceneManager.switchScene(event, "login");
