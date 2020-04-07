@@ -23,12 +23,7 @@ public class DatabaseDriver {
         try {
             Connection connection = establishConnection();
             Statement statement = connection.createStatement();
-            StringBuilder query = new StringBuilder("INSERT INTO " + tableName + tableColNames + " VALUES (");
-            for (String data : insertData) {
-                query.append("'").append(data).append("', ");
-            }
-            query.delete(query.length() - 2, query.length());
-            query.append(");");
+            StringBuilder query = buildInsertQuery(tableName, tableColNames, insertData);
             System.out.println(query);
             statement.executeUpdate(query.toString());
             statement.close();
@@ -41,6 +36,17 @@ public class DatabaseDriver {
             return false;
         }
     }
+    
+    private static StringBuilder buildInsertQuery(String tableName, String tableColNames, ArrayList <String> insertData){
+        StringBuilder query = new StringBuilder("INSERT INTO " + tableName + tableColNames + " VALUES (");
+        for (String data : insertData) {
+            query.append("'").append(data).append("', ");
+        }
+        query.delete(query.length() - 2, query.length());
+        query.append(");");
+        return query;
+    }
+    
     
     private static Connection establishConnection() throws ClassNotFoundException, SQLException {
         ArrayList<String> configInfo = readConfig("dbConfig");
