@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="rootAnchorPane" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrationController">
+   <children>
+      <JFXButton fx:id="submitButton" layoutX="135.0" layoutY="408.0" onAction="#submitForm" prefHeight="26.0" prefWidth="127.0" ripplerFill="#7fdac5" style="-fx-background-color: #4da895;" text="Submit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="mailTextField" focusColor="#7fdac5" layoutX="59.0" layoutY="123.0" prefHeight="26.0" prefWidth="279.0" promptText="Email Address" unFocusColor="#4da895" />
+      <JFXTextField fx:id="nameTextField" focusColor="#7fdac5" layoutX="59.0" layoutY="179.0" prefHeight="26.0" prefWidth="127.0" promptText="Name" unFocusColor="#4da895" />
+      <JFXTextField fx:id="surnameTextField" focusColor="#7fdac5" layoutX="207.0" layoutY="179.0" prefHeight="26.0" prefWidth="127.0" promptText="Surname" unFocusColor="#4da895" />
+      <JFXPasswordField fx:id="passwordTextField" focusColor="#7fdac5" layoutX="55.0" layoutY="235.0" prefHeight="26.0" prefWidth="279.0" promptText="Password" unFocusColor="#4da895" />
+      <JFXPasswordField fx:id="confirmPasswordTextField" focusColor="#7fdac5" layoutX="55.0" layoutY="291.0" prefHeight="26.0" prefWidth="279.0" promptText="Confirm Password" unFocusColor="#4da895" />
+      <Label fx:id="userRegLabel" layoutX="55.0" layoutY="59.0" text="User Registration" textFill="#7fdac5">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="somethingWrongLabel" disable="true" layoutX="55.0" layoutY="340.0" opacity="0.0" text="Something went wrong, please try again later." textFill="#da190b" />
+   </children>
+</AnchorPane>
