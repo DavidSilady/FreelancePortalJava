@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -19,29 +20,53 @@ public class DatabaseDriver {
     USER
     PASS
      */
-
-    public static String MAKE_SQL_INSERT(List<String> userData) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String sql_string = "INSERT INTO users (name, surname, email, password, registration_date) " +
-                "VALUES ( '" + userData.get(0) + "','" + userData.get(1) + "','" + userData.get(2) + "','" + userData.get(3) + "','" +
-                formatter.parse(userData.get(4)) + "')";
-
-        return sql_string;
+    private static StringBuilder buildSelectQuery(String tableColNames,String tableName, ArrayList <String> joinStatements, String condition){
+        StringBuilder query = new StringBuilder("SELECT "  + tableColNames + " FROM " + tableName + " ") ;
+        for (String joinStatement : joinStatements) {
+            query.append(joinStatement).append(" ");
+        }
+        query.append(condition);
+        return query;
     }
 
-    public static boolean add_user(List<String> userData) {
 
+    public static ArrayList<ArrayList<String>> dbSelect(String tableColNames,String tableName, ArrayList <String> joinStatements, String condition) throws Exception {
         try {
-            Connection connection = null;
-            Statement statement = null;
+            Connection connection = establishConnection();
+            Statement statement = connection.createStatement();
+            StringBuilder query = buildSelectQuery(tableColNames,tableName, joinStatements,condition);
+            System.out.println(query);
+            ResultSet result = statement.executeQuery(query.toString());
+            ArrayList<ArrayList<String>> resultAsString = new ArrayList<ArrayList<String>>();
+            while ( result.next() ) {
+                ArrayList<String> listLine = new ArrayList<String>();
+                listLine.add(result.getString("gig_name"));
+                listLine.add(result.getString("category_name"));
+                listLine.add(result.getString("alias"));
+                listLine.add(result.getString("email"));
+                resultAsString.add(listLine);
+            }
+            result.close();
+            statement.close();
+            connection.close();
+            return resultAsString;
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+            System.exit(0);
+            throw e;
+           // return "error";
+        }
+    }
 
-            connection = establishConnection();
-            statement = connection.createStatement();
 
-            String sql_string = MAKE_SQL_INSERT(userData);
-            statement.executeUpdate(sql_string);
-            System.out.println(sql_string);
 
+    public static boolean dbInsert (String tableName, String tableColNames, ArrayList <String> insertData) {
+        try {
+            Connection connection = establishConnection();
+            Statement statement = connection.createStatement();
+            StringBuilder query = buildInsertQuery(tableName, tableColNames, insertData);
+            System.out.println(query);
+            statement.executeUpdate(query.toString());
             statement.close();
             connection.commit();
             connection.close();
@@ -51,6 +76,16 @@ public class DatabaseDriver {
             System.exit(0);
             return false;
         }
+    }
+
+    private static StringBuilder buildInsertQuery(String tableName, String tableColNames, ArrayList <String> insertData){
+        StringBuilder query = new StringBuilder("INSERT INTO " + tableName + tableColNames + " VALUES (");
+        for (String data : insertData) {
+            query.append("'").append(data).append("', ");
+        }
+        query.delete(query.length() - 2, query.length());
+        query.append(");");
+        return query;
     }
     
     private static Connection establishConnection() throws ClassNotFoundException, SQLException {
