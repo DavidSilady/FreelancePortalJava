@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="428.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WriteReviewController">
+   <children>
+      <Label fx:id="ReviewNameLabel" layoutX="145.0" layoutY="37.0" text="Review name: XXXX" />
+      <Spinner layoutX="117.0" layoutY="107.0" />
+      <Label fx:id="Label1" layoutX="157.0" layoutY="70.0" text="Rate the gig" />
+      <JFXTextArea fx:id="ReviewTextArea" layoutX="23.0" layoutY="159.0" text="Write review here&#10;" />
+      <JFXButton fx:id="SaveAndExitButton" layoutX="463.0" layoutY="65.0" onAction="#saveAndExit" style="-fx-background-color: #4da895;" text="Save and exit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootAnchorPane" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrationController">
+<AnchorPane fx:id="rootAnchorPane" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrationController">
    <children>
       <JFXButton fx:id="submitButton" layoutX="135.0" layoutY="408.0" onAction="#submitForm" prefHeight="26.0" prefWidth="127.0" ripplerFill="WHITE" style="-fx-background-color: #e8b45d;" text="Submit" textFill="WHITE">
          <font>
@@ -27,9 +30,13 @@
          </font>
       </Label>
       <Label fx:id="somethingWrongLabel" disable="true" layoutX="55.0" layoutY="340.0" opacity="0.0" text="Something went wrong, please try again later." textFill="#ff3322" />
-      <ImageView fx:id="logoImage" fitHeight="149.0" fitWidth="329.0" layoutX="367.0" layoutY="168.0"
-                 pickOnBounds="true" preserveRatio="true">
-         <Image url="@img/logo_bird.png"/>
+      <ImageView fx:id="logoImage" fitHeight="149.0" fitWidth="329.0" layoutX="367.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@img/logo_bird.png" />
       </ImageView>
+      <JFXCheckBox fx:id="FreelancerCheckBox" layoutX="439.0" layoutY="102.0" onAction="#setFreelancer" text="Are you a Freelancer?" />
+      <ListView fx:id="LanguagesListView" layoutX="394.0" layoutY="241.0" prefHeight="306.0" prefWidth="329.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label fx:id="Label1" layoutX="432.0" layoutY="200.0" text="What languages can u speak ?" />
+      <ScrollBar fx:id="Scroll1" layoutX="614.0" layoutY="195.0" orientation="VERTICAL" prefHeight="306.0" prefWidth="18.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <JFXTextField fx:id="AliasTextField" focusColor="#e8b45d" layoutX="407.0" layoutY="144.0" prefHeight="26.0" prefWidth="279.0" promptText="Email Address" text="Alias" unFocusColor="#4daf48" />
    </children>
 </AnchorPane>

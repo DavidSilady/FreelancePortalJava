@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.jfoenix.controls.JFXCheckBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
+
 public class RegistrationController {
 
 	@FXML
@@ -42,13 +46,33 @@ public class RegistrationController {
 	private JFXPasswordField confirmPasswordTextField;
 
 	@FXML
-	private Label somethingWrongLabel;
-
-	@FXML
 	private Label userRegLabel;
 
 	@FXML
+	private Label somethingWrongLabel;
+
+	@FXML
 	private ImageView logoImage;
+
+	@FXML
+	private JFXCheckBox FreelancerCheckBox;
+
+	@FXML
+	private ListView<?> LanguagesListView;
+
+	@FXML
+	private Label Label1;
+
+	@FXML
+	private ScrollBar Scroll1;
+
+	@FXML
+	private JFXTextField AliasTextField;
+
+	@FXML
+	void setFreelancer(ActionEvent event) {
+
+	}
 
 	@FXML
 	void submitForm(ActionEvent event) throws Exception {

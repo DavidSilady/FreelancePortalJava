@@ -5,8 +5,9 @@ import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableView;
+import javafx.event.ActionEvent;
 
-public class Reviews {
+public class ReviewsController {
 
     @FXML
     private JFXButton ViewReviewButton;

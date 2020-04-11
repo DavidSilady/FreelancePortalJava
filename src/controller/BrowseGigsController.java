@@ -3,6 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
+import javafx.event.ActionEvent;
 
 public class BrowseGigsController {
 
