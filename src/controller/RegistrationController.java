@@ -21,6 +21,9 @@ import java.util.Date;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
+import model.User;
+
+import javax.management.InstanceAlreadyExistsException;
 
 public class RegistrationController {
 
@@ -93,23 +96,20 @@ public class RegistrationController {
 		return dateFormat.format(date);
 	}
 
-	void parseToDatabase(ActionEvent event, String name, String surname, String mail, String password) throws Exception {
-		ArrayList <String> userData = new ArrayList<>();
-		// order of columns in db
-		userData.add(name);
-		userData.add(surname);
-		userData.add(mail);
-		userData.add(password);
-		userData.add(getDate());
-		boolean registrationSuccess = DatabaseDriver.dbInsert(
-				"users",
-				"(name, surname, email, password, registration_date)",
-				userData);
-		if (registrationSuccess) {
-			SceneManager sceneManager = new SceneManager();
-			sceneManager.switchScene(event, "login");
-		} else {
-			somethingWrongLabel.setOpacity(100);
+	void parseToDatabase(ActionEvent event, String name, String surname, String email, String password) throws Exception {
+		try {
+			User user = new User(name, surname, email, password, getDate());
+			boolean registrationSuccess = user.register();
+			if (registrationSuccess) {
+				SceneManager sceneManager = new SceneManager();
+				sceneManager.switchScene(event, "login");
+			} else {
+				somethingWrongLabel.setVisible(true);
+			}
+		}
+		catch (InstanceAlreadyExistsException ex){
+			somethingWrongLabel.setVisible(true);
+			somethingWrongLabel.setText("Email already registered");
 		}
 	}
 

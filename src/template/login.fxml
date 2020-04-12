@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootAnchorPane" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane fx:id="rootAnchorPane" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <JFXButton fx:id="submitButton" layoutX="128.0" layoutY="362.0" onAction="#loginUser" prefHeight="26.0" prefWidth="127.0" ripplerFill="#7fdac5" style="-fx-background-color: #4da895;" text="Login" textFill="WHITE">
+      <JFXButton fx:id="submitButton" layoutX="128.0" layoutY="392.0" onAction="#loginUser" prefHeight="26.0" prefWidth="127.0" ripplerFill="#7fdac5" style="-fx-background-color: #4da895;" text="Login" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -19,6 +19,11 @@
       <Label fx:id="userRegLabel" layoutX="56.0" layoutY="139.0" text="User Login" textFill="#7fdac5">
          <font>
             <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="SomethingWrongLabel" layoutX="103.0" layoutY="333.0" text="Something is wrong" textFill="#d71515" visible="false">
+         <font>
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
    </children>

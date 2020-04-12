@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #46339d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartScreenController">
+   <children>
+      <JFXButton fx:id="LoginButton" layoutX="371.0" layoutY="269.0" onAction="#goToLogin" prefHeight="59.0" prefWidth="177.0" style="-fx-background-color: #4da895;" text="Login" textFill="#46339d">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="Label1" layoutX="152.0" layoutY="98.0" text="Welcome to Freelance portal" textFill="#4da895">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label3" layoutX="300.0" layoutY="221.0" text="Already have an account?" textFill="#4da895">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label2" layoutX="24.0" layoutY="221.0" text="Dont have an account?" textFill="#4da895">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="RegisterButton" layoutX="70.0" layoutY="269.0" onAction="#goToRegister" prefHeight="59.0" prefWidth="177.0" style="-fx-background-color: #4da895;" text="Register" textFill="#46339d">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

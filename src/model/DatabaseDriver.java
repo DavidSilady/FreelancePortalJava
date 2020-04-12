@@ -55,10 +55,8 @@ public class DatabaseDriver {
             connection.close();
             return resultAsString;
         } catch ( Exception e ) {
-            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-            System.exit(0);
+            System.out.println(e.getClass().getName()+": "+ e.getMessage());
             throw e;
-           // return "error";
         }
     }
     
@@ -77,8 +75,7 @@ public class DatabaseDriver {
             connection.close();
             return true;
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
             return false;
         }
     }

@@ -29,14 +29,18 @@
             <Font name="Consolas" size="23.0" />
          </font>
       </Label>
-      <Label fx:id="somethingWrongLabel" disable="true" layoutX="55.0" layoutY="340.0" opacity="0.0" text="Something went wrong, please try again later." textFill="#ff3322" />
       <ImageView fx:id="logoImage" fitHeight="149.0" fitWidth="329.0" layoutX="367.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@img/logo_bird.png" />
       </ImageView>
-      <JFXCheckBox fx:id="FreelancerCheckBox" layoutX="439.0" layoutY="102.0" onAction="#setFreelancer" text="Are you a Freelancer?" />
-      <ListView fx:id="LanguagesListView" layoutX="394.0" layoutY="241.0" prefHeight="306.0" prefWidth="329.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <Label fx:id="Label1" layoutX="432.0" layoutY="200.0" text="What languages can u speak ?" />
-      <ScrollBar fx:id="Scroll1" layoutX="614.0" layoutY="195.0" orientation="VERTICAL" prefHeight="306.0" prefWidth="18.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <JFXTextField fx:id="AliasTextField" focusColor="#e8b45d" layoutX="407.0" layoutY="144.0" prefHeight="26.0" prefWidth="279.0" promptText="Email Address" text="Alias" unFocusColor="#4daf48" />
+      <JFXCheckBox fx:id="FreelancerCheckBox" layoutX="439.0" layoutY="102.0" onAction="#setFreelancer" text="I want to register as freelancer" />
+      <ListView fx:id="LanguagesListView" disable="true" layoutX="394.0" layoutY="241.0" prefHeight="306.0" prefWidth="329.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label fx:id="Label1" disable="true" layoutX="432.0" layoutY="200.0" text="What languages can u speak ?" />
+      <ScrollBar fx:id="Scroll1" disable="true" layoutX="614.0" layoutY="195.0" orientation="VERTICAL" prefHeight="306.0" prefWidth="18.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <JFXTextField fx:id="AliasTextField" disable="true" focusColor="#e8b45d" layoutX="407.0" layoutY="144.0" prefHeight="26.0" prefWidth="279.0" promptText="Email Address" text="Alias" unFocusColor="#4daf48" />
+      <Label fx:id="somethingWrongLabel" layoutX="94.0" layoutY="352.0" text="Something is wrong" textFill="#d71515" visible="false">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

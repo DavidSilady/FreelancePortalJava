@@ -26,7 +26,10 @@ public class LoginController {
 	
 	@FXML
 	private Label userRegLabel;
-	
+
+	@FXML
+	private Label SomethingWrongLabel;
+
 	@FXML
 	void loginUser(ActionEvent event) throws Exception {
 		String mail = mailTextField.getText();
@@ -38,6 +41,10 @@ public class LoginController {
 				FXMLLoader tempLoader = sceneManager.switchSceneWithReturn(event, "userHome");
 				UserHomeController controller = tempLoader.getController();
 				controller.init(user);
+		}
+		else{
+			SomethingWrongLabel.setVisible(true);
+			SomethingWrongLabel.setText("Invalid email or password");
 		}
 	}
 	
