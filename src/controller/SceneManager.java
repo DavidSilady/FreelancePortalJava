@@ -17,6 +17,17 @@ public class SceneManager {
 		window.setScene(fxmlScene);
 		window.show();
 	}
+
+	public FXMLLoader switchSceneWithReturn (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
+		Parent root = fxmlLoader.load();
+		Scene fxmlScene = new Scene(root);
+		Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+		window.setScene(fxmlScene);
+		window.show();
+		return fxmlLoader;
+	}
 	
 	public void switchDynamicPane (Pane dynamicPane, String name) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + name + ".fxml"));

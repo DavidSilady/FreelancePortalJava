@@ -20,8 +20,13 @@ public class DatabaseDriver {
     USER
     PASS
      */
-    private static StringBuilder buildSelectQuery(String tableColNames,String tableName, ArrayList <String> joinStatements, String condition){
-        StringBuilder query = new StringBuilder("SELECT "  + tableColNames + " FROM " + tableName + " ") ;
+    private static StringBuilder buildSelectQuery( ArrayList<String> tableColNames,String tableName, ArrayList <String> joinStatements, String condition){
+        StringBuilder query = new StringBuilder("SELECT "); // tableColNamesString + " FROM " + tableName + " ") ;
+        for (String colName: tableColNames){
+            query.append(colName).append(',');
+        }
+        query.delete(query.length() - 1, query.length());
+        query.append(" FROM " + tableName + " ");
         for (String joinStatement : joinStatements) {
             query.append(joinStatement).append(" ");
         }
@@ -30,7 +35,7 @@ public class DatabaseDriver {
     }
 
 
-    public static ArrayList<ArrayList<String>> dbSelect(String tableColNames,String tableName, ArrayList <String> joinStatements, String condition) throws Exception {
+    public static ArrayList<ArrayList<String>> dbSelect( ArrayList<String> tableColNames,String tableName, ArrayList <String> joinStatements, String condition) throws Exception {
         try {
             Connection connection = establishConnection();
             Statement statement = connection.createStatement();
@@ -40,10 +45,9 @@ public class DatabaseDriver {
             ArrayList<ArrayList<String>> resultAsString = new ArrayList<ArrayList<String>>();
             while ( result.next() ) {
                 ArrayList<String> listLine = new ArrayList<String>();
-                listLine.add(result.getString("gig_name"));
-                listLine.add(result.getString("category_name"));
-                listLine.add(result.getString("alias"));
-                listLine.add(result.getString("email"));
+                for (String tableCol : tableColNames){
+                    listLine.add(result.getString(tableCol));
+                }
                 resultAsString.add(listLine);
             }
             result.close();
