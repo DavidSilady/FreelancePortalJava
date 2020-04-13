@@ -36,7 +36,7 @@ public class LoginController {
 		String mail = mailTextField.getText();
 		String password = passwordTextField.getText();
 		User user = new User(mail,password);
-		if (user.verify() == true) {
+		if (user.verify()) {
 				System.out.println("verified");
 				SceneManager sceneManager = new SceneManager();
 				FXMLLoader tempLoader = sceneManager.switchScene(event, "userHome");
