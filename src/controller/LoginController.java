@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.User;
+import view.SceneManager;
 
 public class LoginController {
 	
@@ -38,7 +39,7 @@ public class LoginController {
 		if (user.verify() == true) {
 				System.out.println("verified");
 				SceneManager sceneManager = new SceneManager();
-				FXMLLoader tempLoader = sceneManager.switchSceneWithReturn(event, "userHome");
+				FXMLLoader tempLoader = sceneManager.switchScene(event, "userHome");
 				UserHomeController controller = tempLoader.getController();
 				controller.init(user);
 		}

@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import javafx.event.Event;
 import javafx.fxml.*;
@@ -8,17 +8,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SceneManager {
-	public void switchScene (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
-		Parent root = fxmlLoader.load();
-		Scene fxmlScene = new Scene(root);
-		Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-		window.setScene(fxmlScene);
-		window.show();
-	}
 
-	public FXMLLoader switchSceneWithReturn (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
+	public FXMLLoader switchScene (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
 		Parent root = fxmlLoader.load();
