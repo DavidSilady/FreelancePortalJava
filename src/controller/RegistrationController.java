@@ -21,6 +21,7 @@ import java.util.Date;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
+import model.Freelancer;
 import model.User;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -61,20 +62,14 @@ public class RegistrationController {
 	private JFXCheckBox FreelancerCheckBox;
 
 	@FXML
-	private ListView<?> LanguagesListView;
-
-	@FXML
-	private Label Label1;
-
-	@FXML
-	private ScrollBar Scroll1;
-
-	@FXML
 	private JFXTextField AliasTextField;
+
+	private boolean UserIsFreelancer = false;
 
 	@FXML
 	void setFreelancer(ActionEvent event) {
-
+			UserIsFreelancer = true;
+			AliasTextField.setDisable(false);
 	}
 
 	@FXML
@@ -85,21 +80,31 @@ public class RegistrationController {
 		String name = nameTextField.getText();
 		String surname = surnameTextField.getText();
 		String password = passwordTextField.getText();
+		String alias = "";
+		if (UserIsFreelancer == true)
+			alias = AliasTextField.getText();
 		if (password.compareTo(confirmPasswordTextField.getText()) == 0) {
-			parseToDatabase(event, name, surname, mail, password);
+			parseToDatabase(event, name, surname, mail, password, alias);
 		}
 	}
 
 	String getDate() {
 		Date date = Calendar.getInstance().getTime();
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		return dateFormat.format(date);
 	}
 
-	void parseToDatabase(ActionEvent event, String name, String surname, String email, String password) throws Exception {
+	void parseToDatabase(ActionEvent event, String name, String surname, String email, String password, String alias) throws Exception {
 		try {
-			User user = new User(name, surname, email, password, getDate());
-			boolean registrationSuccess = user.register();
+			boolean registrationSuccess = false;
+			if (UserIsFreelancer == false) {
+				User user = new User(name, surname, email, password, getDate());
+				registrationSuccess = user.register();
+			}
+			else if (UserIsFreelancer == true){
+				Freelancer freelancer = new Freelancer(name, surname, email, password, getDate(),alias);
+				registrationSuccess = freelancer.register();
+			}
 			if (registrationSuccess) {
 				SceneManager sceneManager = new SceneManager();
 				sceneManager.switchScene(event, "login");
@@ -121,6 +126,8 @@ public class RegistrationController {
 		if (isEmpty(surnameTextField))
 			return false;
 		if (isEmpty(passwordTextField))
+			return false;
+		if ((UserIsFreelancer == true) && (isEmpty(AliasTextField)))
 			return false;
 		return true;
 	}

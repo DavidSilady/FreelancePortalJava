@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import model.Freelancer;
 import model.User;
 
 public class LoginController {
@@ -35,8 +36,16 @@ public class LoginController {
 		String mail = mailTextField.getText();
 		String password = passwordTextField.getText();
 		User user = new User(mail,password);
-		if (user.verify() == true) {
-				System.out.println("verified");
+		Freelancer freelancer = new Freelancer(mail,password);
+		if (freelancer.verify() == true) {
+			System.out.println("freelancer verified");
+			SceneManager sceneManager = new SceneManager();
+			FXMLLoader tempLoader = sceneManager.switchSceneWithReturn(event, "freelancerHome");
+			//freelancerHomeController controller = tempLoader.getController();
+			//controller.init(freelancer);
+		}
+		else if (user.verify() == true) {
+				System.out.println("user verified");
 				SceneManager sceneManager = new SceneManager();
 				FXMLLoader tempLoader = sceneManager.switchSceneWithReturn(event, "userHome");
 				UserHomeController controller = tempLoader.getController();
