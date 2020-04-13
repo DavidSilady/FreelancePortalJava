@@ -16,17 +16,25 @@ public class FreelancerHomeController {
     private JFXButton MyGigsButton;
 
     @FXML
-    void GoToExit(ActionEvent event) {
+    private JFXButton MyProfileButton;
+
+    @FXML
+    void exitProgram(ActionEvent event) {
 
     }
 
     @FXML
-    void GoToMyGigs(ActionEvent event) {
+    void goToMyGigs(ActionEvent event) {
 
     }
 
     @FXML
-    void GoToReviews(ActionEvent event) {
+    void goToMyProfile(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goToReviews(ActionEvent event) {
 
     }
 
