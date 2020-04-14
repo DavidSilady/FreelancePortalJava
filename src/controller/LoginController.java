@@ -39,10 +39,11 @@ public class LoginController {
 		if (user.verify()) {
 				System.out.println("verified");
 				SceneManager sceneManager = new SceneManager();
-				FXMLLoader tempLoader = sceneManager.switchScene(event, "userHome");
-				UserHomeController controller = tempLoader.getController();
+				FXMLLoader tempLoader = sceneManager.switchScene(event, "mainScreen");
+				MainScreenController controller = tempLoader.getController();
 				controller.init(user);
 		}
+		
 		else{
 			SomethingWrongLabel.setVisible(true);
 			SomethingWrongLabel.setText("Invalid email or password");
