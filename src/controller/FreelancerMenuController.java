@@ -4,8 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import model.User;
 
-public class FreelancerMenuController {
+public class FreelancerMenuController extends UserMenuController {
 	
 	@FXML
 	private JFXButton PastPurchasesButton;

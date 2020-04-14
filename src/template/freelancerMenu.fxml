@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" minWidth="-Infinity" prefHeight="500.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FreelancerMenuController">
+<AnchorPane minWidth="-Infinity" prefHeight="500.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FreelancerMenuController">
     <children>
         <JFXButton fx:id="PastPurchasesButton" layoutY="117.0" mnemonicParsing="false" onAction="#goToPastPurchases" prefHeight="38.0" prefWidth="236.0" ripplerFill="#7fdac5" style="-fx-background-color: #4da895;" text="Past purchases" textFill="WHITE" AnchorPane.leftAnchor="-5.0" AnchorPane.topAnchor="110.0">
             <font>
@@ -17,7 +17,7 @@
                 <Font name="System Bold" size="16.0" />
             </font>
         </JFXButton>
-        <JFXButton fx:id="ExitButton" layoutX="-5.0" layoutY="518.0" mnemonicParsing="false" onAction="#exitProgram" prefWidth="236.0" style="-fx-background-color: #4da895;" text="Exit" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-5.0">
+        <JFXButton fx:id="ExitButton" layoutX="-5.0" layoutY="518.0" mnemonicParsing="false" onAction="#exitProgram" prefWidth="236.0" style="-fx-background-color: #4da895;" text="Exit" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="-5.0">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>

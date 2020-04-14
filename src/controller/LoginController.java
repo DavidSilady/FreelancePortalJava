@@ -41,8 +41,8 @@ public class LoginController {
 				System.out.println("verified");
 				SceneManager sceneManager = new SceneManager();
 				FXMLLoader tempLoader = sceneManager.switchScene(event, "mainScreen");
-				MainScreenController controller = tempLoader.getController();
-				controller.init(user);
+				MainScreenController mainScreenController = tempLoader.getController();
+				mainScreenController.init(user);
 		}
 		
 		else{
