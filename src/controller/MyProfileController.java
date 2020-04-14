@@ -3,12 +3,17 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.cell.TextFieldListCell;
 import model.Freelancer;
+
+import java.util.ArrayList;
 
 public class MyProfileController {
 
@@ -16,7 +21,7 @@ public class MyProfileController {
     private JFXButton AddLanguageButton;
 
     @FXML
-    private ListView<?> LanguagesListView;
+    private ListView<String> LanguagesListView;
 
     @FXML
     private JFXTextField AddLanguageTextField;
@@ -44,11 +49,20 @@ public class MyProfileController {
     public void init(Freelancer freelancer){
         this.currentFreelancer = freelancer;
         DescriptionTextArea.setText(currentFreelancer.getDescription());
+        currentFreelancer.load_my_languages();
+        ObservableList<String> items = FXCollections.observableArrayList(currentFreelancer.getLanguages());
+        LanguagesListView.setItems(items);
     }
 
     @FXML
     void addLanguage(ActionEvent event) {
-
+        if (AddLanguageTextField.getText().isEmpty()){
+            return;
+        }
+        currentFreelancer.add_my_language(AddLanguageTextField.getText());
+        AddLanguageTextField.setText("");
+        ObservableList<String> items = FXCollections.observableArrayList(currentFreelancer.getLanguages());
+        LanguagesListView.setItems(items);
     }
 
     @FXML
@@ -61,7 +75,16 @@ public class MyProfileController {
 
     @FXML
     void removeSelectedLanguage(ActionEvent event) {
-
+        try {
+            String to_remove = LanguagesListView.getSelectionModel().getSelectedItem().toString();
+            System.out.println(to_remove);
+            currentFreelancer.deleteMyLanguage(to_remove);
+            ObservableList<String> items = FXCollections.observableArrayList(currentFreelancer.getLanguages());
+            LanguagesListView.setItems(items);
+        }
+        catch (Exception ex){
+            ;
+        }
     }
 
     @FXML

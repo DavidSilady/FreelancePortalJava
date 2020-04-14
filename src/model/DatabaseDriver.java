@@ -35,7 +35,7 @@ public class DatabaseDriver {
     }
 
 
-    public static ArrayList<ArrayList<String>> dbSelect( ArrayList<String> tableColNames,String tableName, ArrayList <String> joinStatements, String condition) throws Exception {
+    public static ArrayList<ArrayList<String>> dbSelect( ArrayList<String> tableColNames,String tableName, ArrayList <String> joinStatements, String condition) {
         try {
             Connection connection = establishConnection();
             Statement statement = connection.createStatement();
@@ -56,7 +56,8 @@ public class DatabaseDriver {
             return resultAsString;
         } catch ( Exception e ) {
             System.out.println(e.getClass().getName()+": "+ e.getMessage());
-            throw e;
+           // throw e;
+            return new ArrayList<ArrayList<String>>();
         }
     }
 
@@ -102,6 +103,29 @@ public class DatabaseDriver {
             Connection connection = establishConnection();
             Statement statement = connection.createStatement();
             StringBuilder query = buildInsertQuery(tableName, tableColNames, insertData);
+            System.out.println(query);
+            statement.executeUpdate(query.toString());
+            statement.close();
+            connection.commit();
+            connection.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+
+    private static StringBuilder buildDeleteQuery(String tableName, String condition){
+        StringBuilder query = new StringBuilder("DELETE FROM " + tableName  + " WHERE " + condition);
+        return query;
+    }
+
+    public static boolean dbDelete (String tableName, String condition) {
+        try {
+            Connection connection = establishConnection();
+            Statement statement = connection.createStatement();
+            StringBuilder query = buildDeleteQuery(tableName, condition);
             System.out.println(query);
             statement.executeUpdate(query.toString());
             statement.close();
