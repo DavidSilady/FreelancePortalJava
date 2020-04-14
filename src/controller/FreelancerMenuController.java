@@ -30,11 +30,6 @@ public class FreelancerMenuController extends UserMenuController {
 	private JFXButton MyProfileButton;
 	
 	@FXML
-	void exitProgram(ActionEvent event) {
-	
-	}
-	
-	@FXML
 	void goToBrowseGigs(ActionEvent event) {
 	
 	}
