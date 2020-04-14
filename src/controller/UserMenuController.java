@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import model.User;
 
-public class UserHomeController {
+public class UserMenuController {
 
     private User currentUser;
 
@@ -24,7 +24,7 @@ public class UserHomeController {
 
     public void init(User user){
         this.currentUser = user;
-        userNameLabel.setText("Welcome, " + user.getName() + " " + user.getSurname());
+        userNameLabel.setText("Signed in as " + user.getName() + " " + user.getSurname());
     }
 
     @FXML

@@ -19,9 +19,10 @@ public class MainScreenController {
 	public void init(User user) throws Exception {
 		this.currentUser = user;
 		SceneManager sceneManager = new SceneManager();
-		FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(mainMenuPane, "userHome");
-		UserHomeController userHomeController = fxmlLoader.getController();
+		FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(mainMenuPane, "userMenu");
+		UserMenuController userHomeController = fxmlLoader.getController();
 		userHomeController.init(user);
+		fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "browseGigs");
 	}
 	
 }
