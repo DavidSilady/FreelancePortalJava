@@ -20,7 +20,7 @@ public class SceneManager {
 		return fxmlLoader;
 	}
 	
-	public void switchDynamicPane (Pane dynamicPane, String name) throws Exception{
+	public FXMLLoader switchDynamicPane (Pane dynamicPane, String name) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + name + ".fxml"));
 		Pane pane = (Pane) fxmlLoader.load();
 		try {
@@ -29,9 +29,10 @@ public class SceneManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return fxmlLoader;
 	}
 	
-	public void switchStage (Event actionEvent, String sceneName) throws Exception {
+	public FXMLLoader switchWindow (Event actionEvent, String sceneName) throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + sceneName +".fxml"));
 		((Node) actionEvent.getSource()).getScene().getWindow().hide();
 		Parent root = (Parent) fxmlLoader.load();
@@ -41,5 +42,6 @@ public class SceneManager {
 		stage.setTitle("Freelance Portal | " + sceneName);
 		stage.setScene(new Scene(root, 1280, 720));
 		stage.show();
+		return fxmlLoader;
 	}
 }

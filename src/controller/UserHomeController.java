@@ -20,11 +20,11 @@ public class UserHomeController {
     private JFXButton ExitButton;
 
     @FXML
-    private Label label1;
+    private Label userNameLabel;
 
     public void init(User user){
         this.currentUser = user;
-        label1.setText("Welcome, " + user.getName() + " " + user.getSurname());
+        userNameLabel.setText("Welcome, " + user.getName() + " " + user.getSurname());
     }
 
     @FXML
