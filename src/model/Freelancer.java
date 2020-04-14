@@ -11,9 +11,11 @@ public class Freelancer {
     private String password;
     private String registration_date;
     private String alias;
+    private String description;
 
     public String getName(){ return this.name; }
     public String getSurname(){ return this.surname;}
+    public String getDescription(){ return this.description;}
 
     public Freelancer(String email, String password){
         this.password = password;
@@ -29,10 +31,19 @@ public class Freelancer {
         this.alias = alias;
     }
 
+    public boolean saveDescription(String text) {
+        this.description = text;
+        ArrayList<String> columns = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>();
+        columns.add("description");
+        values.add(text);
+        return DatabaseDriver.dbUpdate("freelancers", columns,values,"email = '" + this.email + "'" );
+    }
+
     public boolean checkIfEmailAlreadyRegistered() throws Exception{
         ArrayList<String> colNames = new ArrayList<String>();
         colNames.add("id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "WHERE email = '" + this.email + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "email = '" + this.email + "'");
         if (result.isEmpty()){
             return false;
         }
@@ -67,8 +78,10 @@ public class Freelancer {
             colNames.add("email");
             colNames.add("password");
             colNames.add("registration_date");
+            colNames.add("alias");
+            colNames.add("description");
 
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",  new ArrayList<String>(), "WHERE email = '" + this.email + "'");
+            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",  new ArrayList<String>(), "email = '" + this.email + "'");
             if (result.isEmpty()){
                 return false;
             }
@@ -79,12 +92,16 @@ public class Freelancer {
             String temp_email = result.get(0).get(3);
             String temp_password = result.get(0).get(4);
             String temp_date = result.get(0).get(5);
+            String temp_alias = result.get(0).get(6);
+            String temp_description = result.get(0).get(7);
 
             if (this.password.equals(temp_password)){
                 this.id = Integer.parseInt(temp_id);
                 this.name = temp_name;
                 this.surname = temp_surname;
                 this.registration_date = temp_date;
+                this.alias = temp_alias;
+                this.description = temp_description;
                 return true;
             }
             else{

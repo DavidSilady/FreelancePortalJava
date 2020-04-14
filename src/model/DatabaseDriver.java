@@ -30,7 +30,7 @@ public class DatabaseDriver {
         for (String joinStatement : joinStatements) {
             query.append(joinStatement).append(" ");
         }
-        query.append(condition);
+        query.append(" WHERE ").append(condition);
         return query;
     }
 
@@ -59,15 +59,21 @@ public class DatabaseDriver {
             throw e;
         }
     }
-    
 
+    private static StringBuilder buildUpdateQuery(String tableName, ArrayList <String> tableColNames, ArrayList <String> newValues , String condition){
+        StringBuilder query = new StringBuilder("UPDATE " + tableName + " SET ");
+        for (int i = 0 ; i < tableColNames.size() ; i++) {
+            query.append(tableColNames.get(i)).append(" = '").append(newValues.get(i)).append("'");
+        }
+        query.append(" WHERE ").append(condition);
+        return query;
+    }
 
-
-    public static boolean dbInsert (String tableName, String tableColNames, ArrayList <String> insertData) {
+    public static boolean dbUpdate (String tableName, ArrayList <String> tableColNames, ArrayList <String> newValues , String condition) {
         try {
             Connection connection = establishConnection();
             Statement statement = connection.createStatement();
-            StringBuilder query = buildInsertQuery(tableName, tableColNames, insertData);
+            StringBuilder query = buildUpdateQuery(tableName, tableColNames, newValues, condition);
             System.out.println(query);
             statement.executeUpdate(query.toString());
             statement.close();
@@ -89,7 +95,25 @@ public class DatabaseDriver {
         query.append(");");
         return query;
     }
-    
+
+
+    public static boolean dbInsert (String tableName, String tableColNames, ArrayList <String> insertData) {
+        try {
+            Connection connection = establishConnection();
+            Statement statement = connection.createStatement();
+            StringBuilder query = buildInsertQuery(tableName, tableColNames, insertData);
+            System.out.println(query);
+            statement.executeUpdate(query.toString());
+            statement.close();
+            connection.commit();
+            connection.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            return false;
+        }
+    }
+
     private static Connection establishConnection() throws ClassNotFoundException, SQLException {
         ArrayList<String> configInfo = readConfig("dbConfig");
         assert configInfo != null;

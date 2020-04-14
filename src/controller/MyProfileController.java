@@ -5,8 +5,10 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import model.Freelancer;
 
 public class MyProfileController {
 
@@ -37,14 +39,24 @@ public class MyProfileController {
     @FXML
     private JFXButton RemoveLanguageButton;
 
+    private Freelancer currentFreelancer;
+
+    public void init(Freelancer freelancer){
+        this.currentFreelancer = freelancer;
+        DescriptionTextArea.setText(currentFreelancer.getDescription());
+    }
+
     @FXML
     void addLanguage(ActionEvent event) {
 
     }
 
     @FXML
-    void goBackHome(ActionEvent event) {
-
+    void goBackHome(ActionEvent event) throws Exception {
+        SceneManager sceneManager = new SceneManager();
+        FXMLLoader tempLoader = sceneManager.switchSceneWithReturn(event, "freelancerHome");
+        FreelancerHomeController controller = tempLoader.getController();
+        controller.init(currentFreelancer);
     }
 
     @FXML
@@ -54,7 +66,7 @@ public class MyProfileController {
 
     @FXML
     void saveChangesInDescription(ActionEvent event) {
-
+        currentFreelancer.saveDescription(DescriptionTextArea.getText());
     }
 
 }

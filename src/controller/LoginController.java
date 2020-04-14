@@ -41,8 +41,8 @@ public class LoginController {
 			System.out.println("freelancer verified");
 			SceneManager sceneManager = new SceneManager();
 			FXMLLoader tempLoader = sceneManager.switchSceneWithReturn(event, "freelancerHome");
-			//freelancerHomeController controller = tempLoader.getController();
-			//controller.init(freelancer);
+			FreelancerHomeController controller = tempLoader.getController();
+			controller.init(freelancer);
 		}
 		else if (user.verify() == true) {
 				System.out.println("user verified");
