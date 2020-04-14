@@ -21,7 +21,7 @@ public class MainScreenController {
 		SceneManager sceneManager = new SceneManager();
 		FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(mainMenuPane, "userMenu");
 		UserMenuController userHomeController = fxmlLoader.getController();
-		userHomeController.init(user);
+		userHomeController.init(user, dynamicPane);
 		fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "browseGigs");
 	}
 	
