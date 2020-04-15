@@ -13,8 +13,8 @@
    <children>
       <TableView fx:id="GigTableView" layoutX="68.0" layoutY="51.0" prefHeight="400.0" prefWidth="359.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn prefWidth="176.0" text="Gig name" />
-          <TableColumn prefWidth="182.0" text="Category" />
+          <TableColumn fx:id="GigNameTableColumn" prefWidth="176.0" text="Gig name" />
+          <TableColumn fx:id="CategoryTableColumn" prefWidth="182.0" text="Category" />
         </columns>
       </TableView>
       <Label fx:id="Label1" layoutX="414.0" layoutY="105.0" text="Choose gig category" />

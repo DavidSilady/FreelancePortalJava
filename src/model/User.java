@@ -52,7 +52,7 @@ public class User {
 
     public boolean isAlreadyRegistered () throws Exception{
         ArrayList<String> colNames = new ArrayList<String>();
-        colNames.add("id");
+        colNames.add("user_id");
         ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "WHERE email = '" + this.email + "'");
         return ! result.isEmpty();
     }
@@ -76,7 +76,7 @@ public class User {
         try {
             //ArrayList<String> joins = new ArrayList<String>();
             ArrayList<String> colNames = new ArrayList<String>();
-            colNames.add("id");
+            colNames.add("user_id");
             colNames.add("name");
             colNames.add("surname");
             colNames.add("email");
@@ -115,7 +115,7 @@ public class User {
     public void findGigByCategory(String category) {
         try {
             ArrayList<String> joins = new ArrayList<String>();
-            joins.add("INNER JOIN categories AS c ON g.category_id = c.id");
+            joins.add("INNER JOIN categories AS c ON g.category_id = c.category_id");
             joins.add("INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id");
             ArrayList<String> colNames = new ArrayList<String>();
             colNames.add("gig_name");

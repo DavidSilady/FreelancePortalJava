@@ -1,15 +1,30 @@
 package model;
 
-public class Gig {
-    private int id;
-    private int freelancerID;
-    private String category;
-    private String gig_name;
+import javafx.beans.property.StringProperty;
 
-    public Gig(int id, int freelancerID, String category, String gig_name){
+public class Gig {
+    int id;
+    int freelancerID;
+    private String category;
+    private String gigName;
+
+    public Gig(int id, int freelancerID, String category, String gigName){
         this.id = id;
         this.freelancerID = freelancerID;
         this.category = category;
-        this.gig_name = gig_name;
+        this.gigName = gigName;
     }
+
+    public Gig(String name,String category){
+        this.gigName = name;
+        this.category = category;
+    }
+
+    public String getGigName() {
+        return gigName;
+    }
+    public String getCategory() {
+        return category;
+    }
+
 }
