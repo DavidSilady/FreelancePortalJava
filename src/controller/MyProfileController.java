@@ -10,11 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.cell.TextFieldListCell;
 import model.Freelancer;
 import view.SceneManager;
-
-import java.util.ArrayList;
 
 public class MyProfileController {
 
@@ -60,7 +57,7 @@ public class MyProfileController {
         if (AddLanguageTextField.getText().isEmpty()){
             return;
         }
-        currentFreelancer.add_my_language(AddLanguageTextField.getText());
+        currentFreelancer.addMyLanguage(AddLanguageTextField.getText());
         AddLanguageTextField.setText("");
         ObservableList<String> items = FXCollections.observableArrayList(currentFreelancer.getLanguages());
         LanguagesListView.setItems(items);

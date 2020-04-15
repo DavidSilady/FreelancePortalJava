@@ -50,7 +50,7 @@ public class User {
         return "userMenu";
     }
 
-    public boolean EmailAlreadyRegistered() throws Exception{
+    public boolean isAlreadyRegistered () throws Exception{
         ArrayList<String> colNames = new ArrayList<String>();
         colNames.add("id");
         ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "WHERE email = '" + this.email + "'");
@@ -58,7 +58,7 @@ public class User {
     }
 
     public boolean register() throws Exception {
-        if (EmailAlreadyRegistered()){
+        if (isAlreadyRegistered()){
             throw new InstanceAlreadyExistsException();
         }
 

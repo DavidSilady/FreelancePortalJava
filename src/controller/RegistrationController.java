@@ -17,8 +17,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.jfoenix.controls.JFXCheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import model.Freelancer;
 import model.User;
 import view.SceneManager;
@@ -61,14 +59,14 @@ public class RegistrationController {
 	private JFXCheckBox FreelancerCheckBox;
 
 	@FXML
-	private JFXTextField AliasTextField;
+	private JFXTextField aliasTextField;
 
-	private boolean UserIsFreelancer = false;
+	private boolean isFreelancer = false;
 
 	@FXML
 	void setFreelancer(ActionEvent event) {
-			UserIsFreelancer = true;
-			AliasTextField.setDisable(false);
+			isFreelancer = true;
+			aliasTextField.setDisable(false);
 	}
 
 	@FXML
@@ -80,8 +78,8 @@ public class RegistrationController {
 		String surname = surnameTextField.getText();
 		String password = passwordTextField.getText();
 		String alias = "";
-		if (UserIsFreelancer == true)
-			alias = AliasTextField.getText();
+		if (isFreelancer)
+			alias = aliasTextField.getText();
 		if (password.compareTo(confirmPasswordTextField.getText()) == 0) {
 			parseToDatabase(event, name, surname, mail, password, alias);
 		}
@@ -96,11 +94,11 @@ public class RegistrationController {
 	void parseToDatabase(ActionEvent event, String name, String surname, String email, String password, String alias) throws Exception {
 		try {
 			boolean registrationSuccess = false;
-			if (UserIsFreelancer == false) {
+			if (! isFreelancer) {
 				User user = new User(name, surname, email, password, getDate());
 				registrationSuccess = user.register();
 			}
-			else if (UserIsFreelancer == true){
+			else if (isFreelancer){
 				Freelancer freelancer = new Freelancer(name, surname, email, password, getDate(),alias);
 				registrationSuccess = freelancer.register();
 			}
@@ -126,7 +124,7 @@ public class RegistrationController {
 			return false;
 		if (isEmpty(passwordTextField))
 			return false;
-		if ((UserIsFreelancer == true) && (isEmpty(AliasTextField)))
+		if ((isFreelancer) && (isEmpty(aliasTextField)))
 			return false;
 		return true;
 	}

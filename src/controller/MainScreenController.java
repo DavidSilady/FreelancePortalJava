@@ -25,7 +25,6 @@ public class MainScreenController {
 	
 	public void init(User user) throws Exception {
 		if (isFreelancer(user)) {
-			//tento if sa nikdy nevykona
 			user = new Freelancer(user);
 		}
 		SceneManager sceneManager = new SceneManager();
@@ -40,7 +39,7 @@ public class MainScreenController {
 		colNames.add("id");
 		ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",
 				new ArrayList<String>(),
-				"WHERE id = '" + user.getId() + "'");
+				"id = '" + user.getId() + "'");
 		return ! result.isEmpty();
 	}
 	

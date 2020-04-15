@@ -38,28 +38,13 @@ public class LoginController {
 		String mail = mailTextField.getText();
 		String password = passwordTextField.getText();
 		User user = new User(mail,password);
-//<<<<<<< HEAD
-		Freelancer freelancer = new Freelancer(mail,password);
-		if (freelancer.verify() == true) {
-			System.out.println("freelancer verified");
-			SceneManager sceneManager = new SceneManager();
-			FXMLLoader tempLoader = sceneManager.switchScene(event, "freelancerMenu");
-			FreelancerMenuController controller = tempLoader.getController();
-			controller.init(freelancer);
-		}
-		else if (user.verify() == true) {
+		if (user.verify()) {
 				System.out.println("user verified");
-//=======*/
-		//if (user.verify()) {
-				System.out.println("verified");
-//>>>>>>> 7af2e4705406ce09f86a784476cb16036eb75f32
 				SceneManager sceneManager = new SceneManager();
 				FXMLLoader tempLoader = sceneManager.switchScene(event, "mainScreen");
 				MainScreenController mainScreenController = tempLoader.getController();
 				mainScreenController.init(user);
-		}
-		
-		else{
+		} else{
 			SomethingWrongLabel.setVisible(true);
 			SomethingWrongLabel.setText("Invalid email or password");
 		}
