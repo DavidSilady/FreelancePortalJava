@@ -7,6 +7,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
+import model.Freelancer;
+import model.User;
 
 public class MyGigsController {
 
@@ -45,5 +47,7 @@ public class MyGigsController {
     void removeGig(ActionEvent event) {
 
     }
-
+    
+    public void init (Freelancer currentUser) {
+    }
 }

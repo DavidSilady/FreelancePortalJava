@@ -34,13 +34,10 @@ public class FreelancerMenuController extends UserMenuController {
 	private JFXButton MyProfileButton;
 	
 	@FXML
-	void goToBrowseGigs(ActionEvent event) {
-	
-	}
-	
-	@FXML
-	void goToMyGigs(ActionEvent event) {
-	
+	void goToMyGigs(ActionEvent event) throws Exception {
+		SceneManager sceneManager = new SceneManager();
+		FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(getDynamicPane(), "myGigs");
+		((MyGigsController) fxmlLoader.getController()).init((Freelancer) getCurrentUser());
 	}
 	
 	@FXML
@@ -52,13 +49,10 @@ public class FreelancerMenuController extends UserMenuController {
 	}
 	
 	@FXML
-	void goToPastPurchases(ActionEvent event) {
-	
-	}
-	
-	@FXML
-	void goToReviews(ActionEvent event) {
-	
+	void goToReviews(ActionEvent event) throws Exception {
+		SceneManager sceneManager = new SceneManager();
+		FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(getDynamicPane(), "reviews");
+		((ReviewsController) fxmlLoader.getController()).init((Freelancer) getCurrentUser());
 	}
 
 	void exitProgram(ActionEvent event) {
