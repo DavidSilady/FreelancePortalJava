@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import model.Freelancer;
 import model.User;
 import view.SceneManager;
@@ -31,13 +32,6 @@ public class FreelancerMenuController extends UserMenuController {
 	
 	@FXML
 	private JFXButton MyProfileButton;
-
-	private Freelancer currentFreelancer;
-
-	public void init(Freelancer freelancer){
-		this.currentFreelancer = freelancer;
-		userNameLabel.setText("Welcome, " + freelancer.getName() + " " + freelancer.getSurname());
-	}
 	
 	@FXML
 	void goToBrowseGigs(ActionEvent event) {
@@ -52,10 +46,9 @@ public class FreelancerMenuController extends UserMenuController {
 	@FXML
 	void goToMyProfile(ActionEvent event) throws Exception {
 		SceneManager sceneManager = new SceneManager();
-		//FXMLLoader tempLoader = sceneManager.switchSceneWithReturn(event, "myProfile");
-		FXMLLoader tempLoader = sceneManager.switchScene(event, "myProfile");
-		MyProfileController controller = tempLoader.getController();
-		controller.init(currentFreelancer);
+		FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(getDynamicPane(), "myProfile");
+		MyProfileController controller = fxmlLoader.getController();
+		controller.init((Freelancer) getCurrentUser());
 	}
 	
 	@FXML

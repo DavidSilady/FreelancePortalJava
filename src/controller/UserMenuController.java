@@ -31,6 +31,18 @@ public class UserMenuController {
         this.dynamicPane = dynamicPane;
         userNameLabel.setText("Signed in as " + user.getName() + " " + user.getSurname());
     }
+    
+    public User getCurrentUser() {
+        return currentUser;
+    }
+    
+    public AnchorPane getDynamicPane() {
+        return dynamicPane;
+    }
+    
+    public void setDynamicPane(AnchorPane dynamicPane) {
+        this.dynamicPane = dynamicPane;
+    }
 
     @FXML
     void exitProgram(ActionEvent event) {

@@ -42,13 +42,13 @@ public class MyProfileController {
     @FXML
     private JFXButton RemoveLanguageButton;
 
-    private Freelancer currentFreelancer;
+    private Freelancer currentUser;
 
     public void init(Freelancer freelancer){
-        this.currentFreelancer = freelancer;
-        DescriptionTextArea.setText(currentFreelancer.getDescription());
-        currentFreelancer.load_my_languages();
-        ObservableList<String> items = FXCollections.observableArrayList(currentFreelancer.getLanguages());
+        this.currentUser = freelancer;
+        DescriptionTextArea.setText(currentUser.getDescription());
+        currentUser.load_my_languages();
+        ObservableList<String> items = FXCollections.observableArrayList(currentUser.getLanguages());
         LanguagesListView.setItems(items);
     }
 
@@ -57,18 +57,18 @@ public class MyProfileController {
         if (AddLanguageTextField.getText().isEmpty()){
             return;
         }
-        currentFreelancer.addMyLanguage(AddLanguageTextField.getText());
+        currentUser.addMyLanguage(AddLanguageTextField.getText());
         AddLanguageTextField.setText("");
-        ObservableList<String> items = FXCollections.observableArrayList(currentFreelancer.getLanguages());
+        ObservableList<String> items = FXCollections.observableArrayList(currentUser.getLanguages());
         LanguagesListView.setItems(items);
     }
 
     @FXML
-    void goBackHome(ActionEvent event) throws Exception {
+    void goBackHome(ActionEvent event) throws Exception {/*
         SceneManager sceneManager = new SceneManager();
         FXMLLoader tempLoader = sceneManager.switchScene(event, "freelancerMenu");
         FreelancerMenuController controller = tempLoader.getController();
-        controller.init(currentFreelancer);
+        controller.init(currentUser);*/
     }
 
     @FXML
@@ -76,8 +76,8 @@ public class MyProfileController {
         try {
             String to_remove = LanguagesListView.getSelectionModel().getSelectedItem().toString();
             System.out.println(to_remove);
-            currentFreelancer.deleteMyLanguage(to_remove);
-            ObservableList<String> items = FXCollections.observableArrayList(currentFreelancer.getLanguages());
+            currentUser.deleteMyLanguage(to_remove);
+            ObservableList<String> items = FXCollections.observableArrayList(currentUser.getLanguages());
             LanguagesListView.setItems(items);
         }
         catch (Exception ex){
@@ -87,7 +87,7 @@ public class MyProfileController {
 
     @FXML
     void saveChangesInDescription(ActionEvent event) {
-        currentFreelancer.saveDescription(DescriptionTextArea.getText());
+        currentUser.saveDescription(DescriptionTextArea.getText());
     }
 
 }
