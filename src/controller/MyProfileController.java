@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
 import model.Freelancer;
+import view.SceneManager;
 
 import java.util.ArrayList;
 
@@ -68,8 +69,8 @@ public class MyProfileController {
     @FXML
     void goBackHome(ActionEvent event) throws Exception {
         SceneManager sceneManager = new SceneManager();
-        FXMLLoader tempLoader = sceneManager.switchSceneWithReturn(event, "freelancerHome");
-        FreelancerHomeController controller = tempLoader.getController();
+        FXMLLoader tempLoader = sceneManager.switchScene(event, "freelancerMenu");
+        FreelancerMenuController controller = tempLoader.getController();
         controller.init(currentFreelancer);
     }
 

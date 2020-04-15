@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import javafx.event.Event;
 import javafx.fxml.*;
@@ -8,17 +8,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SceneManager {
-	public void switchScene (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
-		Parent root = fxmlLoader.load();
-		Scene fxmlScene = new Scene(root);
-		Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-		window.setScene(fxmlScene);
-		window.show();
-	}
 
-	public FXMLLoader switchSceneWithReturn (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
+	public FXMLLoader switchScene (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
 		Parent root = fxmlLoader.load();
@@ -29,7 +20,7 @@ public class SceneManager {
 		return fxmlLoader;
 	}
 	
-	public void switchDynamicPane (Pane dynamicPane, String name) throws Exception{
+	public FXMLLoader switchDynamicPane (Pane dynamicPane, String name) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + name + ".fxml"));
 		Pane pane = (Pane) fxmlLoader.load();
 		try {
@@ -38,9 +29,10 @@ public class SceneManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return fxmlLoader;
 	}
 	
-	public void switchStage (Event actionEvent, String sceneName) throws Exception {
+	public FXMLLoader switchWindow (Event actionEvent, String sceneName) throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + sceneName +".fxml"));
 		((Node) actionEvent.getSource()).getScene().getWindow().hide();
 		Parent root = (Parent) fxmlLoader.load();
@@ -50,5 +42,6 @@ public class SceneManager {
 		stage.setTitle("Freelance Portal | " + sceneName);
 		stage.setScene(new Scene(root, 1280, 720));
 		stage.show();
+		return fxmlLoader;
 	}
 }

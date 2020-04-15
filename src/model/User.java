@@ -1,8 +1,6 @@
 package model;
-import model.DatabaseDriver;
 
 import javax.management.InstanceAlreadyExistsException;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class User {
@@ -11,10 +9,20 @@ public class User {
     private String surname;
     private String email;
     private String password;
-    private String registration_date;
+    private String registrationDate;
 
     public String getName(){ return this.name; }
     public String getSurname(){ return this.surname;}
+    public int getId () { return id; }
+    public String getEmail () { return email; }
+    public String getPassword () { return password; }
+    public String getRegistrationDate () { return registrationDate; }
+
+    public void setId(int id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setSurname(String surname) { this.surname = surname; }
+    public void setEmail(String email) { this.email = email; }
+    public void setRegistrationDate(String registrationDate) { this.registrationDate = registrationDate; }
 
     public User(String email, String password){
         this.password = password;
@@ -26,23 +34,31 @@ public class User {
         this.surname = surname;
         this.email = email;
         this.password = password;
-        this.registration_date = registration_date;
+        this.registrationDate = registration_date;
+    }
+    
+    public User(int id, String name, String surname, String email, String password, String registration_date){
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.registrationDate = registration_date;
+    }
+    
+    public String getMenuSceneName() {
+        return "userMenu";
     }
 
-    public boolean checkIfEmailAlreadyRegistered() throws Exception{
+    public boolean EmailAlreadyRegistered() throws Exception{
         ArrayList<String> colNames = new ArrayList<String>();
         colNames.add("id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "email = '" + this.email + "'");
-        if (result.isEmpty()){
-            return false;
-        }
-        else{
-            return true;
-        }
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "WHERE email = '" + this.email + "'");
+        return ! result.isEmpty();
     }
 
     public boolean register() throws Exception {
-        if (checkIfEmailAlreadyRegistered() == true){
+        if (EmailAlreadyRegistered()){
             throw new InstanceAlreadyExistsException();
         }
 
@@ -51,7 +67,7 @@ public class User {
         userData.add(surname);
         userData.add(email);
         userData.add(password);
-        userData.add(registration_date);
+        userData.add(registrationDate);
 
         return DatabaseDriver.dbInsert("users", "(name, surname, email, password, registration_date)", userData);
     }
@@ -83,7 +99,8 @@ public class User {
                 this.id = Integer.parseInt(temp_id);
                 this.name = temp_name;
                 this.surname = temp_surname;
-                this.registration_date = temp_date;
+                this.email = temp_email;
+                this.registrationDate = temp_date;
                 return true;
             }
             else{

@@ -4,9 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import model.User;
 
-public class UserHomeController {
+public class UserMenuController {
 
     private User currentUser;
 
@@ -20,16 +21,20 @@ public class UserHomeController {
     private JFXButton ExitButton;
 
     @FXML
-    private Label label1;
+    private Label userNameLabel;
+    
+    @FXML
+    private AnchorPane dynamicPane;
 
-    public void init(User user){
+    public void init(User user, AnchorPane dynamicPane){
         this.currentUser = user;
-        label1.setText("Welcome, " + user.getName() + " " + user.getSurname());
+        this.dynamicPane = dynamicPane;
+        userNameLabel.setText("Signed in as " + user.getName() + " " + user.getSurname());
     }
 
     @FXML
     void exitProgram(ActionEvent event) {
-
+        userNameLabel.setText(currentUser.getName() + ", there is not exit.");
     }
 
     @FXML

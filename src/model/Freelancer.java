@@ -4,6 +4,7 @@ import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/*<<<<<<< HEAD
 public class Freelancer {
     private int id;
     private String name;
@@ -15,20 +16,27 @@ public class Freelancer {
     private String alias;
     private String description;
     private ArrayList<String> languages;
+    */
+public class Freelancer extends User {
+    private int freelancerID;
+    private String alias;
+    private String description;
+    ArrayList<String> languages;
 
-    public void setLanguages(){
+
+  /*  public void setLanguages(){
         ArrayList <String> new_languages = new ArrayList<String>();
         new_languages.add("Boi");
         new_languages.add("hol up");
         this.languages = new_languages;
-    }
+    }*/
 
     public void load_my_languages() {
         ArrayList <String> colNames = new ArrayList<String>();
         colNames.add("language_name");
         ArrayList<String> joins = new ArrayList<String>();
         joins.add("INNER JOIN languages AS l ON fl.language_id = l.id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancer_languages AS fl ", joins,"fl.freelancer_id = " + this.freelance_id);
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancer_languages AS fl ", joins,"fl.freelancer_id = " + this.freelancerID);
         ArrayList <String> new_languages = new ArrayList<String>();
         for (ArrayList<String> row : result){
             new_languages.add(row.get(0));
@@ -74,7 +82,7 @@ public class Freelancer {
         if (language_id == 0) {
             return;
         }
-        DatabaseDriver.dbDelete("freelancer_languages", "freelancer_id = " + this.freelance_id + " AND language_id = " + language_id);
+        DatabaseDriver.dbDelete("freelancer_languages", "freelancer_id = " + this.freelancerID + " AND language_id = " + language_id);
 
         this.languages.removeIf(i -> i.equals(language));
     }
@@ -96,31 +104,27 @@ public class Freelancer {
             add_new_language(language_name);
             language_id = get_language_index(language_name);
         }
-        values.add(String.valueOf(this.freelance_id));
+        values.add(String.valueOf(this.freelancerID));
         values.add(String.valueOf(language_id));
         DatabaseDriver.dbInsert("freelancer_languages", "(freelancer_id,language_id)", values);
     }
 
 
 
-    public String getName(){ return this.name; }
-    public String getSurname(){ return this.surname;}
+    //public String getName(){ return this.name; }
+    //public String getSurname(){ return this.surname;}
     public String getDescription(){ return this.description;}
     public ArrayList<String> getLanguages() { return this.languages;}
 
     public Freelancer(String email, String password){
-        this.password = password;
-        this.email = email;
+        super(email, password);
     }
 
     public Freelancer(String name, String surname, String email, String password, String registration_date, String alias){
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.registration_date = registration_date;
+        super(name, surname, email, password, registration_date);
         this.alias = alias;
     }
+
 
     public boolean saveDescription(String text) {
         this.description = text;
@@ -128,10 +132,10 @@ public class Freelancer {
         ArrayList<String> values = new ArrayList<>();
         columns.add("description");
         values.add(text);
-        return DatabaseDriver.dbUpdate("freelancers", columns,values,"email = '" + this.email + "'" );
+        return DatabaseDriver.dbUpdate("freelancers", columns,values,"email = '" + super.getEmail() + "'" );
     }
 
-    public boolean checkIfEmailAlreadyRegistered() {
+    /*public boolean checkIfEmailAlreadyRegistered() {
         ArrayList<String> colNames = new ArrayList<String>();
         colNames.add("id");
         ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "email = '" + this.email + "'");
@@ -139,25 +143,57 @@ public class Freelancer {
             return false;
         }
         else{
-            return true;
+            return true;*/
+
+    
+    public Freelancer(User user){
+        super(user.getId(),
+                user.getName(),
+                user.getSurname(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRegistrationDate());
+        buildFromDB();
+    }
+    
+    private void buildFromDB() {
+        try {
+            ArrayList<String> colNames = new ArrayList<String>();
+            colNames.add("freelance_id");
+            colNames.add("alias");
+            colNames.add("description");
+    
+            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",  new ArrayList<String>(), "WHERE id = '" + getId() + "'");
+            this.freelancerID = Integer.parseInt(result.get(0).get(0));
+            this.alias = result.get(0).get(1);
+            this.description = result.get(0).get(2);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+       
+    }
+
+    
+    public String getMenuSceneName() {
+        return "freelancerMenu";
     }
 
     public boolean register() throws Exception {
-        if (checkIfEmailAlreadyRegistered() == true){
+        if (EmailAlreadyRegistered()){
             throw new InstanceAlreadyExistsException();
         }
 
         ArrayList <String> userData = new ArrayList<String>();
-        userData.add(name);
-        userData.add(surname);
-        userData.add(email);
-        userData.add(password);
-        userData.add(registration_date);
+        userData.add(super.getName());
+        userData.add(super.getSurname());
+        userData.add(super.getEmail());
+        userData.add(super.getPassword());
+        userData.add(super.getRegistrationDate());
         userData.add(alias);
 
         return DatabaseDriver.dbInsert("freelancers", "(name, surname, email, password, registration_date,alias)", userData);
     }
+//<<<<<<< HEAD
 
     public boolean verify(){
         try {
@@ -173,7 +209,7 @@ public class Freelancer {
             colNames.add("alias");
             colNames.add("description");
 
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",  new ArrayList<String>(), "email = '" + this.email + "'");
+            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",  new ArrayList<String>(), "email = '" + super.getEmail() + "'");
             if (result.isEmpty()){
                 return false;
             }
@@ -188,12 +224,12 @@ public class Freelancer {
             String temp_alias = result.get(0).get(7);
             String temp_description = result.get(0).get(8);
 
-            if (this.password.equals(temp_password)){
-                this.id = Integer.parseInt(temp_id);
-                this.name = temp_name;
-                this.surname = temp_surname;
-                this.registration_date = temp_date;
-                this.freelance_id = Integer.parseInt(temp_freelance_id);
+            if (super.getPassword().equals(temp_password)){
+                super.setId(Integer.parseInt(temp_id));
+                super.setName(temp_name);
+                super.setSurname(temp_surname);
+                super.setRegistrationDate(temp_date);
+                this.freelancerID = Integer.parseInt(temp_freelance_id);
                 this.alias = temp_alias;
                 this.description = temp_description;
                 return true;

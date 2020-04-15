@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.scene.image.ImageView;
-import model.DatabaseDriver;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -14,7 +13,6 @@ import javafx.scene.paint.Color;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import model.Freelancer;
 import model.User;
+import view.SceneManager;
 
 import javax.management.InstanceAlreadyExistsException;
 
