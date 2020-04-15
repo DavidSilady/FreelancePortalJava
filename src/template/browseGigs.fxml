@@ -19,10 +19,5 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></JFXButton>
-      <JFXButton fx:id="BackButton" layoutX="616.0" layoutY="460.0" mnemonicParsing="false" onAction="#goBackHome" prefHeight="38.0" prefWidth="80.0" style="-fx-background-color: #4da895;" text="Back" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </JFXButton>
    </children>
 </AnchorPane>

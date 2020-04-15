@@ -22,13 +22,13 @@ public class Freelancer extends User {
         buildFromDB();
         load_my_languages();
     }
-
+/// _________________________________________________________________________________________LANGUAGES__________________________________________________________
     public void load_my_languages() {
         ArrayList <String> colNames = new ArrayList<String>();
         colNames.add("language_name");
         ArrayList<String> joins = new ArrayList<String>();
         joins.add("INNER JOIN languages AS l ON fl.language_id = l.id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancer_languages AS fl ", joins,"fl.freelancer_id = " + this.freelancerID);
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancer_languages AS fl ", joins," WHERE fl.freelancer_id = " + this.freelancerID);
         ArrayList <String> new_languages = new ArrayList<String>();
         for (ArrayList<String> row : result){
             new_languages.add(row.get(0));
@@ -40,7 +40,7 @@ public class Freelancer extends User {
         ArrayList <String> colNames = new ArrayList<String>();
         ArrayList <String> joins = new ArrayList<String>();
         colNames.add("id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "languages ", joins,"language_name = '" + language + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "languages ", joins," WHERE language_name = '" + language + "'");
         if (result.isEmpty()){
             return 0;
         }
@@ -60,7 +60,7 @@ public class Freelancer extends User {
         colNames.add("freelancer_id");
         ArrayList<String> joins = new ArrayList<String>();
         joins.add("INNER JOIN languages AS l ON fl.language_id = l.id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancer_languages AS fl ", joins,"l.language_name = '" + language + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancer_languages AS fl ", joins," WHERE l.language_name = '" + language + "'");
         return ! result.isEmpty();
     }
 
@@ -69,7 +69,7 @@ public class Freelancer extends User {
         if (language_id == 0) {
             return;
         }
-        DatabaseDriver.dbDelete("freelancer_languages", "freelancer_id = " + this.freelancerID + " AND language_id = " + language_id);
+        DatabaseDriver.dbDelete("freelancer_languages", " WHERE freelancer_id = " + this.freelancerID + " AND language_id = " + language_id);
 
         this.languages.removeIf(i -> i.equals(language));
     }
@@ -95,7 +95,9 @@ public class Freelancer extends User {
         values.add(String.valueOf(languageID));
         DatabaseDriver.dbInsert("freelancer_languages", "(freelancer_id,language_id)", values);
     }
-    
+/// ________________________________________________________________________________________________________________________________________________________________
+
+
     public String getDescription(){ return this.description;}
     public ArrayList<String> getLanguages() { return this.languages;}
 
@@ -114,7 +116,7 @@ public class Freelancer extends User {
         ArrayList<String> values = new ArrayList<>();
         columns.add("description");
         values.add(text);
-        return DatabaseDriver.dbUpdate("freelancers", columns,values,"id = '" + super.getId() + "'" );
+        return DatabaseDriver.dbUpdate("freelancers", columns,values," WHERE id = '" + super.getId() + "'" );
     }
     
     private void buildFromDB() {
@@ -124,7 +126,7 @@ public class Freelancer extends User {
             colNames.add("alias");
             colNames.add("description");
     
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",  new ArrayList<String>(), "id = '" + getId() + "'");
+            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",  new ArrayList<String>(), " WHERE  id = '" + getId() + "'");
             this.freelancerID = Integer.parseInt(result.get(0).get(0));
             this.alias = result.get(0).get(1);
             this.description = result.get(0).get(2);
@@ -153,4 +155,54 @@ public class Freelancer extends User {
 
         return DatabaseDriver.dbInsert("freelancers", "(name, surname, email, password, registration_date,alias)", userData);
     }
+
+
+    public ArrayList<String> get_all_categories(){
+        ArrayList<String> columns = new ArrayList<>();
+        columns.add("category_name");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(columns, "categories",  new ArrayList<String>(), " ORDER BY category_name");
+        ArrayList<String> categories = new ArrayList<>();
+        for (ArrayList<String> row : result){
+            categories.add(row.get(0));
+        }
+        return categories;
+    }
+
+    public int get_category_id(String category){
+        ArrayList<String> columns = new ArrayList<>();
+        columns.add("id");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(columns, "categories",  new ArrayList<String>(), " WHERE category_name = '" + category + "'");
+        return Integer.parseInt(result.get(0).get(0));
+    }
+
+    public void add_gig(String gig_name, String category_name){
+        int category_id = get_category_id(category_name);
+        ArrayList<String> values = new ArrayList<String>();
+        values.add(String.valueOf(this.freelancerID));
+        values.add(String.valueOf(category_id));
+        values.add(gig_name);
+         DatabaseDriver.dbInsert("gigs", "(freelancer_id,category_id,gig_name)", values);
+    }
+
+    public ArrayList<Gig> get_my_gigs(){
+        ArrayList<String> colNames = new ArrayList<String>();
+        ArrayList<String> joins = new ArrayList<String>();
+        colNames.add("g.id");
+        colNames.add("g.freelancer_id");
+        colNames.add("c.category_name");
+        colNames.add("g.gig_name");
+        joins.add("INNER JOIN categories AS c ON g.category_id = c.id");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "gigs AS g",  joins, " WHERE g.freelancer_id = '" + this.freelancerID + "'");
+        ArrayList<Gig> my_gigs = new ArrayList<Gig>();
+        for (ArrayList<String> row : result){
+            String temp_id = row.get(0);
+            String temp_freelancer_id = row.get(1);
+            String temp_category_name = row.get(2);
+            String temp_gig_name = row.get(3);
+            my_gigs.add(new Gig(Integer.parseInt(temp_id),Integer.parseInt(temp_freelancer_id),temp_category_name,temp_gig_name));
+        }
+        return my_gigs;
+    }
+
+
 }

@@ -23,11 +23,6 @@
             <TableColumn prefWidth="161.0" text="Rating" />
         </columns>
       </TableView>
-      <JFXButton fx:id="BackButton" layoutX="955.0" layoutY="343.0" onAction="#goBackHome" style="-fx-background-color: #4da895;" text="Back" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </JFXButton>
       <ScrollBar fx:id="Scroll1" layoutX="999.0" layoutY="393.0" orientation="VERTICAL" prefHeight="344.0" prefWidth="18.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

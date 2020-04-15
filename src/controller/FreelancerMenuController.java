@@ -19,9 +19,6 @@ public class FreelancerMenuController extends UserMenuController {
 	private JFXButton BrowseGigsButton;
 	
 	@FXML
-	private JFXButton ExitButton;
-	
-	@FXML
 	private Label userNameLabel;
 	
 	@FXML

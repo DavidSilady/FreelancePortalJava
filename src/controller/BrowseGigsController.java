@@ -13,9 +13,6 @@ public class BrowseGigsController {
 
     @FXML
     private JFXButton PurchaseButton;
-
-    @FXML
-    private JFXButton BackButton;
     
     public void init(User user) {
     

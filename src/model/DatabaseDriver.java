@@ -30,7 +30,7 @@ public class DatabaseDriver {
         for (String joinStatement : joinStatements) {
             query.append(joinStatement).append(" ");
         }
-        query.append(" WHERE ").append(condition);
+        query.append(condition);
         return query;
     }
 
@@ -66,7 +66,7 @@ public class DatabaseDriver {
         for (int i = 0 ; i < tableColNames.size() ; i++) {
             query.append(tableColNames.get(i)).append(" = '").append(newValues.get(i)).append("'");
         }
-        query.append(" WHERE ").append(condition);
+        query.append(condition);
         return query;
     }
 
@@ -117,7 +117,7 @@ public class DatabaseDriver {
 
 
     private static StringBuilder buildDeleteQuery(String tableName, String condition){
-        StringBuilder query = new StringBuilder("DELETE FROM " + tableName  + " WHERE " + condition);
+        StringBuilder query = new StringBuilder("DELETE FROM " + tableName + condition);
         return query;
     }
 

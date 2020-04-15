@@ -25,22 +25,19 @@ public class MyGigsController {
     private JFXButton RemoveGigButton;
 
     @FXML
-    private ChoiceBox<?> GigCategoryChoiceBox;
+    private ChoiceBox<String> GigCategoryChoiceBox;
 
     @FXML
     private JFXButton AddGigButtton;
 
-    @FXML
-    private JFXButton BackButton;
+    Freelancer currentFreelancer;
 
     @FXML
     void addGig(ActionEvent event) {
-
-    }
-
-    @FXML
-    void goBackHome(ActionEvent event) {
-
+        String gig_name = GigNameTextField.getText();
+        if (gig_name.isEmpty()) return;
+        String category = GigCategoryChoiceBox.getValue();
+        currentFreelancer.add_gig(gig_name,category);
     }
 
     @FXML
@@ -49,5 +46,10 @@ public class MyGigsController {
     }
     
     public void init (Freelancer currentUser) {
+        currentFreelancer = currentUser;
+        GigCategoryChoiceBox.getItems().addAll(currentUser.get_all_categories());
+        //for (String category : this.currentFreelancer.get_all_categories()){
+        //    GigCategoryChoiceBox.getItems().add("boi");
+       // }
     }
 }

@@ -40,7 +40,7 @@ public class MainScreenController {
 		colNames.add("id");
 		ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",
 				new ArrayList<String>(),
-				"id = '" + user.getId() + "'");
+				" WHERE id = '" + user.getId() + "'");
 		return ! result.isEmpty();
 	}
 	

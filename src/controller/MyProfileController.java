@@ -28,9 +28,6 @@ public class MyProfileController {
     private Label Label1;
 
     @FXML
-    private JFXButton BackButton;
-
-    @FXML
     private JFXTextArea DescriptionTextArea;
 
     @FXML
@@ -61,14 +58,6 @@ public class MyProfileController {
         AddLanguageTextField.setText("");
         ObservableList<String> items = FXCollections.observableArrayList(currentUser.getLanguages());
         LanguagesListView.setItems(items);
-    }
-
-    @FXML
-    void goBackHome(ActionEvent event) throws Exception {/*
-        SceneManager sceneManager = new SceneManager();
-        FXMLLoader tempLoader = sceneManager.switchScene(event, "freelancerMenu");
-        FreelancerMenuController controller = tempLoader.getController();
-        controller.init(currentUser);*/
     }
 
     @FXML

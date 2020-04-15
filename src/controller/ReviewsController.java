@@ -21,15 +21,7 @@ public class ReviewsController {
     private TableView<?> ReviewTableView;
 
     @FXML
-    private JFXButton BackButton;
-
-    @FXML
     private ScrollBar Scroll1;
-
-    @FXML
-    void goBackHome(ActionEvent event) {
-
-    }
 
     @FXML
     void viewReview(ActionEvent event) {

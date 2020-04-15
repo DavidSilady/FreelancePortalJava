@@ -83,7 +83,7 @@ public class User {
             colNames.add("password");
             colNames.add("registration_date");
 
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "email = '" + this.email + "'");
+            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), " WHERE email = '" + this.email + "'");
             if (result.isEmpty()){
                 return false;
             }
@@ -122,7 +122,7 @@ public class User {
             colNames.add("category_name");
             colNames.add("alias");
             colNames.add("email");
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames,"gigs AS g", joins, "category_name = '" + category + "'");
+            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames,"gigs AS g", joins, " WHERE category_name = '" + category + "'");
             int matchesNum = 0;
             for (ArrayList<String> line : result){
                 matchesNum++;

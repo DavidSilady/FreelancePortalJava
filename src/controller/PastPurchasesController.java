@@ -18,14 +18,6 @@ public class PastPurchasesController {
     private JFXButton WriteReviewButton;
 
     @FXML
-    private JFXButton BackButton;
-
-    @FXML
-    void goBackHome(ActionEvent event) {
-
-    }
-
-    @FXML
     void viewDetailsOfSelected(ActionEvent event) {
 
     }
