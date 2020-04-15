@@ -34,6 +34,10 @@ public class UserMenuController {
         userNameLabel.setText("Signed in as " + user.getName() + " " + user.getSurname());
     }
     
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+    
     public User getCurrentUser() {
         return currentUser;
     }
