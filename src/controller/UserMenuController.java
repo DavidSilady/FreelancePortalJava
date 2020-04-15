@@ -3,9 +3,11 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.User;
+import view.SceneManager;
 
 public class UserMenuController {
 
@@ -50,12 +52,16 @@ public class UserMenuController {
     }
 
     @FXML
-    void goToBrowseGigs(ActionEvent event) {
-
+    void goToBrowseGigs(ActionEvent event) throws Exception {
+        SceneManager sceneManager = new SceneManager();
+        FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "browseGigs");
+        ((BrowseGigsController) fxmlLoader.getController()).init(getCurrentUser());
     }
 
     @FXML
-    void goToPastPurchases(ActionEvent event) {
-
+    void goToPastPurchases(ActionEvent event) throws Exception {
+        SceneManager sceneManager = new SceneManager();
+        FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "pastPurchases");
+        ((PastPurchasesController) fxmlLoader.getController()).init(getCurrentUser());
     }
 }

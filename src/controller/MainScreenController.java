@@ -32,6 +32,7 @@ public class MainScreenController {
 		UserMenuController userHomeController = fxmlLoader.getController();
 		userHomeController.init(user, dynamicPane);
 		fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "browseGigs");
+		((BrowseGigsController) fxmlLoader.getController()).init(user);
 	}
 	
 	private boolean isFreelancer(User user) throws Exception {

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
+import model.User;
 
 public class PastPurchasesController {
 
@@ -33,5 +34,7 @@ public class PastPurchasesController {
     void writeReviewOfSelected(ActionEvent event) {
 
     }
-
+	
+	public void init (User currentUser) {
+	}
 }

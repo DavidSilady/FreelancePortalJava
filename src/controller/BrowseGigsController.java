@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
+import model.User;
 
 public class BrowseGigsController {
 
@@ -15,6 +16,10 @@ public class BrowseGigsController {
 
     @FXML
     private JFXButton BackButton;
+    
+    public void init(User user) {
+    
+    }
 
     @FXML
     void goBackHome(ActionEvent event) {
