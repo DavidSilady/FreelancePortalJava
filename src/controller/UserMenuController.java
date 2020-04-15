@@ -52,7 +52,7 @@ public class UserMenuController {
 
     @FXML
     void exitProgram(ActionEvent event) {
-        userNameLabel.setText(currentUser.getName() + ", there is not exit.");
+        System.exit(0);
     }
 
     @FXML

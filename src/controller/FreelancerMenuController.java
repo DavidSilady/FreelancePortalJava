@@ -54,9 +54,4 @@ public class FreelancerMenuController extends UserMenuController {
 		FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(getDynamicPane(), "reviews");
 		((ReviewsController) fxmlLoader.getController()).init((Freelancer) getCurrentUser());
 	}
-
-	void exitProgram(ActionEvent event) {
-		System.exit(0);
-	}
-
 }
