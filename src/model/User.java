@@ -54,7 +54,7 @@ public class User {
     }
 
     public boolean isAlreadyRegistered () throws Exception{
-        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT user_id FROM users WHERE email = '" + this.email + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT id FROM users WHERE email = '" + this.email + "'");
         return ! result.isEmpty();
     }
 
@@ -69,7 +69,7 @@ public class User {
 
     public boolean verify(){
         try{
-            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT user_id,name,surname,email,password,registration_date FROM users WHERE email = '" + this.email + "'");
+            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT id,name,surname,email,password,registration_date FROM users WHERE email = '" + this.email + "'");
             if (result.isEmpty()){
                 return false;
             }
@@ -109,8 +109,8 @@ public class User {
     }
 
     public ObservableList<Gig> findGigByCategory(String category) {
-            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT gig_id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
-                            " INNER JOIN categories AS c ON g.category_id = c.category_id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
+            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
+                            " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
                             " WHERE category_name = '" + category + "'");
             ObservableList<Gig> gigs = FXCollections.observableArrayList();
             for (ArrayList<String> row : result) {
