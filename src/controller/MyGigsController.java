@@ -66,7 +66,7 @@ public class MyGigsController {
         GigCategoryChoiceBox.getItems().addAll(currentUser.getAllCategories());
         GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
         CategoryTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getCategory()));
-        ObservableList<Gig> gigs = currentFreelancer.loadMyGigs();
+        ObservableList<Gig> gigs = currentUser.loadMyGigs();
         GigTableView.getItems().addAll(gigs);
     }
 }

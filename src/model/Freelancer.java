@@ -160,17 +160,6 @@ public class Freelancer extends User {
 /// ________________________________________________________________________________________________________________________________________________________________
 ///  __________________________________________________________________________________GIGS_________________________________________________________________________
 
-    public ArrayList<String> getAllCategories() {
-        ArrayList<String> columns = new ArrayList<>();
-        columns.add("category_name");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(columns, "categories", new ArrayList<String>(), " ORDER BY category_name");
-        ArrayList<String> categories = new ArrayList<>();
-        for (ArrayList<String> row : result) {
-            categories.add(row.get(0));
-        }
-        return categories;
-    }
-
     public int getCategoryID(String category) {
         ArrayList<String> columns = new ArrayList<>();
         columns.add("category_id");

@@ -1,5 +1,8 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
 
@@ -112,28 +115,38 @@ public class User {
         }
     }
 
-    public void findGigByCategory(String category) {
-        try {
-            ArrayList<String> joins = new ArrayList<String>();
-            joins.add("INNER JOIN categories AS c ON g.category_id = c.category_id");
-            joins.add("INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id");
+    public ArrayList<String> getAllCategories() {
+        ArrayList<String> columns = new ArrayList<>();
+        columns.add("category_name");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(columns, "categories", new ArrayList<String>(), " ORDER BY category_name");
+        ArrayList<String> categories = new ArrayList<>();
+        for (ArrayList<String> row : result) {
+            categories.add(row.get(0));
+        }
+        return categories;
+    }
+
+    public ObservableList<Gig> findGigByCategory(String category) {
             ArrayList<String> colNames = new ArrayList<String>();
+            ArrayList<String> joins = new ArrayList<String>();
+            colNames.add("gig_id");
             colNames.add("gig_name");
             colNames.add("category_name");
             colNames.add("alias");
-            colNames.add("email");
+            colNames.add("freelancer_id");
+            joins.add("INNER JOIN categories AS c ON g.category_id = c.category_id");
+            joins.add("INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id");
+
             ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames,"gigs AS g", joins, " WHERE category_name = '" + category + "'");
-            int matchesNum = 0;
-            for (ArrayList<String> line : result){
-                matchesNum++;
-                System.out.println("match number "+ matchesNum);
-                System.out.println( "gig_name = " + line.get(0) );
-                System.out.println( "category_name = " + line.get(1));
-                System.out.println( "alias = " + line.get(2) );
-                System.out.println( "email = " + line.get(3) );
+            ObservableList<Gig> gigs = FXCollections.observableArrayList();
+            for (ArrayList<String> row : result) {
+                String temp_id = row.get(0);
+                String temp_gigName = row.get(1);
+                String temp_categoryName = row.get(2);
+                String temp_alias = row.get(3);
+                String temp_freelancerID = row.get(4);
+                gigs.add(new Gig(Integer.parseInt(temp_id), Integer.parseInt(temp_freelancerID), temp_categoryName, temp_gigName , temp_alias));
             }
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
+            return gigs;
     }
 }

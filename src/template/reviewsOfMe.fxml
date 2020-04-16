@@ -15,7 +15,6 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <JFXTextArea fx:id="ReviewContentTextArea" layoutX="-2.0" layoutY="393.0" prefHeight="344.0" prefWidth="1028.0" text="Review content will display here&#10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <TableView fx:id="ReviewTableView" layoutY="2.0" prefHeight="391.0" prefWidth="700.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
           <TableColumn fx:id="UserEmailTableColumn" prefWidth="260.0" text="User email" />
@@ -23,6 +22,7 @@
             <TableColumn fx:id="RatingTableColumn" prefWidth="161.0" text="Rating" />
         </columns>
       </TableView>
-      <ScrollBar fx:id="Scroll1" layoutX="999.0" layoutY="393.0" orientation="VERTICAL" prefHeight="344.0" prefWidth="18.0" AnchorPane.rightAnchor="0.0" />
+      <ScrollBar fx:id="Scroll1" layoutX="999.0" layoutY="382.0" orientation="VERTICAL" prefHeight="344.0" prefWidth="18.0" AnchorPane.rightAnchor="5.0" />
+      <JFXTextArea fx:id="ReviewContentTextArea" layoutX="14.0" layoutY="398.0" prefHeight="321.0" prefWidth="972.0" />
    </children>
 </AnchorPane>
