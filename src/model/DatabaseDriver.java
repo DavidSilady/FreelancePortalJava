@@ -138,6 +138,36 @@ public class DatabaseDriver {
         }
     }
     
+    public static ArrayList<ArrayList<String>> executeQuery(String query) {
+        try {
+            Connection connection = establishConnection();
+            Statement statement = connection.createStatement();
+            System.out.println(query);
+            ResultSet resultSet = statement.executeQuery(query);
+            ArrayList<ArrayList<String>> stringResult = new ArrayList<ArrayList<String>>();
+            while ( resultSet.next() ) {
+                ArrayList<String> row = new ArrayList<String>();
+                int index = 1;
+                while (true) {
+                    String column = resultSet.getString(index);
+                    index++;
+                    if (index > resultSet.getMetaData().getColumnCount()) {
+                        break;
+                    }
+                    row.add(column);
+                }
+                stringResult.add(row);
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+            return stringResult;
+        } catch ( Exception e ) {
+            System.out.println(e.getClass().getName()+": "+ e.getMessage());
+            // throw e;
+            return null;
+        }
+    }
 
     private static Connection establishConnection() throws ClassNotFoundException, SQLException {
         ArrayList<String> configInfo = readConfig("dbConfig");
