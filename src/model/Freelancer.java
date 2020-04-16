@@ -1,6 +1,8 @@
 package model;
 
 import javax.management.InstanceAlreadyExistsException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -21,6 +23,7 @@ public class Freelancer extends User {
         System.out.println("Freelancer from user");
         buildFromDB();
         load_my_languages();
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("Select gigs.id, categories.category_name from gigs inner join categories on gigs.category_id = categories.id;");
     }
 
     public void load_my_languages() {
