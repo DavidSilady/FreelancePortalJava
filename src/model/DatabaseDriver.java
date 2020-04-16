@@ -150,10 +150,10 @@ public class DatabaseDriver {
                 int index = 1;
                 while (true) {
                     String column = resultSet.getString(index);
-                    if (column == null || column.isEmpty()) {
+                    index++;
+                    if (index > resultSet.getMetaData().getColumnCount()) {
                         break;
                     }
-                    index++;
                     row.add(column);
                 }
                 stringResult.add(row);

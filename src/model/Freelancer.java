@@ -24,6 +24,9 @@ public class Freelancer extends User {
         buildFromDB();
         load_my_languages();
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("Select gigs.id, categories.category_name from gigs inner join categories on gigs.category_id = categories.id;");
+        if(result == null || result.isEmpty())
+            return;
+        System.out.print(result.get(0).get(0));
     }
 
     public void load_my_languages() {
