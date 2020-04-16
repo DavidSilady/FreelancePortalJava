@@ -36,11 +36,7 @@ public class MainScreenController {
 	}
 	
 	private boolean isFreelancer(User user) throws Exception {
-		ArrayList<String> colNames = new ArrayList<String>();
-		colNames.add("user_id");
-		ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",
-				new ArrayList<String>(),
-				" WHERE user_id = '" + user.getId() + "'");
+		ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT user_id FROM freelancers WHERE user_id = " + user.getId());
 		return ! result.isEmpty();
 	}
 	

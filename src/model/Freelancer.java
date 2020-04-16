@@ -23,7 +23,7 @@ public class Freelancer extends User {
                 user.getEmail(),
                 user.getPassword(),
                 user.getRegistrationDate());
-        System.out.println("Freelancer from user");
+       // System.out.println("Freelancer from user");
         buildFromDB();
         load_my_languages();
     }
@@ -37,32 +37,16 @@ public class Freelancer extends User {
         this.alias = alias;
     }
 
-    public boolean saveDescription(String text) {
+    public void saveDescription(String text) {
         this.description = text;
-        ArrayList<String> columns = new ArrayList<>();
-        ArrayList<String> values = new ArrayList<>();
-        columns.add("description");
-        values.add(text);
-        return DatabaseDriver.dbUpdate("freelancers", columns,values," WHERE user_id = '" + super.getId() + "'" );
+        DatabaseDriver.executeUpdate("UPDATE freelancers SET description = '"+ text +"' WHERE user_id = " + super.getId());
     }
 
-
-
     private void buildFromDB() {
-        try {
-            ArrayList<String> colNames = new ArrayList<String>();
-            colNames.add("freelance_id");
-            colNames.add("alias");
-            colNames.add("description");
-
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancers",  new ArrayList<String>(), " WHERE  user_id = '" + super.getId() + "'");
+            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT freelance_id,alias,description FROM freelancers WHERE user_id = " + super.getId());
             this.freelancerID = Integer.parseInt(result.get(0).get(0));
             this.alias = result.get(0).get(1);
             this.description = result.get(0).get(2);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
     }
 
     public String getMenuSceneName() {
@@ -71,26 +55,15 @@ public class Freelancer extends User {
 
     public boolean register() throws Exception {
         if (isAlreadyRegistered()){
-            throw new InstanceAlreadyExistsException();
+            return false;
         }
-
-        ArrayList <String> userData = new ArrayList<String>();
-        userData.add(super.getName());
-        userData.add(super.getSurname());
-        userData.add(super.getEmail());
-        userData.add(super.getPassword());
-        userData.add(super.getRegistrationDate());
-        userData.add(alias);
-
-        return DatabaseDriver.dbInsert("freelancers", "(name, surname, email, password, registration_date,alias)", userData);
+        DatabaseDriver.executeUpdate("INSERT INTO freelancers(name, surname, email, password, registration_date,alias) VALUES('" +super.getName()+ "','" +  super.getSurname() +
+                "','" + super.getEmail() + "','" + super.getPassword() + "','" + super.getRegistrationDate() + "','" + alias + "')");
+        return true;
     }
 /// _________________________________________________________________________________________LANGUAGES__________________________________________________________
     public void load_my_languages() {
-        ArrayList<String> colNames = new ArrayList<String>();
-        colNames.add("language_name");
-        ArrayList<String> joins = new ArrayList<String>();
-        joins.add("INNER JOIN languages AS l ON fl.language_id = l.language_id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancer_languages AS fl ", joins, " WHERE fl.freelancer_id = " + this.freelancerID);
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT language_name FROM freelancer_languages AS fl INNER JOIN languages AS l ON fl.language_id = l.language_id WHERE fl.freelancer_id = " + this.freelancerID);
         ArrayList<String> new_languages = new ArrayList<String>();
         for (ArrayList<String> row : result) {
             new_languages.add(row.get(0));
@@ -99,10 +72,7 @@ public class Freelancer extends User {
     }
 
     public int getLanguageIndex(String language) {
-        ArrayList<String> colNames = new ArrayList<String>();
-        ArrayList<String> joins = new ArrayList<String>();
-        colNames.add("language_id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "languages ", joins, " WHERE language_name = '" + language + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT language_id FROM languages  WHERE language_name = '" + language + "'");
         if (result.isEmpty()) {
             return 0;
         } else {
@@ -112,27 +82,18 @@ public class Freelancer extends User {
 
     // language list should be hardcoded in the db, as its an enum
     public void addNewLanguage(String new_language) {
-        ArrayList<String> values = new ArrayList<String>();
-        values.add(new_language);
-        DatabaseDriver.dbInsert("languages", "(language_name)", values);
+        DatabaseDriver.executeUpdate("INSERT INTO languages(language_name) VALUES('"+new_language+"')");
     }
 
     public boolean languageExists(String language) {
-        ArrayList<String> colNames = new ArrayList<String>();
-        colNames.add("freelancer_id");
-        ArrayList<String> joins = new ArrayList<String>();
-        joins.add("INNER JOIN languages AS l ON fl.language_id = l.language_id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "freelancer_languages AS fl ", joins, " WHERE l.language_name = '" + language + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT freelancer_id FROM freelancer_languages AS fl INNER JOIN languages AS l ON fl.language_id = l.language_id WHERE l.language_name = '" + language + "'");
         return !result.isEmpty();
     }
 
     public void deleteMyLanguage(String language) {
         int language_id = getLanguageIndex(language);
-        if (language_id == 0) {
-            return;
-        }
-        DatabaseDriver.dbDelete("freelancer_languages", " WHERE freelancer_id = " + this.freelancerID + " AND language_id = " + language_id);
-
+        if (language_id == 0) { return; }
+        DatabaseDriver.executeUpdate("DELETE FROM freelancer_languages WHERE freelancer_id = " + this.freelancerID + " AND language_id = " + language_id);
         this.languages.removeIf(i -> i.equals(language));
     }
 
@@ -147,44 +108,28 @@ public class Freelancer extends User {
         newLanguages.add(languageName);
         languages = newLanguages;
 
-        ArrayList<String> values = new ArrayList<String>();
         int languageID = getLanguageIndex(languageName);
         if (languageID == 0) {
             addNewLanguage(languageName);
             languageID = getLanguageIndex(languageName);
         }
-        values.add(String.valueOf(this.freelancerID));
-        values.add(String.valueOf(languageID));
-        DatabaseDriver.dbInsert("freelancer_languages", "(freelancer_id,language_id)", values);
+        DatabaseDriver.executeUpdate("INSERT INTO freelancer_languages(freelancer_id,language_id) VALUES('" + String.valueOf(this.freelancerID) + "','" + String.valueOf(languageID) + "')");
     }
 /// ________________________________________________________________________________________________________________________________________________________________
 ///  __________________________________________________________________________________GIGS_________________________________________________________________________
 
     public int getCategoryID(String category) {
-        ArrayList<String> columns = new ArrayList<>();
-        columns.add("category_id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(columns, "categories", new ArrayList<String>(), " WHERE category_name = '" + category + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT category_id FROM categories WHERE category_name = '" + category + "'");
         return Integer.parseInt(result.get(0).get(0));
     }
 
     public void addGig(String gigName, String categoryName) {
         int categoryID = getCategoryID(categoryName);
-        ArrayList<String> values = new ArrayList<String>();
-        values.add(String.valueOf(this.freelancerID));
-        values.add(String.valueOf(categoryID));
-        values.add(gigName);
-        DatabaseDriver.dbInsert("gigs", "(freelancer_id,category_id,gig_name)", values);
+        DatabaseDriver.executeUpdate("INSERT INTO gigs(freelancer_id,category_id,gig_name) VALUES('" + String.valueOf(this.freelancerID) + "','" + String.valueOf(categoryID) + "','" + gigName + "')");
     }
 
     public ObservableList<Gig> loadMyGigs() {
-        ArrayList<String> colNames = new ArrayList<String>();
-        ArrayList<String> joins = new ArrayList<String>();
-        colNames.add("gig_id");
-        colNames.add("freelancer_id");
-        colNames.add("category_name");
-        colNames.add("gig_name");
-        joins.add("INNER JOIN categories AS c ON gigs.category_id = c.category_id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "gigs ", joins, " WHERE freelancer_id = " + this.freelancerID );
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT gig_id,freelancer_id,category_name,gig_name FROM gigs AS g INNER JOIN categories AS c ON g.category_id = c.category_id WHERE freelancer_id = " + this.freelancerID );
         ObservableList<Gig> my_gigs = FXCollections.observableArrayList();
         for (ArrayList<String> row : result) {
             String temp_id = row.get(0);
@@ -198,22 +143,15 @@ public class Freelancer extends User {
 
     public void deleteMyGig(String gigName, String category) {
         int categoryID = getCategoryID(category);
-        DatabaseDriver.dbDelete("gigs", " WHERE gig_name = '" + gigName + "' AND category_id = " + categoryID + " AND freelancer_id = " + this.freelancerID);
+        DatabaseDriver.executeUpdate("DELETE FROM gigs WHERE gig_name = '" + gigName + "' AND category_id = " + categoryID + " AND freelancer_id = " + this.freelancerID);
     }
 
 /// ________________________________________________________________________________________________________________________________________________________________
 /// _______________________________________________________________________________REVIEWS______________________________________________________________________
 
     public ObservableList<Review> loadMyReviews(){
-        ArrayList<String> colNames = new ArrayList<String>();
-        ArrayList<String> joins = new ArrayList<String>();
-        colNames.add("email");
-        colNames.add("gig_name");
-        colNames.add("rating");
-        colNames.add("content");
-        joins.add("INNER JOIN users AS u ON r.customer_id = u.user_id");
-        joins.add("INNER JOIN gigs AS g ON r.gig_id = g.gig_id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "reviews AS r", joins, " WHERE g.freelancer_id = " + this.freelancerID );
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT email,gig_name,rating,content FROM reviews AS r INNER JOIN users AS u ON r.customer_id = u.user_id " +
+                        "INNER JOIN gigs AS g ON r.gig_id = g.gig_id WHERE g.freelancer_id = " + this.freelancerID );
         ObservableList<Review> my_reviews = FXCollections.observableArrayList();
         for (ArrayList<String> row : result) {
             String temp_user_email = row.get(0);

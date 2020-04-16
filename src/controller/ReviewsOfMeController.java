@@ -42,13 +42,13 @@ public class ReviewsOfMeController {
 
     @FXML
     void viewReview(ActionEvent event) {                // trebalo by aby ukazovalo po riadkoch
+        if( ReviewTableView.getSelectionModel().isEmpty())  return;
         Review selectedReview = ReviewTableView.getSelectionModel().getSelectedItem();
         ReviewContentTextArea.setText(selectedReview.getContent());
     }
     
     public void init (Freelancer currentUser) {
         currentFreelancer = currentUser;
-
         UserEmailTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getUserEmail()));
         GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
         RatingTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getRatingAsString()));

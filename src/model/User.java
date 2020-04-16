@@ -54,39 +54,22 @@ public class User {
     }
 
     public boolean isAlreadyRegistered () throws Exception{
-        ArrayList<String> colNames = new ArrayList<String>();
-        colNames.add("user_id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "WHERE email = '" + this.email + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT user_id FROM users WHERE email = '" + this.email + "'");
         return ! result.isEmpty();
     }
 
     public boolean register() throws Exception {
         if (isAlreadyRegistered()){
-            throw new InstanceAlreadyExistsException();
+           // throw new InstanceAlreadyExistsException();
+            return false;
         }
-
-        ArrayList <String> userData = new ArrayList<String>();
-        userData.add(name);
-        userData.add(surname);
-        userData.add(email);
-        userData.add(password);
-        userData.add(registrationDate);
-
-        return DatabaseDriver.dbInsert("users", "(name, surname, email, password, registration_date)", userData);
+        DatabaseDriver.executeUpdate("INSERT INTO users(name, surname, email, password, registration_date) VALUES('" + name + "','" + surname + "','" +email+"','"+password+"','"+registrationDate+"')");
+        return true;
     }
 
     public boolean verify(){
-        try {
-            //ArrayList<String> joins = new ArrayList<String>();
-            ArrayList<String> colNames = new ArrayList<String>();
-            colNames.add("user_id");
-            colNames.add("name");
-            colNames.add("surname");
-            colNames.add("email");
-            colNames.add("password");
-            colNames.add("registration_date");
-
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), " WHERE email = '" + this.email + "'");
+        try{
+            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT user_id,name,surname,email,password,registration_date FROM users WHERE email = '" + this.email + "'");
             if (result.isEmpty()){
                 return false;
             }
@@ -110,15 +93,14 @@ public class User {
                 return false;
             }
         }
-        catch (Exception ex){
+        catch (Exception e){
+            System.out.println(e.getClass().getName()+": "+ e.getMessage());
             return false;
         }
     }
 
     public ArrayList<String> getAllCategories() {
-        ArrayList<String> columns = new ArrayList<>();
-        columns.add("category_name");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(columns, "categories", new ArrayList<String>(), " ORDER BY category_name");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT category_name FROM categories ORDER BY category_name");
         ArrayList<String> categories = new ArrayList<>();
         for (ArrayList<String> row : result) {
             categories.add(row.get(0));
@@ -127,17 +109,9 @@ public class User {
     }
 
     public ObservableList<Gig> findGigByCategory(String category) {
-            ArrayList<String> colNames = new ArrayList<String>();
-            ArrayList<String> joins = new ArrayList<String>();
-            colNames.add("gig_id");
-            colNames.add("gig_name");
-            colNames.add("category_name");
-            colNames.add("alias");
-            colNames.add("freelancer_id");
-            joins.add("INNER JOIN categories AS c ON g.category_id = c.category_id");
-            joins.add("INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id");
-
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames,"gigs AS g", joins, " WHERE category_name = '" + category + "'");
+            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT gig_id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
+                            " INNER JOIN categories AS c ON g.category_id = c.category_id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
+                            " WHERE category_name = '" + category + "'");
             ObservableList<Gig> gigs = FXCollections.observableArrayList();
             for (ArrayList<String> row : result) {
                 String temp_id = row.get(0);

@@ -56,6 +56,7 @@ public class MyGigsController {
 
     @FXML
     void removeGig(ActionEvent event) {
+        if (GigTableView.getSelectionModel().isEmpty()) return;
         Gig selectedGig = GigTableView.getSelectionModel().getSelectedItem();
         currentFreelancer.deleteMyGig(selectedGig.getGigName(),selectedGig.getCategory());
         GigTableView.getItems().remove(selectedGig);
