@@ -63,7 +63,8 @@ public class Freelancer extends User {
     }
 /// _________________________________________________________________________________________LANGUAGES__________________________________________________________
     public void load_my_languages() {
-        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT language_name FROM freelancer_languages AS fl INNER JOIN languages AS l ON fl.language_id = l.id WHERE fl.freelancer_id = " + this.freelancerID);
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT language_name FROM freelancer_languages AS fl INNER JOIN languages AS l ON fl.language_id = l.id" +
+                "WHERE fl.freelancer_id = " + this.freelancerID + " ORDER BY language_name");
         ArrayList<String> new_languages = new ArrayList<String>();
         for (ArrayList<String> row : result) {
             new_languages.add(row.get(0));
@@ -129,7 +130,8 @@ public class Freelancer extends User {
     }
 
     public ObservableList<Gig> loadMyGigs() {
-        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,freelancer_id,category_name,gig_name FROM gigs AS g INNER JOIN categories AS c ON g.category_id = c.id WHERE freelancer_id = " + this.freelancerID );
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,freelancer_id,category_name,gig_name FROM gigs AS g INNER JOIN categories AS c ON g.category_id = c.id " +
+                " WHERE freelancer_id = " + this.freelancerID  + " ORDER BY gig_name");
         ObservableList<Gig> my_gigs = FXCollections.observableArrayList();
         for (ArrayList<String> row : result) {
             String temp_id = row.get(0);
@@ -151,7 +153,7 @@ public class Freelancer extends User {
 
     public ObservableList<Review> loadMyReviews(){
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT email,gig_name,rating,content FROM reviews AS r INNER JOIN users AS u ON r.customer_id = u.id " +
-                        "INNER JOIN gigs AS g ON r.gig_id = g.id WHERE g.freelancer_id = " + this.freelancerID );
+                        "INNER JOIN gigs AS g ON r.gig_id = g.id WHERE g.freelancer_id = " + this.freelancerID + " ORDER BY gig_name");
         ObservableList<Review> my_reviews = FXCollections.observableArrayList();
         for (ArrayList<String> row : result) {
             String temp_user_email = row.get(0);
