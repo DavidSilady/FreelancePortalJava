@@ -1,33 +1,59 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import model.Gig;
 import model.User;
 
 public class BrowseGigsController {
 
     @FXML
-    private TableView<?> GigsTableView;
+    private TableView<Gig> GigsTableView;
 
     @FXML
-    private JFXButton PurchaseButton;
+    private TableColumn<Gig, String> GigNameTableColumn;
 
     @FXML
-    private JFXButton BackButton;
-    
-    public void init(User user) {
-    
-    }
+    private TableColumn<Gig, String> FreelancerTableColumn;
 
     @FXML
-    void goBackHome(ActionEvent event) {
+    private JFXButton PurchaseSelectedButton;
 
-    }
+    @FXML
+    private ChoiceBox<String> CategoryChoiceBox;
+
+    @FXML
+    private Label label1;
+
+    @FXML
+    private JFXButton ConfirmButton;
+
+    private User currentUser;
 
     @FXML
     void purchaseSelected(ActionEvent event) {
 
+    }
+
+    @FXML
+    void updateTable(ActionEvent event) {
+        if ( CategoryChoiceBox.getSelectionModel().isEmpty()) return;
+        String category = CategoryChoiceBox.getValue();
+        ObservableList<Gig> gigs = currentUser.findGigByCategory(category);
+        GigsTableView.getItems().addAll(gigs);
+    }
+
+    public void init(User currentUser){
+        this.currentUser = currentUser;
+        CategoryChoiceBox.getItems().addAll(currentUser.getAllCategories());
+        GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
+        FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getFreelancerAlias()));
     }
 }

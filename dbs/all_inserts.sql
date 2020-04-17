@@ -1161,3 +1161,7 @@ insert into services (id, gig_id, invoice_id, order_id, price, description) valu
 insert into services (id, gig_id, invoice_id, order_id, price, description) values (98, 5, 56, 59, 176, 'rutrum neque aenean auctor gravida sem praesent id massa id nisl');
 insert into services (id, gig_id, invoice_id, order_id, price, description) values (99, 25, 77, 60, 81, 'quisque porta volutpat erat quisque erat eros viverra eget congue eget');
 insert into services (id, gig_id, invoice_id, order_id, price, description) values (100, 16, 90, 9, 117, 'in purus eu');
+
+
+
+/*copy users(name,surname,email,password,registration_date) from 'C:\Users\drnck\Desktop\workspace\projektDBS\dbs\fake.csv' delimiter ',' csv;

@@ -1,5 +1,8 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
 
@@ -51,39 +54,22 @@ public class User {
     }
 
     public boolean isAlreadyRegistered () throws Exception{
-        ArrayList<String> colNames = new ArrayList<String>();
-        colNames.add("id");
-        ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "WHERE email = '" + this.email + "'");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT id FROM users WHERE email = '" + this.email + "'");
         return ! result.isEmpty();
     }
 
     public boolean register() throws Exception {
         if (isAlreadyRegistered()){
-            throw new InstanceAlreadyExistsException();
+           // throw new InstanceAlreadyExistsException();
+            return false;
         }
-
-        ArrayList <String> userData = new ArrayList<String>();
-        userData.add(name);
-        userData.add(surname);
-        userData.add(email);
-        userData.add(password);
-        userData.add(registrationDate);
-
-        return DatabaseDriver.dbInsert("users", "(name, surname, email, password, registration_date)", userData);
+        DatabaseDriver.executeUpdate("INSERT INTO users(name, surname, email, password, registration_date) VALUES('" + name + "','" + surname + "','" +email+"','"+password+"','"+registrationDate+"')");
+        return true;
     }
 
     public boolean verify(){
-        try {
-            //ArrayList<String> joins = new ArrayList<String>();
-            ArrayList<String> colNames = new ArrayList<String>();
-            colNames.add("id");
-            colNames.add("name");
-            colNames.add("surname");
-            colNames.add("email");
-            colNames.add("password");
-            colNames.add("registration_date");
-
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames, "users",  new ArrayList<String>(), "email = '" + this.email + "'");
+        try{
+            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT id,name,surname,email,password,registration_date FROM users WHERE email = '" + this.email + "'");
             if (result.isEmpty()){
                 return false;
             }
@@ -107,33 +93,34 @@ public class User {
                 return false;
             }
         }
-        catch (Exception ex){
+        catch (Exception e){
+            System.out.println(e.getClass().getName()+": "+ e.getMessage());
             return false;
         }
     }
 
-    public void findGigByCategory(String category) {
-        try {
-            ArrayList<String> joins = new ArrayList<String>();
-            joins.add("INNER JOIN categories AS c ON g.category_id = c.id");
-            joins.add("INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id");
-            ArrayList<String> colNames = new ArrayList<String>();
-            colNames.add("gig_name");
-            colNames.add("category_name");
-            colNames.add("alias");
-            colNames.add("email");
-            ArrayList<ArrayList<String>> result = DatabaseDriver.dbSelect(colNames,"gigs AS g", joins, "category_name = '" + category + "'");
-            int matchesNum = 0;
-            for (ArrayList<String> line : result){
-                matchesNum++;
-                System.out.println("match number "+ matchesNum);
-                System.out.println( "gig_name = " + line.get(0) );
-                System.out.println( "category_name = " + line.get(1));
-                System.out.println( "alias = " + line.get(2) );
-                System.out.println( "email = " + line.get(3) );
-            }
-        } catch (Exception e) {
-            System.out.println("ERROR");
+    public ArrayList<String> getAllCategories() {
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT category_name FROM categories ORDER BY category_name");
+        ArrayList<String> categories = new ArrayList<>();
+        for (ArrayList<String> row : result) {
+            categories.add(row.get(0));
         }
+        return categories;
+    }
+
+    public ObservableList<Gig> findGigByCategory(String category) {
+            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
+                            " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
+                            " WHERE category_name = '" + category + "' ORDER BY gig_name");
+            ObservableList<Gig> gigs = FXCollections.observableArrayList();
+            for (ArrayList<String> row : result) {
+                String temp_id = row.get(0);
+                String temp_gigName = row.get(1);
+                String temp_categoryName = row.get(2);
+                String temp_alias = row.get(3);
+                String temp_freelancerID = row.get(4);
+                gigs.add(new Gig(Integer.parseInt(temp_id), Integer.parseInt(temp_freelancerID), temp_categoryName, temp_gigName , temp_alias));
+            }
+            return gigs;
     }
 }

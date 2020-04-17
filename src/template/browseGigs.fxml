@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="493.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
+<AnchorPane prefHeight="491.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
    <children>
-      <TableView fx:id="GigsTableView" layoutY="-1.0" prefHeight="494.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
+      <TableView fx:id="GigsTableView" layoutY="-1.0" prefHeight="526.0" prefWidth="411.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
         <columns>
-          <TableColumn prefWidth="185.00001221895218" text="Category" />
-          <TableColumn minWidth="3.20001220703125" prefWidth="198.99998474121094" text="Gig name" />
-            <TableColumn minWidth="0.0" prefWidth="213.0" text="Freelancer" />
+          <TableColumn fx:id="GigNameTableColumn" minWidth="3.20001220703125" prefWidth="198.99998474121094" text="Gig name" />
+            <TableColumn fx:id="FreelancerTableColumn" minWidth="0.0" prefWidth="213.0" text="Freelancer" />
         </columns>
       </TableView>
-      <JFXButton fx:id="PurchaseButton" layoutX="606.0" layoutY="14.0" mnemonicParsing="false" onAction="#purchaseSelected" style="-fx-background-color: #4da895;" text="Purchase" textFill="WHITE">
+      <JFXButton fx:id="PurchaseSelectedButton" layoutX="489.0" layoutY="358.0" mnemonicParsing="false" onAction="#purchaseSelected" style="-fx-background-color: #4da895;" text="Purchase Selected" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></JFXButton>
-      <JFXButton fx:id="BackButton" layoutX="616.0" layoutY="460.0" mnemonicParsing="false" onAction="#goBackHome" prefHeight="38.0" prefWidth="80.0" style="-fx-background-color: #4da895;" text="Back" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ChoiceBox fx:id="CategoryChoiceBox" layoutX="444.0" layoutY="80.0" prefWidth="150.0" />
+      <Label fx:id="label1" layoutX="446.0" layoutY="35.0" text="Choose category:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="ConfirmButton" layoutX="616.0" layoutY="77.0" mnemonicParsing="false" onAction="#updateTable" style="-fx-background-color: #4da895;" text="Confirm" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
