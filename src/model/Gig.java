@@ -34,5 +34,8 @@ public class Gig {
         return category;
     }
     public String getFreelancerAlias() { return freelancerAlias; }
-
+    
+    public String getAvgRating () {  // TBD
+        return "4.6";
+    }
 }
