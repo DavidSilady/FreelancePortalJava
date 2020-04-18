@@ -32,7 +32,7 @@ public class ListingContainerController {
 		updateListing(listableArray);
 	}
 	
-	private void updateListing(ArrayList<Listable> listableArray) throws Exception {
+	public void updateListing(ArrayList<Listable> listableArray) throws Exception {
 		scrollPaneChild.getChildren().clear();
 		listingPanes.clear();
 		int index = 0;

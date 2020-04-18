@@ -142,11 +142,11 @@ public class User {
         return categories;
     }
 
-    public ArrayList<Gig> findGigByCategory(String category, int page) {
+    public ArrayList<Listable> findGigByCategory(String category, int page) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
                 " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
                 " WHERE category_name = '" + category + "' ORDER BY gig_name LIMIT 16 OFFSET " + page * 16);
-        ArrayList<Gig> gigs = new ArrayList<>();
+        ArrayList<Listable> gigs = new ArrayList<>();
         for (ArrayList<String> row : result) {
             String temp_id = row.get(0);
             String temp_gigName = row.get(1);

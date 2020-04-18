@@ -1,6 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,7 +25,7 @@ public class BrowseGigsController {
     private JFXButton PurchaseSelectedButton;
 
     @FXML
-    private ChoiceBox<String> CategoryChoiceBox;
+    private JFXComboBox<String> CategoryChoiceBox;
 
     @FXML
     private Label label1;
@@ -47,25 +48,35 @@ public class BrowseGigsController {
     
     @FXML
     private AnchorPane listingPane;
+    
+    private ListingContainerController listingController;
 
     @FXML
     void purchaseSelected(ActionEvent event) {
 
     }
     
-    private void updateGigTable() {
-    
+    private void updateGigTable() throws Exception {
+        if ( CategoryChoiceBox.getSelectionModel().isEmpty()) {
+            ArrayList<Listable> gigs = currentUser.loadAllGigs(pageNum);
+            listingController.updateListing(gigs);
+        } else {
+            String category = CategoryChoiceBox.getValue();
+            ArrayList<Listable> gigs = currentUser.findGigByCategory(category, pageNum);
+            listingController.updateListing(gigs);
+        }
+        
     }
     
     @FXML
-    void updateNext(ActionEvent event) {
+    void updateNext(ActionEvent event) throws Exception {
         pageNum += 1;
         pageNumLabel.setText(String.valueOf(pageNum));
         updateGigTable();
     }
     
     @FXML
-    void updatePrevious(ActionEvent event) {
+    void updatePrevious(ActionEvent event) throws Exception {
         pageNum -= 1;
         if (pageNum < 0) pageNum = 0;
         pageNumLabel.setText(String.valueOf(pageNum));
@@ -75,13 +86,13 @@ public class BrowseGigsController {
     
 
     @FXML
-    void updateByCategory (ActionEvent event) {
+    void updateByCategory (ActionEvent event) throws Exception {
         if ( CategoryChoiceBox.getSelectionModel().isEmpty()) return;
         pageNum = 0;
         pageNumLabel.setText(String.valueOf(pageNum));
         String category = CategoryChoiceBox.getValue();
-        
-        ArrayList<Gig> gigs = currentUser.findGigByCategory(category, pageNum);
+        ArrayList<Listable> gigs = currentUser.findGigByCategory(category, pageNum);
+        listingController.updateListing(gigs);
     }
 
     public void init(User currentUser) throws Exception {
@@ -94,5 +105,6 @@ public class BrowseGigsController {
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, "listingContainer");
         ListingContainerController controller = fxmlLoader.getController();
         controller.init(gigs);
+        listingController = controller;
     }
 }

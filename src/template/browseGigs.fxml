@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="491.0" prefWidth="781.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
+<AnchorPane prefHeight="491.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
    <children>
-      <JFXButton fx:id="PurchaseSelectedButton" layoutX="633.0" layoutY="14.0" mnemonicParsing="false" onAction="#purchaseSelected" prefHeight="38.0" prefWidth="131.0" style="-fx-background-color: #4da895;" text="Purchase Selected" textFill="WHITE">
+      <AnchorPane fx:id="listingPane" maxHeight="400.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <JFXButton fx:id="PurchaseSelectedButton" layoutX="600.0" layoutY="14.0" mnemonicParsing="false" onAction="#purchaseSelected" prefHeight="38.0" prefWidth="131.0" style="-fx-background-color: #4da895;" text="Purchase Selected" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></JFXButton>
-      <ChoiceBox fx:id="CategoryChoiceBox" layoutX="635.0" layoutY="159.0" prefHeight="26.0" prefWidth="131.0" />
-      <Label fx:id="label1" layoutX="635.0" layoutY="131.0" prefHeight="27.0" prefWidth="131.0" text="Choose category:">
+      <Label fx:id="label1" layoutX="602.0" layoutY="131.0" prefHeight="27.0" prefWidth="131.0" text="Choose category:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="ConfirmButton" layoutX="633.0" layoutY="93.0" mnemonicParsing="false" onAction="#updateByCategory" prefHeight="38.0" prefWidth="131.0" style="-fx-background-color: #4da895;" text="Confirm category" textFill="WHITE">
+      <JFXButton fx:id="ConfirmButton" layoutX="600.0" layoutY="93.0" mnemonicParsing="false" onAction="#updateByCategory" prefHeight="38.0" prefWidth="131.0" style="-fx-background-color: #4da895;" text="Confirm category" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <Label layoutX="286.0" layoutY="441.0" text="Page" textFill="#4da895">
+      <Label layoutX="286.0" layoutY="438.0" text="Page" textFill="#4da895" AnchorPane.bottomAnchor="35.39999999999998">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="pageNumLabel" layoutX="296.0" layoutY="461.0" text="0" textFill="#4da895">
+      <Label fx:id="pageNumLabel" layoutX="296.0" layoutY="461.0" text="0" textFill="#4da895" AnchorPane.bottomAnchor="15.399999999999999">
          <font>
             <Font name="Segoe UI Italic" size="12.0" />
          </font>
       </Label>
-      <JFXButton fx:id="rightButton" layoutX="320.0" layoutY="450.0" onAction="#updateNext" style="-fx-background-color: #4da895;" text="&gt;" textFill="WHITE" />
-      <JFXButton fx:id="leftButton" layoutX="255.0" layoutY="450.0" onAction="#updatePrevious" style="-fx-background-color: #4da895;" text="&lt;" textFill="WHITE" />
-      <AnchorPane fx:id="listingPane" layoutX="12.0" layoutY="7.0" maxHeight="400.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0" />
+      <JFXButton fx:id="rightButton" layoutX="320.0" layoutY="450.0" onAction="#updateNext" style="-fx-background-color: #4da895;" text="&gt;" textFill="WHITE" AnchorPane.bottomAnchor="15.399999999999999">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#0000007c" height="22.0" offsetX="5.0" offsetY="5.0" radius="10.5" width="22.0" />
+         </effect></JFXButton>
+      <JFXButton fx:id="leftButton" layoutX="255.0" layoutY="450.0" onAction="#updatePrevious" style="-fx-background-color: #4da895;" text="&lt;" textFill="WHITE" AnchorPane.bottomAnchor="15.399999999999999">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#0000007c" height="22.0" offsetX="5.0" offsetY="5.0" radius="10.5" width="22.0" />
+         </effect></JFXButton>
+      <JFXComboBox fx:id="CategoryChoiceBox" focusColor="#4da895" layoutX="602.0" layoutY="174.0" prefHeight="26.0" prefWidth="131.0" unFocusColor="#4da895" />
    </children>
 </AnchorPane>
