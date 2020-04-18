@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+import model.Listable;
 
 public interface ListablePaneController {
 	public void init(Listable listing);

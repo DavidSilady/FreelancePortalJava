@@ -2,14 +2,14 @@ package model;
 
 import javafx.beans.property.StringProperty;
 
-public class Gig {
+public class Gig implements Listable {
     private int id;
     private int freelancerID;
     private String category;
     private String gigName;
     private String freelancerAlias;
 
-    public Gig(int id, int freelancerID, String category, String gigName){
+    public Gig(int id, int freelancerID, String category, String gigName) {
         this.id = id;
         this.freelancerID = freelancerID;
         this.category = category;
@@ -37,5 +37,10 @@ public class Gig {
     
     public String getAvgRating () {  // TBD
         return "4.6";
+    }
+    
+    @Override
+    public String getListablePaneName () {
+        return "gigListing";
     }
 }

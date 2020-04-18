@@ -6,8 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import model.Freelancer;
 import model.Gig;
+import model.Listable;
 
-public class GigListingController {
+public class GigListingController implements ListablePaneController {
 	
 	@FXML
 	private JFXButton detailButton;
@@ -27,12 +28,11 @@ public class GigListingController {
 	@FXML
 	private Label freelancerAliasLabel;
 	
-	private Freelancer freelancer;
+	private Freelancer freelancer; // Needed for navigating to freelancer profile
 	private Gig gig;
 	
-	public void init(Freelancer freelancer, Gig gig) {
-		this.freelancer = freelancer;
-		this.gig = gig;
+	public void init(Listable listing) {
+		this.gig = (Gig) listing;
 		setLabels();
 	}
 	
@@ -49,7 +49,7 @@ public class GigListingController {
 	private void setLabels() {
 		gigNameLabel.setText(gig.getGigName());
 		gigDescription.setText(gig.getCategory());
-		freelancerAliasLabel.setText(freelancer.getAlias());
+		freelancerAliasLabel.setText(gig.getFreelancerAlias());
 		ratingLabel.setText(gig.getAvgRating());
 	}
 }
