@@ -10,29 +10,27 @@
 
 <AnchorPane prefHeight="491.0" prefWidth="720.0" stylesheets="@master.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
    <children>
-      <AnchorPane fx:id="listingPane" layoutY="51.0" maxHeight="440.0" prefHeight="440.0" prefWidth="720.0" style="-fx-background-color: #ededed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+      <AnchorPane fx:id="listingPane" layoutY="51.0" maxHeight="440.0" prefHeight="440.0" prefWidth="720.0" style="-fx-background-color: #ededed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <Pane prefHeight="22.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
          <children>
-            <Pane layoutX="260.0" layoutY="396.0" prefHeight="22.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
-               <children>
-                  <Label fx:id="pageNumLabel" layoutX="57.0" layoutY="4.0" text="0" textFill="#4da895">
-                     <font>
-                        <Font name="Segoe UI Italic" size="12.0" />
-                     </font>
-                  </Label>
-                  <JFXButton fx:id="rightButton" layoutX="96.0" onAction="#updateNext" style="-fx-background-color: #4da895;" text="&gt;" textFill="WHITE">
-                     <effect>
-                        <DropShadow blurType="GAUSSIAN" color="#0000007c" height="22.0" offsetX="5.0" offsetY="5.0" radius="10.5" width="22.0" />
-                     </effect>
-                  </JFXButton>
-                  <JFXButton fx:id="leftButton" onAction="#updatePrevious" style="-fx-background-color: #4da895;" text="&lt;" textFill="WHITE">
-                     <effect>
-                        <DropShadow blurType="GAUSSIAN" color="#0000007c" height="22.0" offsetX="5.0" offsetY="5.0" radius="10.5" width="22.0" />
-                     </effect>
-                  </JFXButton>
-               </children>
-            </Pane>
-         </children></AnchorPane>
-      <JFXButton fx:id="ConfirmButton" layoutX="393.0" layoutY="23.0" mnemonicParsing="false" onAction="#updateByCategory" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #4da895;" text="Filter" textFill="WHITE" AnchorPane.topAnchor="25.0">
+            <Label fx:id="pageNumLabel" layoutX="57.0" layoutY="4.0" text="0" textFill="#4da895">
+               <font>
+                  <Font name="Segoe UI Italic" size="12.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="rightButton" layoutX="96.0" onAction="#updateNext" style="-fx-background-color: #4da895;" text="&gt;" textFill="WHITE">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" color="#0000007c" height="22.0" offsetX="5.0" offsetY="5.0" radius="10.5" width="22.0" />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="leftButton" onAction="#updatePrevious" style="-fx-background-color: #4da895;" text="&lt;" textFill="WHITE">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" color="#0000007c" height="22.0" offsetX="5.0" offsetY="5.0" radius="10.5" width="22.0" />
+               </effect>
+            </JFXButton>
+         </children>
+      </Pane>
+      <JFXButton fx:id="ConfirmButton" layoutX="393.0" layoutY="23.0" mnemonicParsing="false" onAction="#updateByCategory" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #4da895;" text="Filter" textFill="WHITE" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="25.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

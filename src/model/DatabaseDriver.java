@@ -20,30 +20,40 @@ public class DatabaseDriver {
     USER
     PASS
      */
+    private static ArrayList<ArrayList<String>> resultToStringMatrix (ResultSet resultSet) throws SQLException {
+        ArrayList<ArrayList<String>> stringResult = new ArrayList<ArrayList<String>>();
+        while ( resultSet.next() ) {
+            ArrayList<String> row = new ArrayList<String>();
+            int index = 1;
+            while (true) {
+                String column = resultSet.getString(index);
+                index++;
+                row.add(column);
+                if (index > resultSet.getMetaData().getColumnCount()) {
+                    break;
+                }
+                // row.add(column);
+            }
+            stringResult.add(row);
+        }
+        return stringResult;
+    }
 
     public static ArrayList<ArrayList<String>> executeQuery(String query) {
         try {
+            ArrayList<ArrayList<String>> stringResult = new ArrayList<>();
             Connection connection = establishConnection();
-            Statement statement = connection.createStatement();
-            System.out.println(query);
-            ResultSet resultSet = statement.executeQuery(query);
-            ArrayList<ArrayList<String>> stringResult = new ArrayList<ArrayList<String>>();
-            while ( resultSet.next() ) {
-                ArrayList<String> row = new ArrayList<String>();
-                int index = 1;
-                while (true) {
-                    String column = resultSet.getString(index);
-                    index++;
-                    row.add(column);
-                    if (index > resultSet.getMetaData().getColumnCount()) {
-                        break;
-                    }
-                   // row.add(column);
-                }
-                stringResult.add(row);
+            connection.setAutoCommit(false);
+            try {
+                Statement statement = connection.createStatement();
+                System.out.println(query);
+                ResultSet resultSet = statement.executeQuery(query);
+                stringResult = resultToStringMatrix(resultSet);
+                resultSet.close();
+                statement.close();
+            } catch (Exception e) {
+                connection.rollback();
             }
-            resultSet.close();
-            statement.close();
             connection.close();
             return stringResult;
         } catch ( Exception e ) {
@@ -57,12 +67,17 @@ public class DatabaseDriver {
     public static void executeUpdate (String query) {
         try {
             Connection connection = establishConnection();
-            Statement statement = connection.createStatement();
-           // StringBuilder query = buildInsertQuery(tableName, tableColNames, insertData);
-            System.out.println(query);
-            statement.executeUpdate(query);
-            statement.close();
-            connection.commit();
+            connection.setAutoCommit(false);
+            try {
+                Statement statement = connection.createStatement();
+                // StringBuilder query = buildInsertQuery(tableName, tableColNames, insertData);
+                System.out.println(query);
+                statement.executeUpdate(query);
+                statement.close();
+                connection.commit();
+            } catch (Exception e) {
+                connection.rollback();
+            }
             connection.close();
             //return true;
         } catch (Exception e) {

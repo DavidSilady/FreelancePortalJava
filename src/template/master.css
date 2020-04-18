@@ -16,10 +16,21 @@ scroll-pane .scroll-bar:vertical {
 }
 
 .label {
-    -fx-text-fill: #ffab91;
+    -fx-text-fill: #ff8a65;
     -fx-color-label-visible: #ffab91;
 }
+/*
+.h1 {
+    -fx-font: 18px;
+}
 
+.h2 {
+    -fx-font: 16px;
+}
+.h3 {
+    -fx-font: 14px;
+}
+*/
 .white_text {
     -fx-text-fill: #ffffff;
     -fx-color-label-visible: #ffffff;

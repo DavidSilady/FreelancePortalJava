@@ -2,11 +2,13 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.Listable;
 
+import java.text.ParsePosition;
 import java.util.ArrayList;
 
 public class ListingContainer {
@@ -45,7 +47,8 @@ public class ListingContainer {
 			listingPanes.add(listingPane);
 		}
 		
-		VBox listingBox = new VBox();
+		VBox listingBox = new VBox(5);
+		listingBox.setAlignment(Pos.CENTER);
 		listingBox.maxHeight(2160);
 		listingBox.getChildren().addAll(listingPanes);
 		System.out.print("\n" + listingPanes.size());
