@@ -20,7 +20,7 @@ public class UserMenuController {
     private JFXButton BrowseGigsButton;
 
     @FXML
-    private JFXButton ExitButton;
+    private JFXButton BrowseFreelancersButton;
 
     @FXML
     private Label userNameLabel;
@@ -51,11 +51,6 @@ public class UserMenuController {
     }
 
     @FXML
-    void exitProgram(ActionEvent event) {
-        System.exit(0);
-    }
-
-    @FXML
     void goToBrowseGigs(ActionEvent event) throws Exception {
         SceneManager sceneManager = new SceneManager();
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "browseGigs");
@@ -67,5 +62,12 @@ public class UserMenuController {
         SceneManager sceneManager = new SceneManager();
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "pastPurchases");
         ((PastPurchasesController) fxmlLoader.getController()).init(getCurrentUser());
+    }
+
+    @FXML
+    void goToBrowseFreelancers(ActionEvent event) throws Exception {
+        SceneManager sceneManager = new SceneManager();
+        FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "browseFreelancers");
+        ((BrowseFreelancersController) fxmlLoader.getController()).init(getCurrentUser());
     }
 }

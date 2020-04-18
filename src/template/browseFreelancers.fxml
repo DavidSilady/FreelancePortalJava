@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="522.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseFreelancersController">
+   <children>
+      <TableView fx:id="FreelancersTableView" layoutX="34.0" layoutY="77.0" prefHeight="404.0" prefWidth="643.0">
+        <columns>
+          <TableColumn fx:id="FreelancerTableColumn" prefWidth="367.0" text="Freelancer" />
+          <TableColumn fx:id="AverageRatingTableColumn" prefWidth="236.0" text="Average Gig Rating" />
+        </columns>
+      </TableView>
+      <Label fx:id="label1" layoutX="83.0" layoutY="23.0" text="This table shows freelancers whose gigs are best reviewed">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -12,9 +12,22 @@ public class Freelancer extends User {
     private String alias;
     private String description;
     ArrayList<String> languages;
+    private float averageGigRating;
 
     public String getDescription(){ return this.description;}
     public ArrayList<String> getLanguages() { return this.languages;}
+
+    public String getAlias(){
+        return alias;
+    }
+    public String getRatingAsString(){
+        return String.valueOf(averageGigRating);
+    }
+
+    public Freelancer(String alias, float averageGigRating){
+        this.alias = alias;
+        this.averageGigRating = averageGigRating;
+    }
 
     public Freelancer(User user) {
         super(user.getId(),
@@ -63,8 +76,8 @@ public class Freelancer extends User {
     }
 /// _________________________________________________________________________________________LANGUAGES__________________________________________________________
     public void load_my_languages() {
-        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT language_name FROM freelancer_languages AS fl INNER JOIN languages AS l ON fl.language_id = l.id" +
-                "WHERE fl.freelancer_id = " + this.freelancerID + " ORDER BY language_name");
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT l.language_name FROM freelancer_languages AS fl INNER JOIN languages AS l ON fl.language_id = l.id " +
+                "WHERE fl.freelancer_id = " + this.freelancerID + " ORDER BY l.language_name");
         ArrayList<String> new_languages = new ArrayList<String>();
         for (ArrayList<String> row : result) {
             new_languages.add(row.get(0));
