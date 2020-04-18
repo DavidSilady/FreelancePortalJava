@@ -10,7 +10,7 @@
    <children>
       <JFXButton fx:id="detailButton" layoutX="462.6" layoutY="55.6" onAction="#showGigDetail" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #4da895;" text="Detail" textFill="WHITE" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="35.0" />
       <JFXButton fx:id="freelancerProfileButton" layoutX="462.6" layoutY="95.6" onAction="#showFreelancerProfile" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #4da895;" text="Profile" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="35.0" />
-      <Pane layoutY="159.0" prefHeight="0.5" style="-fx-background-color: #4da895;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+      <Pane layoutY="159.0" prefHeight="0.5" style="-fx-background-color: #4da895;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Label fx:id="gigNameLabel" layoutX="24.0" layoutY="14.0" text="Gig Name" textFill="#4da895" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font name="Segoe UI Light" size="22.0" />

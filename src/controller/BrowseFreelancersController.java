@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,7 +33,7 @@ public class BrowseFreelancersController {
         this.currentUser = user;
         FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getAlias()));
         AverageRatingTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getRatingAsString()));
-        ArrayList<Freelancer> freelancers = currentUser.loadBestReviewedFreelancers(10);
-        // FreelancersTableView.setItems(freelancers);
+        ObservableList<Freelancer> freelancers = currentUser.loadBestReviewedFreelancers(10);
+        FreelancersTableView.setItems(freelancers);
     }
 }

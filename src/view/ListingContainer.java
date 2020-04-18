@@ -52,7 +52,7 @@ public class ListingContainer {
 			listingPanes.add(listingPane);
 		}
 		
-		VBox listingBox = new VBox(5);
+		VBox listingBox = new VBox(10);
 		
 		listingBox.maxHeight(2160);
 		listingBox.getChildren().addAll(listingPanes);
