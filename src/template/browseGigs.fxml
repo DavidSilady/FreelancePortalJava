@@ -8,29 +8,41 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="491.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
+<AnchorPane prefHeight="491.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
    <children>
-      <TableView fx:id="GigsTableView" layoutY="-1.0" prefHeight="491.0" prefWidth="559.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
+      <TableView fx:id="GigsTableView" layoutY="-1.0" prefHeight="444.0" prefWidth="559.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="-1.0">
         <columns>
           <TableColumn fx:id="GigNameTableColumn" minWidth="3.20001220703125" prefWidth="199.0" text="Gig name" />
             <TableColumn fx:id="FreelancerTableColumn" minWidth="0.0" prefWidth="177.0" text="Freelancer" />
             <TableColumn fx:id="CategoryTableColumn" minWidth="0.0" prefWidth="182.0" text="Category" />
         </columns>
       </TableView>
-      <JFXButton fx:id="PurchaseSelectedButton" layoutX="564.0" layoutY="3.0" mnemonicParsing="false" onAction="#purchaseSelected" style="-fx-background-color: #4da895;" text="Purchase Selected" textFill="WHITE">
+      <JFXButton fx:id="PurchaseSelectedButton" layoutX="585.0" layoutY="28.0" mnemonicParsing="false" onAction="#purchaseSelected" prefHeight="38.0" prefWidth="131.0" style="-fx-background-color: #4da895;" text="Purchase Selected" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="12.0" />
          </font></JFXButton>
-      <ChoiceBox fx:id="CategoryChoiceBox" layoutX="568.0" layoutY="173.0" prefWidth="150.0" />
-      <Label fx:id="label1" layoutX="570.0" layoutY="146.0" text="Choose category:">
+      <ChoiceBox fx:id="CategoryChoiceBox" layoutX="587.0" layoutY="173.0" prefHeight="26.0" prefWidth="131.0" />
+      <Label fx:id="label1" layoutX="587.0" layoutY="145.0" prefHeight="27.0" prefWidth="131.0" text="Choose category:">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="ConfirmButton" layoutX="568.0" layoutY="109.0" mnemonicParsing="false" onAction="#updateTable" style="-fx-background-color: #4da895;" text="Confirm category" textFill="WHITE">
+      <JFXButton fx:id="ConfirmButton" layoutX="585.0" layoutY="107.0" mnemonicParsing="false" onAction="#updateByCategory" prefHeight="38.0" prefWidth="131.0" style="-fx-background-color: #4da895;" text="Confirm category" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
+      <Label layoutX="286.0" layoutY="441.0" text="Page" textFill="#4da895">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="pageNumLabel" layoutX="296.0" layoutY="461.0" text="0" textFill="#4da895">
+         <font>
+            <Font name="Segoe UI Italic" size="12.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="rightButton" layoutX="320.0" layoutY="450.0" onAction="#updateNext" style="-fx-background-color: #4da895;" text="&gt;" textFill="WHITE" />
+      <JFXButton fx:id="leftButton" layoutX="255.0" layoutY="450.0" onAction="#updatePrevious" style="-fx-background-color: #4da895;" text="&lt;" textFill="WHITE" />
    </children>
 </AnchorPane>
