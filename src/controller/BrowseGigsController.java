@@ -59,7 +59,7 @@ public class BrowseGigsController {
         GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
         FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getFreelancerAlias()));
         CategoryTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getCategory()));
-        ObservableList<Gig> gigs = currentUser.loadAllGigs();
+        ObservableList<Gig> gigs = currentUser.loadAllGigs(0);
         GigsTableView.setItems(gigs);
     }
 }
