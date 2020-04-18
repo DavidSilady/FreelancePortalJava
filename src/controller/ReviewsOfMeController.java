@@ -53,6 +53,6 @@ public class ReviewsOfMeController {
         GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
         RatingTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getRatingAsString()));
         ObservableList<Review> reviews = currentFreelancer.loadMyReviews();
-        ReviewTableView.getItems().addAll(reviews);
+        ReviewTableView.setItems(reviews);
     }
 }

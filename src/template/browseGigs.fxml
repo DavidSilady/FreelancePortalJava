@@ -10,23 +10,24 @@
 
 <AnchorPane prefHeight="491.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
    <children>
-      <TableView fx:id="GigsTableView" layoutY="-1.0" prefHeight="526.0" prefWidth="411.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
+      <TableView fx:id="GigsTableView" layoutY="-1.0" prefHeight="491.0" prefWidth="559.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
         <columns>
-          <TableColumn fx:id="GigNameTableColumn" minWidth="3.20001220703125" prefWidth="198.99998474121094" text="Gig name" />
-            <TableColumn fx:id="FreelancerTableColumn" minWidth="0.0" prefWidth="213.0" text="Freelancer" />
+          <TableColumn fx:id="GigNameTableColumn" minWidth="3.20001220703125" prefWidth="199.0" text="Gig name" />
+            <TableColumn fx:id="FreelancerTableColumn" minWidth="0.0" prefWidth="177.0" text="Freelancer" />
+            <TableColumn fx:id="CategoryTableColumn" minWidth="0.0" prefWidth="182.0" text="Category" />
         </columns>
       </TableView>
-      <JFXButton fx:id="PurchaseSelectedButton" layoutX="489.0" layoutY="358.0" mnemonicParsing="false" onAction="#purchaseSelected" style="-fx-background-color: #4da895;" text="Purchase Selected" textFill="WHITE">
+      <JFXButton fx:id="PurchaseSelectedButton" layoutX="564.0" layoutY="3.0" mnemonicParsing="false" onAction="#purchaseSelected" style="-fx-background-color: #4da895;" text="Purchase Selected" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></JFXButton>
-      <ChoiceBox fx:id="CategoryChoiceBox" layoutX="444.0" layoutY="80.0" prefWidth="150.0" />
-      <Label fx:id="label1" layoutX="446.0" layoutY="35.0" text="Choose category:">
+      <ChoiceBox fx:id="CategoryChoiceBox" layoutX="568.0" layoutY="173.0" prefWidth="150.0" />
+      <Label fx:id="label1" layoutX="570.0" layoutY="146.0" text="Choose category:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="ConfirmButton" layoutX="616.0" layoutY="77.0" mnemonicParsing="false" onAction="#updateTable" style="-fx-background-color: #4da895;" text="Confirm" textFill="WHITE">
+      <JFXButton fx:id="ConfirmButton" layoutX="568.0" layoutY="109.0" mnemonicParsing="false" onAction="#updateTable" style="-fx-background-color: #4da895;" text="Confirm category" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
