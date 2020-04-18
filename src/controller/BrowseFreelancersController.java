@@ -10,6 +10,8 @@ import model.Freelancer;
 import model.Gig;
 import model.User;
 
+import java.util.ArrayList;
+
 public class BrowseFreelancersController {
 
     @FXML
@@ -30,7 +32,7 @@ public class BrowseFreelancersController {
         this.currentUser = user;
         FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getAlias()));
         AverageRatingTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getRatingAsString()));
-        ObservableList<Freelancer> freelancers = currentUser.loadBestReviewedFreelancers(10);
-        FreelancersTableView.setItems(freelancers);
+        ArrayList<Freelancer> freelancers = currentUser.loadBestReviewedFreelancers(10);
+        // FreelancersTableView.setItems(freelancers);
     }
 }

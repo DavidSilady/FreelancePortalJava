@@ -5,26 +5,20 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import model.Gig;
+import model.Listable;
 import model.User;
+import view.SceneManager;
+
+import java.util.ArrayList;
 
 public class BrowseGigsController {
-
-    @FXML
-    private TableView<Gig> GigsTableView;
-
-    @FXML
-    private TableColumn<Gig, String> GigNameTableColumn;
-
-    @FXML
-    private TableColumn<Gig, String> FreelancerTableColumn;
-
-    @FXML
-    private TableColumn<Gig, String> CategoryTableColumn;
 
     @FXML
     private JFXButton PurchaseSelectedButton;
@@ -50,6 +44,9 @@ public class BrowseGigsController {
     
     @FXML
     private JFXButton leftButton;
+    
+    @FXML
+    private AnchorPane listingPane;
 
     @FXML
     void purchaseSelected(ActionEvent event) {
@@ -57,14 +54,7 @@ public class BrowseGigsController {
     }
     
     private void updateGigTable() {
-        if ( CategoryChoiceBox.getSelectionModel().isEmpty()) {
-            ObservableList<Gig> gigs = currentUser.loadAllGigs(pageNum);
-            GigsTableView.setItems(gigs);
-        } else {
-            String category = CategoryChoiceBox.getValue();
-            ObservableList<Gig> gigs = currentUser.findGigByCategory(category, pageNum);
-            GigsTableView.setItems(gigs);
-        }
+    
     }
     
     @FXML
@@ -91,19 +81,18 @@ public class BrowseGigsController {
         pageNumLabel.setText(String.valueOf(pageNum));
         String category = CategoryChoiceBox.getValue();
         
-        ObservableList<Gig> gigs = currentUser.findGigByCategory(category, pageNum);
-        GigsTableView.setItems(gigs);
+        ArrayList<Gig> gigs = currentUser.findGigByCategory(category, pageNum);
     }
 
-    public void init(User currentUser){
+    public void init(User currentUser) throws Exception {
         pageNum = 0;
         pageNumLabel.setText(String.valueOf(pageNum));
         this.currentUser = currentUser;
         CategoryChoiceBox.getItems().addAll(currentUser.getAllCategories());
-        GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
-        FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getFreelancerAlias()));
-        CategoryTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getCategory()));
-        ObservableList<Gig> gigs = currentUser.loadAllGigs(pageNum);
-        GigsTableView.setItems(gigs);
+        ArrayList<Listable> gigs = currentUser.loadAllGigs(pageNum);
+        SceneManager sceneManager = new SceneManager();
+        FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, "listingContainer");
+        ListingContainerController controller = fxmlLoader.getController();
+        controller.init(gigs);
     }
 }

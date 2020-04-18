@@ -19,6 +19,9 @@ public class ListingContainerController {
 	private AnchorPane anchorPane;
 	
 	@FXML
+	private AnchorPane scrollPaneChild;
+	
+	@FXML
 	private ArrayList<AnchorPane> listingPanes = new ArrayList<>();
 	
 	// private ArrayList<Listable> listableArray = new ArrayList<>();
@@ -30,10 +33,11 @@ public class ListingContainerController {
 	}
 	
 	private void updateListing(ArrayList<Listable> listableArray) throws Exception {
-		anchorPane.getChildren().clear();
+		scrollPaneChild.getChildren().clear();
 		listingPanes.clear();
-		
+		int index = 0;
 		for (Listable listing : listableArray) {
+			System.out.print(index++ + " ");
 			AnchorPane listingPane = new AnchorPane();
 			SceneManager sceneManager = new SceneManager();
 			FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, listing.getListablePaneName());
@@ -43,8 +47,12 @@ public class ListingContainerController {
 		}
 		
 		VBox listingBox = new VBox();
+		listingBox.maxHeight(2160);
 		listingBox.getChildren().addAll(listingPanes);
-		anchorPane.getChildren().add(listingBox);
+		System.out.print("\n" + listingPanes.size());
+		System.out.print("\n" + listingBox.getChildren().size());
+		scrollPaneChild.getChildren().add(listingBox);
+		//anchorPane.getChildren().add(listingBox);
 	}
 }
 

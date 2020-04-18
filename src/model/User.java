@@ -1,7 +1,7 @@
 package model;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
 
 import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
@@ -142,11 +142,11 @@ public class User {
         return categories;
     }
 
-    public ObservableList<Gig> findGigByCategory(String category, int page) {
+    public ArrayList<Gig> findGigByCategory(String category, int page) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
                 " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
                 " WHERE category_name = '" + category + "' ORDER BY gig_name LIMIT 16 OFFSET " + page * 16);
-        ObservableList<Gig> gigs = FXCollections.observableArrayList();
+        ArrayList<Gig> gigs = new ArrayList<>();
         for (ArrayList<String> row : result) {
             String temp_id = row.get(0);
             String temp_gigName = row.get(1);
@@ -158,11 +158,11 @@ public class User {
         return gigs;
     }
 
-    public ObservableList<Gig> loadAllGigs(int page) {
+    public ArrayList<Listable> loadAllGigs(int page) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
                 " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id ORDER BY gig_name " +
                 "limit 16 offset " + page * 16);
-        ObservableList<Gig> gigs = FXCollections.observableArrayList();
+        ArrayList<Listable> gigs = new ArrayList<>();
         for (ArrayList<String> row : result) {
             String temp_id = row.get(0);
             String temp_gigName = row.get(1);
@@ -174,7 +174,7 @@ public class User {
         return gigs;
     }
 
-    public ObservableList<Freelancer> loadBestReviewedFreelancers(int quantity) {
+    public ArrayList<Freelancer> loadBestReviewedFreelancers(int quantity) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(
                 "SELECT alias,AVG(rating)  as average_rating FROM freelancers " +
                         "INNER JOIN gigs ON freelancers.freelance_id = gigs.freelancer_id " +
@@ -184,7 +184,7 @@ public class User {
                         "ORDER BY average_rating DESC " +
                         "LIMIT " + quantity);
         
-        ObservableList<Freelancer> freelancers = FXCollections.observableArrayList();
+        ArrayList<Freelancer> freelancers = new ArrayList<>();
         for (ArrayList<String> row : result) {
             String temp_alias = row.get(0);
             String temp_avgRating = row.get(1);
