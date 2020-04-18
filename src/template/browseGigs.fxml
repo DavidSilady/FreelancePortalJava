@@ -11,7 +11,7 @@
 <AnchorPane prefHeight="491.0" prefWidth="720.0" stylesheets="@master.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
    <children>
       <AnchorPane fx:id="listingPane" layoutY="51.0" maxHeight="440.0" prefHeight="440.0" prefWidth="720.0" style="-fx-background-color: #ededed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
-      <Pane prefHeight="22.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+      <Pane maxWidth="120.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="300.0">
          <children>
             <Label fx:id="pageNumLabel" layoutX="57.0" layoutY="4.0" text="0" textFill="#4da895">
                <font>

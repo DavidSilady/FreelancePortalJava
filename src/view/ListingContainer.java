@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Listable;
 
@@ -12,6 +13,9 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 
 public class ListingContainer {
+	
+	@FXML
+	private HBox scrollHBox;
 	
 	@FXML
 	private ScrollPane scrollPane;
@@ -34,7 +38,8 @@ public class ListingContainer {
 	}
 	
 	public void updateListing(ArrayList<Listable> listableArray) throws Exception {
-		scrollPaneChild.getChildren().clear();
+		// scrollPaneChild.getChildren().clear();
+		scrollHBox.getChildren().clear();
 		listingPanes.clear();
 		int index = 0;
 		for (Listable listing : listableArray) {
@@ -48,12 +53,15 @@ public class ListingContainer {
 		}
 		
 		VBox listingBox = new VBox(5);
-		listingBox.setAlignment(Pos.CENTER);
+		
 		listingBox.maxHeight(2160);
 		listingBox.getChildren().addAll(listingPanes);
 		System.out.print("\n" + listingPanes.size());
 		System.out.print("\n" + listingBox.getChildren().size());
-		scrollPaneChild.getChildren().add(listingBox);
+		// scrollPaneChild.getChildren().add(listingBox);
+		scrollHBox.getChildren().addAll(listingBox);
+		listingBox.setAlignment(Pos.CENTER);
+		scrollHBox.setAlignment(Pos.CENTER);
 		scrollPane.setVvalue(0);
 		//anchorPane.getChildren().add(listingBox);
 	}
