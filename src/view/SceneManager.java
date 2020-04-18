@@ -38,9 +38,20 @@ public class SceneManager {
 		Parent root = (Parent) fxmlLoader.load();
 		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
-		//stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Freelance Portal | " + sceneName);
 		stage.setScene(new Scene(root, 1280, 720));
+		stage.show();
+		return fxmlLoader;
+	}
+	
+	public FXMLLoader showWindow (Event actionEvent, String sceneName, int width, int height) throws Exception {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + sceneName +".fxml"));
+		Parent root = (Parent) fxmlLoader.load();
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		//stage.initStyle(StageStyle.UNDECORATED);
+		stage.setTitle("Freelance Portal | " + sceneName);
+		stage.setScene(new Scene(root, width, height));
 		stage.show();
 		return fxmlLoader;
 	}
