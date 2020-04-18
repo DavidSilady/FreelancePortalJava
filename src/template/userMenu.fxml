@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="400.0" minWidth="230.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserMenuController">
+<AnchorPane stylesheets="@master.css" minHeight="400.0" minWidth="230.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserMenuController">
    <children>
       <Label fx:id="userNameLabel" prefHeight="22.0" prefWidth="203.0" text="User Name" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <VBox layoutX="5.0" layoutY="372.0" prefHeight="312.0" prefWidth="236.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-5.0" AnchorPane.topAnchor="50.0">

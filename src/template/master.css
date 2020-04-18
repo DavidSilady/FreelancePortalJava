@@ -2,3 +2,5 @@ scroll-pane .scroll-bar:vertical {
     -fx-unit-increment: 100;
     -fx-block-increment: 200;
 }
+
+.root { -fx-focus-color: transparent; }

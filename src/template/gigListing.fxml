@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="137.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GigListingController">
+<AnchorPane stylesheets="@master.css" prefHeight="137.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GigListingController">
    <children>
       <JFXButton fx:id="detailButton" layoutX="483.0" layoutY="55.0" onAction="#showGigDetail" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #4da895;" text="Detail" textFill="WHITE" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="15.0" />
       <JFXButton fx:id="freelancerProfileButton" layoutX="483.0" layoutY="96.0" onAction="#showFreelancerProfile" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #4da895;" text="Profile" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />

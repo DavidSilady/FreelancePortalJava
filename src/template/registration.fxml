@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootAnchorPane" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrationController">
+<AnchorPane stylesheets="@master.css" fx:id="rootAnchorPane" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrationController">
    <children>
       <JFXButton fx:id="submitButton" layoutX="135.0" layoutY="468.0" onAction="#submitForm" prefHeight="26.0" prefWidth="127.0" ripplerFill="WHITE" style="-fx-background-color: #e8b45d;" text="Submit" textFill="WHITE">
          <font>

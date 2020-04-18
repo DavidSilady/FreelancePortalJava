@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="428.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WriteReviewController">
+<AnchorPane stylesheets="@master.css" prefHeight="428.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WriteReviewController">
    <children>
       <Label fx:id="ReviewNameLabel" layoutX="145.0" layoutY="37.0" text="Review name: XXXX" />
       <Spinner layoutX="117.0" layoutY="107.0" />

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="491.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
+<AnchorPane stylesheets="@master.css" prefHeight="491.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BrowseGigsController">
    <children>
       <AnchorPane fx:id="listingPane" maxHeight="400.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <JFXButton fx:id="PurchaseSelectedButton" layoutX="600.0" layoutY="14.0" mnemonicParsing="false" onAction="#purchaseSelected" prefHeight="38.0" prefWidth="131.0" style="-fx-background-color: #4da895;" text="Purchase Selected" textFill="WHITE">
