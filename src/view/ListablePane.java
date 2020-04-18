@@ -1,7 +1,7 @@
-package controller;
+package view;
 
 import model.Listable;
 
-public interface ListablePaneController {
+public interface ListablePane {
 	public void init(Listable listing);
 }

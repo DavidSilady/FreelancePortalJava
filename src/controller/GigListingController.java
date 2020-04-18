@@ -7,8 +7,9 @@ import javafx.scene.control.Label;
 import model.Freelancer;
 import model.Gig;
 import model.Listable;
+import view.ListablePane;
 
-public class GigListingController implements ListablePaneController {
+public class GigListingController implements ListablePane {
 	
 	@FXML
 	private JFXButton detailButton;

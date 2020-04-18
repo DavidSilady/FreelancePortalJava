@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -6,11 +6,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.Listable;
-import view.SceneManager;
 
 import java.util.ArrayList;
 
-public class ListingContainerController {
+public class ListingContainer {
 	
 	@FXML
 	private ScrollPane scrollPane;
@@ -41,7 +40,7 @@ public class ListingContainerController {
 			AnchorPane listingPane = new AnchorPane();
 			SceneManager sceneManager = new SceneManager();
 			FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, listing.getListablePaneName());
-			ListablePaneController controller = fxmlLoader.getController();
+			ListablePane controller = fxmlLoader.getController();
 			controller.init(listing);
 			listingPanes.add(listingPane);
 		}

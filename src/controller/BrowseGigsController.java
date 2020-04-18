@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.Listable;
 import model.User;
+import view.ListingContainer;
 import view.SceneManager;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class BrowseGigsController {
     @FXML
     private AnchorPane listingPane;
     
-    private ListingContainerController listingController;
+    private ListingContainer listingController;
 
     @FXML
     void purchaseSelected(ActionEvent event) {
@@ -100,7 +101,7 @@ public class BrowseGigsController {
         ArrayList<Listable> gigs = currentUser.loadAllGigs(pageNum);
         SceneManager sceneManager = new SceneManager();
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, "listingContainer");
-        ListingContainerController controller = fxmlLoader.getController();
+        ListingContainer controller = fxmlLoader.getController();
         controller.init(gigs);
         listingController = controller;
     }
