@@ -2,17 +2,11 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-import model.Gig;
 import model.Listable;
 import model.User;
 import view.SceneManager;
@@ -20,12 +14,15 @@ import view.SceneManager;
 import java.util.ArrayList;
 
 public class BrowseGigsController {
-
+    
+    @FXML
+    private JFXComboBox<String> sortComboBox;
+    
     @FXML
     private JFXButton PurchaseSelectedButton;
 
     @FXML
-    private JFXComboBox<String> CategoryChoiceBox;
+    private JFXComboBox<String> categoryComboBox;
 
     @FXML
     private Label label1;
@@ -57,11 +54,11 @@ public class BrowseGigsController {
     }
     
     private void updateGigTable() throws Exception {
-        if ( CategoryChoiceBox.getSelectionModel().isEmpty()) {
+        if ( categoryComboBox.getSelectionModel().isEmpty()) {
             ArrayList<Listable> gigs = currentUser.loadAllGigs(pageNum);
             listingController.updateListing(gigs);
         } else {
-            String category = CategoryChoiceBox.getValue();
+            String category = categoryComboBox.getValue();
             ArrayList<Listable> gigs = currentUser.findGigByCategory(category, pageNum);
             listingController.updateListing(gigs);
         }
@@ -87,10 +84,10 @@ public class BrowseGigsController {
 
     @FXML
     void updateByCategory (ActionEvent event) throws Exception {
-        if ( CategoryChoiceBox.getSelectionModel().isEmpty()) return;
+        if ( categoryComboBox.getSelectionModel().isEmpty()) return;
         pageNum = 0;
         pageNumLabel.setText(String.valueOf(pageNum));
-        String category = CategoryChoiceBox.getValue();
+        String category = categoryComboBox.getValue();
         ArrayList<Listable> gigs = currentUser.findGigByCategory(category, pageNum);
         listingController.updateListing(gigs);
     }
@@ -99,7 +96,7 @@ public class BrowseGigsController {
         pageNum = 0;
         pageNumLabel.setText(String.valueOf(pageNum));
         this.currentUser = currentUser;
-        CategoryChoiceBox.getItems().addAll(currentUser.getAllCategories());
+        categoryComboBox.getItems().addAll(currentUser.getAllCategories());
         ArrayList<Listable> gigs = currentUser.loadAllGigs(pageNum);
         SceneManager sceneManager = new SceneManager();
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, "listingContainer");

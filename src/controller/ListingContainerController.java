@@ -52,6 +52,7 @@ public class ListingContainerController {
 		System.out.print("\n" + listingPanes.size());
 		System.out.print("\n" + listingBox.getChildren().size());
 		scrollPaneChild.getChildren().add(listingBox);
+		scrollPane.setVvalue(0);
 		//anchorPane.getChildren().add(listingBox);
 	}
 }
