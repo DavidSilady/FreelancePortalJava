@@ -29,5 +29,11 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </Label>
+      <Label layoutX="527.0" layoutY="21.0" text="Sold" textFill="#4da895" />
+      <Label fx:id="soldLabel" layoutX="551.0" layoutY="15.0" text="1" textFill="#4da895">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

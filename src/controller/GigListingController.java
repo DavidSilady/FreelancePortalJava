@@ -29,6 +29,9 @@ public class GigListingController implements ListablePane {
 	@FXML
 	private Label freelancerAliasLabel;
 	
+	@FXML
+	private Label soldLabel;
+	
 	private Freelancer freelancer; // Needed for navigating to freelancer profile
 	private Gig gig;
 	
@@ -48,6 +51,7 @@ public class GigListingController implements ListablePane {
 	}
 	
 	private void setLabels() {
+		soldLabel.setText(gig.getNumSold());
 		gigNameLabel.setText(gig.getGigName());
 		gigDescription.setText(gig.getCategory());
 		freelancerAliasLabel.setText(gig.getFreelancerAlias());

@@ -1,6 +1,9 @@
 package model;
 
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -174,7 +177,7 @@ public class User {
         return gigs;
     }
 
-    public ArrayList<Freelancer> loadBestReviewedFreelancers(int quantity) {
+    public ObservableList<Freelancer> loadBestReviewedFreelancers(int quantity) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(
                 "SELECT alias,AVG(rating)  as average_rating FROM freelancers " +
                         "INNER JOIN gigs ON freelancers.freelance_id = gigs.freelancer_id " +
@@ -184,7 +187,7 @@ public class User {
                         "ORDER BY average_rating DESC " +
                         "LIMIT " + quantity);
         
-        ArrayList<Freelancer> freelancers = new ArrayList<>();
+        ObservableList<Freelancer> freelancers = FXCollections.observableArrayList();;
         for (ArrayList<String> row : result) {
             String temp_alias = row.get(0);
             String temp_avgRating = row.get(1);

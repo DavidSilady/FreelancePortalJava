@@ -8,6 +8,8 @@ public class Gig implements Listable {
     private String category;
     private String gigName;
     private String freelancerAlias;
+    private int numSold;
+    private double avgRating;
 
     public Gig(int id, int freelancerID, String category, String gigName) {
         this.id = id;
@@ -22,11 +24,25 @@ public class Gig implements Listable {
         this.category = category;
         this.gigName = gigName;
         this.freelancerAlias = freelancerAlias;
+        this.numSold = 0;
+        this.avgRating = 1;
+    }
+    
+    public Gig(int id, int freelancerID, String category, String gigName, String freelancerAlias, int numSold, double avgRating){
+        this.id = id;
+        this.freelancerID = freelancerID;
+        this.category = category;
+        this.gigName = gigName;
+        this.freelancerAlias = freelancerAlias;
+        this.numSold = numSold;
+        this.avgRating = avgRating;
     }
 
     public Gig(String name,String category){
         this.gigName = name;
         this.category = category;
+        this.numSold = 0;
+        this.avgRating = 1;
     }
 
     public String getGigName() { return gigName; }
@@ -36,7 +52,10 @@ public class Gig implements Listable {
     public String getFreelancerAlias() { return freelancerAlias; }
     
     public String getAvgRating () {  // TBD
-        return "4.6";
+        return String.format("%.1f", avgRating);
+    }
+    public String getNumSold () {
+        return String.valueOf(this.numSold);
     }
     
     @Override
