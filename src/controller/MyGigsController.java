@@ -68,6 +68,6 @@ public class MyGigsController {
         GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
         CategoryTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getCategory()));
         ObservableList<Gig> gigs = currentUser.loadMyGigs();
-        GigTableView.getItems().addAll(gigs);
+        GigTableView.setItems(gigs);
     }
 }

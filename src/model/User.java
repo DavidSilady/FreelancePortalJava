@@ -157,16 +157,31 @@ public class User {
         return gigs;
     }
 
+    public ObservableList<Gig> loadAllGigs() {
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
+                " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id ORDER BY gig_name");
+        ObservableList<Gig> gigs = FXCollections.observableArrayList();
+        for (ArrayList<String> row : result) {
+            String temp_id = row.get(0);
+            String temp_gigName = row.get(1);
+            String temp_categoryName = row.get(2);
+            String temp_alias = row.get(3);
+            String temp_freelancerID = row.get(4);
+            gigs.add(new Gig(Integer.parseInt(temp_id), Integer.parseInt(temp_freelancerID), temp_categoryName, temp_gigName, temp_alias));
+        }
+        return gigs;
+    }
+
     public ObservableList<Freelancer> loadBestReviewedFreelancers(int howMany) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(
                 "SELECT alias,AVG(rating)  as average_rating FROM freelancers " +
-                        "INNER JOIN gigs ON freelancers.id = gigs.freelancer_id " +
+                        "INNER JOIN gigs ON freelancers.freelance_id = gigs.freelancer_id " +
                         "INNER JOIN reviews ON reviews.gig_id = gigs.id " +
                         "GROUP BY alias " +
                         "HAVING AVG(rating) > (SELECT AVG(reviews.rating) FROM reviews) " +
                         "ORDER BY average_rating DESC " +
                         "LIMIT " + howMany);
-
+        
         ObservableList<Freelancer> freelancers = FXCollections.observableArrayList();
         for (ArrayList<String> row : result) {
             String temp_alias = row.get(0);

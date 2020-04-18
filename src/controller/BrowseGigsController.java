@@ -24,6 +24,9 @@ public class BrowseGigsController {
     private TableColumn<Gig, String> FreelancerTableColumn;
 
     @FXML
+    private TableColumn<Gig, String> CategoryTableColumn;
+
+    @FXML
     private JFXButton PurchaseSelectedButton;
 
     @FXML
@@ -47,7 +50,7 @@ public class BrowseGigsController {
         if ( CategoryChoiceBox.getSelectionModel().isEmpty()) return;
         String category = CategoryChoiceBox.getValue();
         ObservableList<Gig> gigs = currentUser.findGigByCategory(category);
-        GigsTableView.getItems().addAll(gigs);
+        GigsTableView.setItems(gigs);
     }
 
     public void init(User currentUser){
@@ -55,5 +58,8 @@ public class BrowseGigsController {
         CategoryChoiceBox.getItems().addAll(currentUser.getAllCategories());
         GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
         FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getFreelancerAlias()));
+        CategoryTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getCategory()));
+        ObservableList<Gig> gigs = currentUser.loadAllGigs();
+        GigsTableView.setItems(gigs);
     }
 }

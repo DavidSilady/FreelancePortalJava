@@ -31,6 +31,6 @@ public class BrowseFreelancersController {
         FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getAlias()));
         AverageRatingTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getRatingAsString()));
         ObservableList<Freelancer> freelancers = currentUser.loadBestReviewedFreelancers(10);
-        FreelancersTableView.getItems().addAll(freelancers);
+        FreelancersTableView.setItems(freelancers);
     }
 }
