@@ -51,6 +51,7 @@ public class DatabaseDriver {
                 stringResult = resultToStringMatrix(resultSet);
                 resultSet.close();
                 statement.close();
+                connection.commit();
             } catch (Exception e) {
                 connection.rollback();
             }
