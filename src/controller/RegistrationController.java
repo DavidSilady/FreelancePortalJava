@@ -81,7 +81,12 @@ public class RegistrationController {
 		if (isFreelancer)
 			alias = aliasTextField.getText();
 		if (password.compareTo(confirmPasswordTextField.getText()) == 0) {
+			somethingWrongLabel.setVisible(false);
 			parseToDatabase(event, name, surname, mail, password, alias);
+		}
+		else {
+			somethingWrongLabel.setVisible(true);
+			somethingWrongLabel.setText("Passwords must match ");
 		}
 	}
 

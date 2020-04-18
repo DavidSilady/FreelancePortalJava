@@ -43,7 +43,7 @@ public class ListingContainer {
 		listingPanes.clear();
 		int index = 0;
 		for (Listable listing : listableArray) {
-			System.out.print(index++ + " ");
+			//System.out.print(index++ + " ");
 			AnchorPane listingPane = new AnchorPane();
 			SceneManager sceneManager = new SceneManager();
 			FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, listing.getListablePaneName());
@@ -56,8 +56,8 @@ public class ListingContainer {
 		
 		listingBox.maxHeight(2160);
 		listingBox.getChildren().addAll(listingPanes);
-		System.out.print("\n" + listingPanes.size());
-		System.out.print("\n" + listingBox.getChildren().size());
+		//System.out.print("\n" + listingPanes.size());
+		//System.out.print("\n" + listingBox.getChildren().size());
 		// scrollPaneChild.getChildren().add(listingBox);
 		scrollHBox.getChildren().addAll(listingBox);
 		listingBox.setAlignment(Pos.CENTER);

@@ -64,7 +64,7 @@ public class MyProfileController {
     void removeSelectedLanguage(ActionEvent event) {
         try {
             String to_remove = LanguagesListView.getSelectionModel().getSelectedItem().toString();
-            System.out.println(to_remove);
+            //System.out.println(to_remove);
             currentUser.deleteMyLanguage(to_remove);
             ObservableList<String> items = FXCollections.observableArrayList(currentUser.getLanguages());
             LanguagesListView.setItems(items);

@@ -39,7 +39,7 @@ public class LoginController {
 		String password = passwordTextField.getText();
 		User user = new User(mail,password);
 		if (user.verify()) {
-				System.out.println("user verified");
+				//System.out.println("user verified");
 				SceneManager sceneManager = new SceneManager();
 				FXMLLoader tempLoader = sceneManager.switchScene(event, "mainScreen");
 				MainScreenController mainScreenController = tempLoader.getController();
