@@ -243,9 +243,9 @@ public class BrowseGigsController {
     }
     
     private void fetchNumPages () {
-        String statement = "select count(*) from gigs g \n" +
-                "inner join freelancers f on g.freelancer_id = f.freelance_id \n" +
-                " inner join categories c on g.category_id = c.id \n" +
+        String statement = "SELECT COUNT(*) FROM gigs AS g \n" +
+                "INNER JOIN freelancers f ON g.freelancer_id = f.freelance_id \n" +
+                " INNER JOIN categories c ON g.category_id = c.id \n" +
                 "WHERE true \n" +
                 filterNameStatement + "\n" +
                 categoryConditionStatement;
@@ -253,7 +253,7 @@ public class BrowseGigsController {
     
         numResults = Integer.parseInt(stringNumEntries);
         numPages = (int) Math.ceil(numResults / 10.0);
-        System.out.println("Total entries: " + numResults + "Num pages: " + numPages);
+        //System.out.println("Total entries: " + numResults + "Num pages: " + numPages);
         updatePageCounter();
     }
 }
