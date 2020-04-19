@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -13,7 +14,7 @@
       <AnchorPane fx:id="listingPane" layoutY="51.0" maxHeight="440.0" prefHeight="440.0" prefWidth="720.0" style="-fx-background-color: #ededed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
       <Pane maxWidth="120.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="300.0">
          <children>
-            <JFXTextField fx:id="pageNumField" alignment="CENTER" focusColor="#ff8a65" maxHeight="22.0" onAction="#changePage" onInputMethodTextChanged="#changePage" prefHeight="9.0" prefWidth="120.0" promptText="Page" unFocusColor="#4da895" />
+            <JFXTextField fx:id="pageNumField" alignment="CENTER" focusColor="#ff8a65" maxHeight="22.0" onAction="#changePage" onKeyTyped="#checkValidity" prefHeight="9.0" prefWidth="120.0" promptText="Page" unFocusColor="#4da895" />
             <JFXButton fx:id="rightButton" layoutX="96.0" onAction="#updateNext" prefHeight="24.0" style="-fx-background-color: #4da895;" text="&gt;" textFill="WHITE">
                <effect>
                   <DropShadow blurType="GAUSSIAN" color="#0000007c" height="22.0" offsetX="5.0" offsetY="5.0" radius="10.5" width="22.0" />
@@ -39,5 +40,6 @@
          </font>
       </JFXButton>
       <JFXTextField fx:id="filterNameField" focusColor="#ff8a65" layoutX="315.0" layoutY="25.0" onAction="#filter" onKeyTyped="#updateFilter" prefHeight="23.0" prefWidth="141.0" promptText="Filter name" unFocusColor="#4da895" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="25.0" />
+      <Label fx:id="totalEntriesLabel" layoutX="14.0" layoutY="29.0" text="Total pages: 0" />
    </children>
 </AnchorPane>

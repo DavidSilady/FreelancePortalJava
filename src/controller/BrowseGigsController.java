@@ -52,11 +52,16 @@ public class BrowseGigsController {
     @FXML
     private JFXTextField filterNameField;
     
+    @FXML
+    private Label totalEntriesLabel;
+    
     private ListingContainer listingController;
 
     private String categoryConditionStatement;
     private String orderByStatement;
     private String filterNameStatement;
+    private int numPages;
+    private int numResults;
     
     @FXML
     void updateFilter(KeyEvent event) throws Exception {
@@ -77,9 +82,9 @@ public class BrowseGigsController {
         for (String word: splitString) {
             statement.append("LOWER(g.gig_name) LIKE LOWER('%").append(word);
             statement.append("%') OR LOWER(f.alias) LIKE LOWER('%").append(word).append("%')\n");
-            statement.append("OR ");
+            statement.append("AND ");
         }
-        statement.delete(statement.length() - 3, statement.length());
+        statement.delete(statement.length() - 5, statement.length());
         statement.append(")");
         return statement.toString();
     }
@@ -91,7 +96,18 @@ public class BrowseGigsController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (pageNum > numPages) pageNum = numPages;
+        if (pageNum < 1) pageNum = 1;
         updateGigTable();
+    }
+    
+    @FXML
+    void checkValidity(KeyEvent event) {
+        try {
+            Integer.parseInt(event.getCharacter());
+        } catch (Exception e) {
+            pageNumField.setText(pageNumField.getText().replace(event.getCharacter(), ""));
+        }
     }
     
     
@@ -102,7 +118,9 @@ public class BrowseGigsController {
         filterNameField.setText("");
         categoryConditionStatement = generateCategoryConditionStatement();
         orderByStatement = generateOrderByStatement();
+        filterNameStatement = generateFilterNameStatement();
         pageNum = 1;
+        fetchNumPages();
         updateGigTable();
     }
     
@@ -114,7 +132,8 @@ public class BrowseGigsController {
     @FXML
     void updateNext(ActionEvent event) throws Exception {
         pageNum += 1;
-        pageNumField.setText(String.valueOf(pageNum));
+        if (pageNum > numPages) pageNum = numPages;
+        updatePageCounter();
         updateGigTable();
     }
     
@@ -122,7 +141,7 @@ public class BrowseGigsController {
     void updatePrevious(ActionEvent event) throws Exception {
         pageNum -= 1;
         if (pageNum < 1) pageNum = 1;
-        pageNumField.setText(String.valueOf(pageNum));
+        updatePageCounter();
         updateGigTable();
     }
     
@@ -132,18 +151,19 @@ public class BrowseGigsController {
         categoryConditionStatement = generateCategoryConditionStatement();
         orderByStatement = generateOrderByStatement();
         pageNum = 1;
+        fetchNumPages();
         updateGigTable();
     }
 
     public void init(User currentUser) throws Exception {
         pageNum = 1;
-        pageNumField.setText(String.valueOf(pageNum));
         this.currentUser = currentUser;
         categoryComboBox.getItems().addAll(currentUser.getAllCategories());
         setupSortComboBox();
         categoryConditionStatement = generateCategoryConditionStatement();
         orderByStatement = generateOrderByStatement();
         filterNameStatement = "";
+        fetchNumPages();
         ArrayList<Listable> gigs = fetchGigs();
         SceneManager sceneManager = new SceneManager();
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, "listingContainer");
@@ -165,7 +185,7 @@ public class BrowseGigsController {
     //    "ORDER BY ratio DESC\n" +
     private String generateOrderByStatement () {
         String orderBy = sortComboBox.getValue();
-        System.out.print(orderBy);
+        // System.out.print(orderBy);
         if (orderBy.equals("Most Popular"))
             return "ORDER BY ratio DESC";
         if (orderBy.equals("Least Popular"))
@@ -215,5 +235,25 @@ public class BrowseGigsController {
                     ));
         }
         return gigs;
+    }
+    
+    private void updatePageCounter() {
+        pageNumField.setText(String.valueOf(pageNum));
+        totalEntriesLabel.setText("Pages: " + numPages + " | Results: " + numResults);
+    }
+    
+    private void fetchNumPages () {
+        String statement = "select count(*) from gigs g \n" +
+                "inner join freelancers f on g.freelancer_id = f.freelance_id \n" +
+                " inner join categories c on g.category_id = c.id \n" +
+                "WHERE true \n" +
+                filterNameStatement + "\n" +
+                categoryConditionStatement;
+        String stringNumEntries = Objects.requireNonNull(DatabaseDriver.executeQuery(statement)).get(0).get(0);
+    
+        numResults = Integer.parseInt(stringNumEntries);
+        numPages = (int) Math.ceil(numResults / 10.0);
+        System.out.println("Total entries: " + numResults + "Num pages: " + numPages);
+        updatePageCounter();
     }
 }
