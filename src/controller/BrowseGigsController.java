@@ -61,7 +61,7 @@ public class BrowseGigsController {
     @FXML
     void updateFilter(KeyEvent event) throws Exception {
         filterNameStatement = generateFilterNameStatement();
-        updateGigTable();
+        //updateGigTable();
     }
     /*
     where LOWER(alias) like LOWER('%va%')
@@ -73,13 +73,14 @@ public class BrowseGigsController {
         if (filterText.isEmpty())
             return "";
         String[] splitString = filterText.split("\\s+");
-        StringBuilder statement = new StringBuilder("WHERE ");
+        StringBuilder statement = new StringBuilder("AND (");
         for (String word: splitString) {
             statement.append("LOWER(g.gig_name) LIKE LOWER('%").append(word);
             statement.append("%') OR LOWER(f.alias) LIKE LOWER('%").append(word).append("%')\n");
             statement.append("OR ");
         }
         statement.delete(statement.length() - 3, statement.length());
+        statement.append(")");
         return statement.toString();
     }
     
@@ -98,6 +99,7 @@ public class BrowseGigsController {
     void reset(ActionEvent event) throws Exception {
         categoryComboBox.setValue("");
         sortComboBox.setValue("Most Popular");
+        filterNameField.setText("");
         categoryConditionStatement = generateCategoryConditionStatement();
         orderByStatement = generateOrderByStatement();
         pageNum = 1;
@@ -183,7 +185,7 @@ public class BrowseGigsController {
         if ( categoryComboBox.getSelectionModel().isEmpty())
             return "";
         String category = categoryComboBox.getValue();
-        return "WHERE c.category_name = '" + category + "'";
+        return "AND c.category_name = '" + category + "'";
     }
     
     private ArrayList<Listable> fetchGigs () {
@@ -193,6 +195,7 @@ public class BrowseGigsController {
                 "INNER JOIN freelancers f ON g.freelancer_id = f.freelance_id\n" +
                 "INNER JOIN reviews r ON g.id = r.gig_id\n" +
                 "INNER JOIN services s ON g.id = s.gig_id\n" +
+                "WHERE true \n" +
                 filterNameStatement +
                 categoryConditionStatement + "\n" +
                 "GROUP BY g.id, g.gig_name, c.category_name, f.freelance_id, f.alias\n" +
