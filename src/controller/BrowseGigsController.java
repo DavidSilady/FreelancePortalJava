@@ -156,6 +156,7 @@ public class BrowseGigsController {
     }
 
     public void init(User currentUser) throws Exception {
+        filterNameField.requestFocus();
         pageNum = 1;
         this.currentUser = currentUser;
         categoryComboBox.getItems().addAll(currentUser.getAllCategories());
@@ -185,20 +186,20 @@ public class BrowseGigsController {
     //    "ORDER BY ratio DESC\n" +
     private String generateOrderByStatement () {
         String orderBy = sortComboBox.getValue();
-        // System.out.print(orderBy);
+        // System.out.println(orderBy);
         if (orderBy.equals("Most Popular"))
-            return "ORDER BY ratio DESC";
+            return "ORDER BY ratio DESC NULLS LAST";
         if (orderBy.equals("Least Popular"))
-            return "ORDER BY ratio";
+            return "ORDER BY ratio NULLS FIRST";
         if (orderBy.equals("Best Rating"))
-            return "ORDER BY avg_rating DESC";
+            return "ORDER BY avg_rating DESC NULLS LAST";
         if (orderBy.equals("Worst Rating"))
-            return "ORDER BY avg_rating";
+            return "ORDER BY avg_rating NULLS FIRST";
         if (orderBy.equals("Most Sold"))
-            return "ORDER BY num_sold DESC";
+            return "ORDER BY num_sold DESC NULLS LAST";
         if (orderBy.equals("Least Sold"))
-            return "ORDER BY num_sold";
-        return "ORDER BY ratio DESC";
+            return "ORDER BY num_sold NULLS FIRST";
+        return "ORDER BY ratio DESC NULLS LAST";
     }
     
     private String generateCategoryConditionStatement () {
@@ -213,8 +214,8 @@ public class BrowseGigsController {
                 "COUNT(s.id) AS num_sold, AVG(r.rating) AS avg_rating, AVG(r.rating) * COUNT(s.id) AS ratio FROM gigs AS g\n" +
                 "INNER JOIN categories c ON g.category_id = c.id\n" +
                 "INNER JOIN freelancers f ON g.freelancer_id = f.freelance_id\n" +
-                "INNER JOIN reviews r ON g.id = r.gig_id\n" +
-                "INNER JOIN services s ON g.id = s.gig_id\n" +
+                "LEFT JOIN reviews r ON g.id = r.gig_id\n" +
+                "LEFT JOIN services s ON g.id = s.gig_id\n" +
                 "WHERE true \n" +
                 filterNameStatement +
                 categoryConditionStatement + "\n" +
@@ -224,6 +225,10 @@ public class BrowseGigsController {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(query);
         ArrayList<Listable> gigs = new ArrayList<>();
         for (ArrayList<String> row: Objects.requireNonNull(result)) {
+            Double avgRating = 0.0;
+            try {
+                avgRating = Double.parseDouble(row.get(6));
+            } catch (Exception ignored){ }
             gigs.add(new Gig(
                     Integer.parseInt(row.get(0)),
                     Integer.parseInt(row.get(1)),
@@ -231,7 +236,7 @@ public class BrowseGigsController {
                     row.get(3),
                     row.get(4),
                     Integer.parseInt(row.get(5)),
-                    Double.parseDouble(row.get(6))
+                    avgRating
                     ));
         }
         return gigs;
@@ -239,13 +244,13 @@ public class BrowseGigsController {
     
     private void updatePageCounter() {
         pageNumField.setText(String.valueOf(pageNum));
-        totalEntriesLabel.setText("Pages: " + numPages + " | Results: " + numResults);
+       totalEntriesLabel.setText("Pages: " + numPages + " | Results: " + numResults);
     }
     
     private void fetchNumPages () {
-        String statement = "select count(*) from gigs g \n" +
-                "inner join freelancers f on g.freelancer_id = f.freelance_id \n" +
-                " inner join categories c on g.category_id = c.id \n" +
+        String statement = "SELECT count(g.id) from gigs g \n" +
+                "INNER JOIN freelancers f on f.freelance_id = g.freelancer_id\n" +
+                "INNER JOIN categories c on c.id = g.category_id\n" +
                 "WHERE true \n" +
                 filterNameStatement + "\n" +
                 categoryConditionStatement;

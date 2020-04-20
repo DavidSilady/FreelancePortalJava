@@ -40,6 +40,6 @@
          </font>
       </JFXButton>
       <JFXTextField fx:id="filterNameField" focusColor="#ff8a65" layoutX="315.0" layoutY="25.0" onAction="#filter" onKeyTyped="#updateFilter" prefHeight="23.0" prefWidth="141.0" promptText="Filter name" unFocusColor="#4da895" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="25.0" />
-      <Label fx:id="totalEntriesLabel" layoutX="14.0" layoutY="29.0" text="Total pages: 0" />
+      <Label fx:id="totalEntriesLabel" layoutX="14.0" layoutY="29.0" />
    </children>
 </AnchorPane>
