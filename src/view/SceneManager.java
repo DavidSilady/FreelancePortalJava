@@ -2,10 +2,13 @@ package view;
 
 import javafx.event.Event;
 import javafx.fxml.*;
+import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class SceneManager {
 
@@ -44,14 +47,20 @@ public class SceneManager {
 		return fxmlLoader;
 	}
 	
-	public FXMLLoader showWindow (Event actionEvent, String sceneName, int width, int height) throws Exception {
+	public FXMLLoader showWindow (Event actionEvent, String sceneName, int width, int height, boolean undecorated) throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/template/" + sceneName +".fxml"));
 		Parent root = (Parent) fxmlLoader.load();
 		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
-		//stage.initStyle(StageStyle.UNDECORATED);
+		
 		stage.setTitle("Freelance Portal | " + sceneName);
-		stage.setScene(new Scene(root, width, height));
+		Scene scene = new Scene(root, width, height);
+		if (undecorated) {
+			stage.initStyle(StageStyle.UNDECORATED);
+			scene.setFill(Color.TRANSPARENT); // Fill our scene with nothing
+			stage.initStyle(StageStyle.TRANSPARENT); // Important one!
+		}
+		stage.setScene(scene);
 		stage.show();
 		return fxmlLoader;
 	}

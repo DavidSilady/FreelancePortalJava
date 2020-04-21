@@ -5,7 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import model.DatabaseDriver;
 import model.Gig;
 import model.Listable;
@@ -32,7 +35,39 @@ public class GigDetailController {
 	@FXML
 	private Label freelancerAliasLabel;
 	
+	@FXML
+	private AnchorPane shadowPane;
+	
 	private Gig gig;
+	
+	@FXML
+	private JFXButton exitWindowButton;
+	
+	@FXML
+	private Pane dragWindowPane;
+	
+	double xOffset;
+	double yOffset;
+	
+	@FXML
+	void mousePressed (MouseEvent event) {
+		Stage primaryStage = (Stage) dragWindowPane.getScene().getWindow();
+		xOffset = primaryStage.getX() - event.getScreenX();
+		yOffset = primaryStage.getY() - event.getScreenY();
+	}
+	
+	@FXML
+	void mouseDragged (MouseEvent event) {
+		Stage primaryStage = (Stage) dragWindowPane.getScene().getWindow();
+		primaryStage.setX(event.getScreenX() + xOffset);
+		primaryStage.setY(event.getScreenY() + yOffset);
+	}
+	
+	@FXML
+	void exitWindow(ActionEvent event) {
+		Stage stage = (Stage) exitWindowButton.getScene().getWindow();
+		stage.close();
+	}
 	
 	@FXML
 	void order(ActionEvent event) {
@@ -44,6 +79,7 @@ public class GigDetailController {
 		gigNameLabel.setText(gig.getGigName());
 		categoryLabel.setText(gig.getCategory());
 		freelancerAliasLabel.setText(gig.getFreelancerAlias());
+		
 		ArrayList<Listable> reviews = fetchReviews();
 		
 		SceneManager sceneManager = new SceneManager();

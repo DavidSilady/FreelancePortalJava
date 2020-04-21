@@ -50,7 +50,7 @@ public class GigListingController implements ListablePane {
 	@FXML
 	void showGigDetail(ActionEvent event) throws Exception {
 		SceneManager sceneManager = new SceneManager();
-		FXMLLoader fxmlLoader = sceneManager.showWindow(event, "gigDetail", 600, 520);
+		FXMLLoader fxmlLoader = sceneManager.showWindow(event, "gigDetail", 600, 520, true);
 		GigDetailController gigDetailController = fxmlLoader.getController();
 		gigDetailController.init(gig);
 	}
