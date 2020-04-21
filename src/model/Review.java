@@ -1,20 +1,20 @@
 package model;
 
-public class Review {
-    private String userEmail;
+public class Review implements Listable{
+    private String authorName;
     private String gigName;
     private int rating;
     private String content;
 
     public Review(String userEmail,String gigName,int rating,String content){
-        this.userEmail = userEmail;
+        this.authorName = userEmail;
         this.gigName = gigName;
         this.rating = rating;
         this.content = content;
     }
 
-    public String getUserEmail(){
-        return userEmail;
+    public String getAuthorName (){
+        return authorName;
     }
 
     public String getGigName(){
@@ -27,5 +27,10 @@ public class Review {
 
     public String getContent() {
         return content;
+    }
+    
+    @Override
+    public String getListablePaneName () {
+        return "reviewListing";
     }
 }

@@ -2,7 +2,6 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
 import model.Freelancer;
-import model.Gig;
 import model.Review;
-import model.User;
 
 public class ReviewsOfMeController {
 
@@ -49,7 +46,7 @@ public class ReviewsOfMeController {
     
     public void init (Freelancer currentUser) {
         currentFreelancer = currentUser;
-        UserEmailTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getUserEmail()));
+        UserEmailTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getAuthorName()));
         GigNameTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
         RatingTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getRatingAsString()));
         ObservableList<Review> reviews = currentFreelancer.loadMyReviews();
