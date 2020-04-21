@@ -11,7 +11,7 @@ public class SceneManager {
 
 	public FXMLLoader switchScene (javafx.event.ActionEvent actionEvent, String sceneName) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(getClass().getResource("/template/" + sceneName + ".fxml"));
+		fxmlLoader.setLocation(getClass().getResource("/view/template/" + sceneName + ".fxml"));
 		Parent root = fxmlLoader.load();
 		Scene fxmlScene = new Scene(root);
 		Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -21,7 +21,7 @@ public class SceneManager {
 	}
 	
 	public FXMLLoader switchDynamicPane (Pane dynamicPane, String name) throws Exception{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + name + ".fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/template/" + name + ".fxml"));
 		Pane pane = (Pane) fxmlLoader.load();
 		try {
 			dynamicPane.getChildren().clear();
@@ -33,7 +33,7 @@ public class SceneManager {
 	}
 	
 	public FXMLLoader switchWindow (Event actionEvent, String sceneName) throws Exception {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + sceneName +".fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/template/" + sceneName +".fxml"));
 		((Node) actionEvent.getSource()).getScene().getWindow().hide();
 		Parent root = (Parent) fxmlLoader.load();
 		Stage stage = new Stage();
@@ -45,7 +45,7 @@ public class SceneManager {
 	}
 	
 	public FXMLLoader showWindow (Event actionEvent, String sceneName, int width, int height) throws Exception {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/template/" + sceneName +".fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/template/" + sceneName +".fxml"));
 		Parent root = (Parent) fxmlLoader.load();
 		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
