@@ -3,11 +3,13 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import model.Freelancer;
 import model.Gig;
 import model.Listable;
 import view.ListablePane;
+import view.SceneManager;
 
 public class GigListingController implements ListablePane {
 	
@@ -46,8 +48,11 @@ public class GigListingController implements ListablePane {
 	}
 	
 	@FXML
-	void showGigDetail(ActionEvent event) {
-	
+	void showGigDetail(ActionEvent event) throws Exception {
+		SceneManager sceneManager = new SceneManager();
+		FXMLLoader fxmlLoader = sceneManager.showWindow(event, "gigDetail", 600, 520);
+		GigDetailController gigDetailController = fxmlLoader.getController();
+		gigDetailController.init(gig);
 	}
 	
 	private void setLabels() {

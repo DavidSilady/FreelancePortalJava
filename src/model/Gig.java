@@ -64,6 +64,6 @@ public class Gig implements Listable {
     
     @Override
     public String getListablePaneName () {
-        return "gigListing";
+        return "listings/gigListing";
     }
 }

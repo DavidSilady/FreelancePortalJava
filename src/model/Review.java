@@ -31,6 +31,6 @@ public class Review implements Listable{
     
     @Override
     public String getListablePaneName () {
-        return "reviewListing";
+        return "listings/reviewListing";
     }
 }
