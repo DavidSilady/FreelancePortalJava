@@ -6,8 +6,8 @@ public class Review implements Listable{
     private int rating;
     private String content;
 
-    public Review(String userEmail,String gigName,int rating,String content){
-        this.authorName = userEmail;
+    public Review(String authorName,String gigName,int rating,String content){
+        this.authorName = authorName;
         this.gigName = gigName;
         this.rating = rating;
         this.content = content;

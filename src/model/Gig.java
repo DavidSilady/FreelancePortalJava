@@ -28,6 +28,10 @@ public class Gig implements Listable {
         this.avgRating = 1;
     }
     
+    public int getId () {
+        return id;
+    }
+    
     public Gig(int id, int freelancerID, String category, String gigName, String freelancerAlias, int numSold, double avgRating){
         this.id = id;
         this.freelancerID = freelancerID;

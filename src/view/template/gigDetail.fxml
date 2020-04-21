@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="513.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="master.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GigDetailController">
+   <children>
+      <AnchorPane fx:id="reviewPane" layoutY="237.0" prefHeight="285.0" prefWidth="600.0" style="-fx-background-color: #ededed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label layoutX="88.0" layoutY="201.0" text="Reviews" textFill="#ededed" AnchorPane.bottomAnchor="276.8" AnchorPane.leftAnchor="88.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="orderButton" layoutX="442.0" layoutY="167.0" onAction="#order" prefHeight="35.0" prefWidth="91.0" style="-fx-background-color: #4da895;" text="Order" textFill="WHITE" />
+      <Label fx:id="gigNameLabel" layoutX="34.0" layoutY="23.0" text="Gig Name" textFill="#4da895" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="categoryLabel" layoutX="21.0" layoutY="51.0" text="Category" textFill="#ededed" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="55.0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="freelancerAliasLabel" layoutX="15.0" layoutY="176.0" text="Freelancer Name" textFill="#4da895" AnchorPane.bottomAnchor="319.4" AnchorPane.leftAnchor="15.0">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
