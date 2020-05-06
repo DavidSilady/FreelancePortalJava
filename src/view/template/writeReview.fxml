@@ -7,14 +7,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane stylesheets="@master.css" prefHeight="428.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WriteReviewController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@master.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WriteReviewController">
    <children>
-      <Label fx:id="ReviewNameLabel" layoutX="145.0" layoutY="37.0" text="Review name: XXXX" />
-      <Spinner layoutX="117.0" layoutY="107.0" />
-      <Label fx:id="Label1" layoutX="157.0" layoutY="70.0" text="Rate the gig" />
-      <JFXTextArea fx:id="ReviewTextArea" layoutX="23.0" layoutY="159.0" text="Write review here&#10;" />
-      <JFXButton fx:id="SaveAndExitButton" layoutX="463.0" layoutY="65.0" onAction="#saveAndExit" style="-fx-background-color: #4da895;" text="Save and exit" textFill="WHITE">
+      <Label fx:id="ReviewNameLabel" layoutX="14.0" layoutY="35.0" text="Review of gig XXXX from freelancer XXXX">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <Spinner fx:id="RatingSpinner" layoutX="171.0" layoutY="107.0" />
+      <Label fx:id="Label1" layoutX="36.0" layoutY="112.0" text="Number of stars" />
+      <JFXTextArea fx:id="ReviewTextArea" layoutX="14.0" layoutY="158.0" prefHeight="427.0" prefWidth="774.0" text="Write review here&#10;" />
+      <JFXButton fx:id="SaveAndExitButton" layoutX="584.0" layoutY="103.0" onAction="#saveAndExit" style="-fx-background-color: #4da895;" text="Save and exit" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

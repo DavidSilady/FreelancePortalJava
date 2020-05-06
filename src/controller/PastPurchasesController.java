@@ -4,12 +4,17 @@ import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 import model.Freelancer;
 import model.PastPurchase;
+import model.Review;
 import model.User;
+import view.SceneManager;
 
 public class PastPurchasesController {
 
@@ -32,6 +37,9 @@ public class PastPurchasesController {
     private TableColumn<PastPurchase , String>  DateTableColumn;
 
     @FXML
+    private Label ErrorLabel;
+
+    @FXML
     private JFXButton ViewDetailsButton;
 
     @FXML
@@ -44,22 +52,32 @@ public class PastPurchasesController {
 
     @FXML
     void writeReviewOfSelected(ActionEvent event) {
+        if( PurchasesTableView.getSelectionModel().isEmpty())
+            ErrorLabel.setVisible(true);
+        else {
+            ErrorLabel.setVisible(false);
+            PastPurchase selectedPurchase = PurchasesTableView.getSelectionModel().getSelectedItem();
 
+            SceneManager sceneManager = new SceneManager();
+            try {
+                Stage newStage = new Stage();
+                FXMLLoader tempLoader = sceneManager.showWindowOnSelectedStage(event, "writeReview",800,600,true, newStage);
+                WriteReviewController writeReviewController = tempLoader.getController();
+                writeReviewController.init(currentUser, selectedPurchase,newStage);
+            } catch (Exception ex){;}
+        }
     }
 
     private User currentUser;
 
 	public void init (User user) {
 	    this.currentUser = user;
-        GigTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGig_name()));
+        GigTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getGigName()));
         ServiceTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getService()));
         FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getAlias()));
         PriceTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getPriceAsString()));
         DateTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getDate()));
         ObservableList<PastPurchase> purchases = currentUser.loadMyPastPurchases();
-        if (purchases.isEmpty())
-            System.out.println("empty");
-        else
-            PurchasesTableView.setItems(purchases);
+        PurchasesTableView.setItems(purchases);
 	}
 }

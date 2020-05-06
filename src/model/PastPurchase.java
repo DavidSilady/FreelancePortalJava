@@ -6,16 +6,18 @@ public class PastPurchase {
     private String alias;
     private int price;
     private String date;
+    private int gigID;
 
-    public PastPurchase(String gig_name,String service,String alias,int price,String date){
+    public PastPurchase(String gig_name,String service,String alias,int price,String date,int gigID){
         this.gig_name = gig_name;
         this.service = service;
         this.alias = alias;
         this.price = price;
         this.date = date;
+        this.gigID = gigID;
     }
 
-    public String getGig_name(){
+    public String getGigName(){
         return gig_name;
     }
 
@@ -33,5 +35,9 @@ public class PastPurchase {
 
     public String getDate() {
         return date;
+    }
+
+    public int getGigID(){
+        return gigID;
     }
 }

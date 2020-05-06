@@ -198,7 +198,7 @@ public class User {
 
     public ObservableList<PastPurchase> loadMyPastPurchases() {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(
-                "SELECT g.gig_name,s.description,f.alias,s.price,o.order_date FROM services AS s "+
+                "SELECT g.gig_name,s.description,f.alias,s.price,o.order_date,s.gig_id FROM services AS s "+
                         "INNER JOIN orders AS o ON s.order_id = o.id " +
                         "INNER JOIN gigs AS g ON s.gig_id = g.id " +
                         "INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
@@ -210,8 +210,13 @@ public class User {
             String temp_alias = row.get(2);
             String temp_price = row.get(3);
             String temp_date = row.get(4);
-            purchases.add(new PastPurchase(temp_gig_name,temp_service,temp_alias, Integer.parseInt(temp_price), temp_date));
+            String temp_gig_ID = row.get(5);
+            purchases.add(new PastPurchase(temp_gig_name,temp_service,temp_alias, Integer.parseInt(temp_price), temp_date , Integer.parseInt(temp_gig_ID)));
         }
         return purchases;
+    }
+
+    public void addReview(int gigID, int rating, String reviewText){
+        DatabaseDriver.executeUpdate("INSERT INTO reviews(customer_id,gig_id, content, rating) VALUES('" + this.getId() + "','" + gigID + "','" + reviewText + "','" + rating  + "')");
     }
 }
