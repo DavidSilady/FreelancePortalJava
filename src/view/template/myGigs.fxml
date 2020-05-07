@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@master.css" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MyGigsController">
+<AnchorPane prefHeight="509.0" prefWidth="770.0" stylesheets="@master.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MyGigsController">
    <children>
-      <TableView fx:id="GigTableView" layoutX="68.0" layoutY="51.0" prefHeight="400.0" prefWidth="359.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="GigTableView" layoutX="68.0" layoutY="51.0" prefHeight="480.0" prefWidth="360.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
         <columns>
           <TableColumn fx:id="GigNameTableColumn" prefWidth="176.0" text="Gig name" />
           <TableColumn fx:id="CategoryTableColumn" prefWidth="182.0" text="Category" />
         </columns>
       </TableView>
-      <Label fx:id="Label1" layoutX="414.0" layoutY="105.0" text="Choose gig category" />
-      <JFXTextField fx:id="GigNameTextField" layoutX="398.0" layoutY="56.0" promptText="Enter gig name here" />
-      <JFXButton fx:id="RemoveGigButton" layoutX="409.0" layoutY="258.0" onAction="#removeGig" style="-fx-background-color: #4da895;" text="Remove selected" textFill="WHITE">
+      <Label fx:id="Label1" layoutX="242.0" layoutY="57.0" text="Choose gig category" />
+      <JFXTextField fx:id="GigNameTextField" layoutX="31.0" layoutY="52.0" promptText="Enter gig name here" />
+      <JFXButton fx:id="RemoveGigButton" layoutX="126.0" layoutY="379.0" onAction="#removeGig" style="-fx-background-color: #4da895;" text="Remove selected" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <ChoiceBox fx:id="GigCategoryChoiceBox" layoutX="408.0" layoutY="142.0" prefWidth="150.0" />
-      <JFXButton fx:id="AddGigButtton" layoutX="431.0" layoutY="14.0" onAction="#addGig" style="-fx-background-color: #4da895;" text="Add gig" textFill="WHITE">
+      <ChoiceBox fx:id="GigCategoryChoiceBox" layoutX="235.0" layoutY="97.0" prefWidth="150.0" />
+      <JFXButton fx:id="AddGigButtton" layoutX="61.0" layoutY="97.0" onAction="#addGig" style="-fx-background-color: #4da895;" text="Add gig" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

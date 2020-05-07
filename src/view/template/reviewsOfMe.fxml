@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@master.css" prefHeight="737.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReviewsOfMeController">
+<AnchorPane prefHeight="478.0" prefWidth="770.0" stylesheets="@master.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReviewsOfMeController">
    <children>
-      <JFXButton fx:id="ViewReviewButton" layoutX="706.0" layoutY="57.0" onAction="#viewReview" style="-fx-background-color: #4da895;" text="View selected review" textFill="WHITE">
+      <JFXButton fx:id="ViewReviewButton" layoutX="84.0" layoutY="420.0" onAction="#viewReview" style="-fx-background-color: #4da895;" text="View selected review" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="ReviewTableView" layoutY="2.0" prefHeight="391.0" prefWidth="700.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="ReviewTableView" layoutX="51.0" layoutY="14.0" prefHeight="391.0" prefWidth="700.0" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="14.0">
         <columns>
           <TableColumn fx:id="UserEmailTableColumn" prefWidth="260.0" text="User email" />
           <TableColumn fx:id="GigNameTableColumn" prefWidth="278.0" text="Gig name" />
             <TableColumn fx:id="RatingTableColumn" prefWidth="161.0" text="Rating" />
         </columns>
       </TableView>
-      <ScrollBar fx:id="Scroll1" layoutX="999.0" layoutY="382.0" orientation="VERTICAL" prefHeight="344.0" prefWidth="18.0" AnchorPane.rightAnchor="5.0" />
-      <JFXTextArea fx:id="ReviewContentTextArea" layoutX="14.0" layoutY="398.0" prefHeight="321.0" prefWidth="972.0" />
+      <Label fx:id="ErrorLabel" layoutX="327.0" layoutY="428.0" text="Select an item first" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
    </children>
 </AnchorPane>

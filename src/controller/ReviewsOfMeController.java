@@ -5,20 +5,22 @@ import com.jfoenix.controls.JFXTextArea;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 import model.Freelancer;
+import model.PastPurchase;
 import model.Review;
+import view.SceneManager;
 
 public class ReviewsOfMeController {
 
     @FXML
     private JFXButton ViewReviewButton;
-
-    @FXML
-    private JFXTextArea ReviewContentTextArea;
 
     @FXML
     private TableView<Review> ReviewTableView;
@@ -33,15 +35,25 @@ public class ReviewsOfMeController {
     private TableColumn<Review, String> RatingTableColumn;
 
     @FXML
-    private ScrollBar Scroll1;
+    private Label ErrorLabel;
 
     private Freelancer currentFreelancer;
 
     @FXML
     void viewReview(ActionEvent event) {                // trebalo by aby ukazovalo po riadkoch
-        if( ReviewTableView.getSelectionModel().isEmpty())  return;
-        Review selectedReview = ReviewTableView.getSelectionModel().getSelectedItem();
-        ReviewContentTextArea.setText(selectedReview.getContent());
+        if( ReviewTableView.getSelectionModel().isEmpty())
+            ErrorLabel.setVisible(true);
+        else {
+            ErrorLabel.setVisible(false);
+            Review selectedReview = ReviewTableView.getSelectionModel().getSelectedItem();
+            try {
+                SceneManager sceneManager = new SceneManager();
+                Stage newStage = new Stage();
+                FXMLLoader tempLoader = sceneManager.showWindowOnSelectedStage(event, "reviewDetail",800,600,true, newStage);
+                ReviewDetailController reviewDetailController = tempLoader.getController();
+                reviewDetailController.init(selectedReview.getContent(),newStage);
+            } catch (Exception ex){;}
+        }
     }
     
     public void init (Freelancer currentUser) {

@@ -58,8 +58,8 @@ public class PastPurchasesController {
             ErrorLabel.setVisible(false);
             PastPurchase selectedPurchase = PurchasesTableView.getSelectionModel().getSelectedItem();
 
-            SceneManager sceneManager = new SceneManager();
             try {
+                SceneManager sceneManager = new SceneManager();
                 Stage newStage = new Stage();
                 FXMLLoader tempLoader = sceneManager.showWindowOnSelectedStage(event, "writeReview",800,600,true, newStage);
                 WriteReviewController writeReviewController = tempLoader.getController();
