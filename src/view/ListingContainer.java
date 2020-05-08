@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Listable;
+import model.User;
 
 import java.text.ParsePosition;
 import java.util.ArrayList;
@@ -30,6 +31,12 @@ public class ListingContainer {
 	private ArrayList<AnchorPane> listingPanes = new ArrayList<>();
 	
 	private ArrayList<Listable> listableArray = new ArrayList<>();
+	
+	private User activeUser;
+	
+	public void setActiveUser(User user) {
+		this.activeUser = user;
+	}
 	
 	public void init(ArrayList<Listable> listableArray) throws Exception {
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -69,6 +76,10 @@ public class ListingContainer {
 		scrollHBox.setAlignment(Pos.CENTER);
 		scrollPane.setVvalue(0);
 		//anchorPane.getChildren().add(listingBox);
+	}
+	
+	public User getActiveUser () {
+		return this.activeUser;
 	}
 }
 

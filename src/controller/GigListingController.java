@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import model.Freelancer;
 import model.Gig;
 import model.Listable;
+import model.User;
 import view.ListablePane;
 import view.ListingContainer;
 import view.SceneManager;
@@ -37,10 +38,12 @@ public class GigListingController implements ListablePane {
 	
 	private Freelancer freelancer; // Needed for navigating to freelancer profile
 	private Gig gig;
+	private User activeUser;
 	
 
 	@Override
 	public void init (Listable listing, ListingContainer parentContainer) {
+		this.activeUser = parentContainer.getActiveUser();
 		this.gig = (Gig) listing;
 		setLabels();
 	}
@@ -55,7 +58,7 @@ public class GigListingController implements ListablePane {
 		SceneManager sceneManager = new SceneManager();
 		FXMLLoader fxmlLoader = sceneManager.showWindow(event, "gigDetail", 600, 520, true);
 		GigDetailController gigDetailController = fxmlLoader.getController();
-		gigDetailController.init(gig);
+		gigDetailController.init(gig, this.activeUser);
 	}
 	
 	private void setLabels() {

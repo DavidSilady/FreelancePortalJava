@@ -1,6 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,11 @@ import model.*;
 import view.ListingContainer;
 import view.SceneManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class OrderGigController {
 	
@@ -46,9 +51,13 @@ public class OrderGigController {
 	@FXML
 	private Pane dragWindowPane;
 	
+	@FXML
+	private JFXTextArea billingAddressTextArea;
+	
 	double xOffset;
 	double yOffset;
 	
+	private User user;
 	private ArrayList<Listable> services;
 	private ListingContainer servicesContainerController;
 	
@@ -77,9 +86,26 @@ public class OrderGigController {
 			requirementLabel.setOpacity(1.0);
 			return;
 		}
+		if (billingAddressTextArea.getText().equals("")) {
+			billingAddressTextArea.setText("Billing Address Required");
+			billingAddressTextArea.requestFocus();
+			return;
+		}
 		
 		new SceneManager().showWindow(event, "orderedPopUp", 300, 160, true);
 		((Stage) confirmOrderButton.getScene().getWindow()).close();
+	}
+	
+	private void createOrder() {
+		Order order = new Order(user.getId(), getDate());
+		order.createDBListing();
+		
+	}
+	
+	String getDate() {
+		Date date = Calendar.getInstance().getTime();
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		return dateFormat.format(date);
 	}
 	
 	@FXML
@@ -89,8 +115,9 @@ public class OrderGigController {
 		servicesContainerController.updateListing(services);
 	}
 	
-	public void init(Gig gig) throws Exception {
+	public void init(Gig gig, User activeUser) throws Exception {
 		requirementLabel.setOpacity(0.0);
+		this.user = activeUser;
 		this.gig = gig;
 		gigNameLabel.setText(gig.getGigName());
 		categoryLabel.setText(gig.getCategory());

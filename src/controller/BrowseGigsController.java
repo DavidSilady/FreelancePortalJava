@@ -170,6 +170,7 @@ public class BrowseGigsController {
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, "listingContainer");
         ListingContainer controller = fxmlLoader.getController();
         controller.init(gigs);
+        controller.setActiveUser(currentUser);
         listingController = controller;
     }
     

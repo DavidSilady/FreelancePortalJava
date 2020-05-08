@@ -9,10 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.DatabaseDriver;
-import model.Gig;
-import model.Listable;
-import model.Review;
+import model.*;
 import view.ListingContainer;
 import view.SceneManager;
 
@@ -46,6 +43,8 @@ public class GigDetailController {
 	@FXML
 	private Pane dragWindowPane;
 	
+	private User user;
+	
 	double xOffset;
 	double yOffset;
 	
@@ -74,11 +73,12 @@ public class GigDetailController {
 		SceneManager sceneManager = new SceneManager();
 		FXMLLoader fxmlLoader = sceneManager.showWindow(event, "orderGig", 600, 520, true);
 		OrderGigController gigDetailController = fxmlLoader.getController();
-		gigDetailController.init(gig);
+		gigDetailController.init(gig, this.user);
 	}
 	
-	public void init(Gig gig) throws Exception {
+	public void init(Gig gig, User activeUser) throws Exception {
 		this.gig = gig;
+		this.user = activeUser;
 		gigNameLabel.setText(gig.getGigName());
 		categoryLabel.setText(gig.getCategory());
 		freelancerAliasLabel.setText(gig.getFreelancerAlias());

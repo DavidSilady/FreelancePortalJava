@@ -27,6 +27,10 @@ public class Service implements Listable {
 		this.invoice_id = invoice_id;
 	}
 	
+	public void createDBListing() {
+	
+	}
+	
 	
 	@Override
 	public String getListablePaneName () {
