@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: transparent;" stylesheets="@master.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.orderedPopUp">
+<AnchorPane prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: transparent;" stylesheets="@master.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PopUpController">
    <children>
       <AnchorPane layoutX="20.0" layoutY="16.0" prefHeight="128.0" prefWidth="258.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0">
          <children>

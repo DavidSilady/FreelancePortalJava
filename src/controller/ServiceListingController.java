@@ -36,20 +36,23 @@ public class ServiceListingController implements ListablePane {
 	
 	@FXML
 	void update(ActionEvent event) {
-		double price = 0;
+		double price = service.getPrice();
 		
 		try {
 			price = Double.parseDouble(priceTextField.getText());
 		} catch (Exception e) {
 			priceTextField.setText("");
+			this.priceTextField.setPromptText(service.getPrice() + " $");
 			return;
 		}
 		
 		if (descriptionTextField.getText().equals("")) {
-			descriptionTextField.setText("You must describe your request to the freelancer");
+			descriptionTextField.setPromptText("You must describe your request to the freelancer");
 			descriptionTextField.requestFocus();
 			return;
 		}
+		
+		priceTextField.setText(price + " $");
 		
 		service.setBasicInfo(price, descriptionTextField.getText());
 	}
@@ -58,6 +61,9 @@ public class ServiceListingController implements ListablePane {
 	public void init (Listable listing, ListingContainer parentContainer) {
 		this.service = (Service) listing;
 		this.parentContainer = parentContainer;
+		
+		this.priceTextField.setPromptText(service.getPrice() + " $");
+		this.descriptionTextField.setPromptText(service.getDescription());
 	}
 	
 	public void setParentContainer (ListingContainer controller) {

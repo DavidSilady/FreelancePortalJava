@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
-public class orderedPopUp {
+public class PopUpController {
 	
 	@FXML
 	private JFXButton exitButton;

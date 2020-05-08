@@ -87,7 +87,7 @@ public class OrderGigController {
 			return;
 		}
 		if (billingAddressTextArea.getText().equals("")) {
-			billingAddressTextArea.setText("Billing Address Required");
+			billingAddressTextArea.setPromptText("Billing Address Required");
 			billingAddressTextArea.requestFocus();
 			return;
 		}

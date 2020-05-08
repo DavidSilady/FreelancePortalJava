@@ -8,7 +8,7 @@ public class Service implements Listable {
 	private int order_id;
 	private int invoice_id;
 	private double price = 0;
-	private String description = "No Description";
+	private String description = "Service Description";
 	
 	public Service() { }
 	
