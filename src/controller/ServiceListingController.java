@@ -9,6 +9,8 @@ import model.Service;
 import view.ListablePane;
 import view.ListingContainer;
 
+import java.text.ParseException;
+
 public class ServiceListingController implements ListablePane {
 	
 	@FXML
@@ -34,7 +36,22 @@ public class ServiceListingController implements ListablePane {
 	
 	@FXML
 	void update(ActionEvent event) {
-		service.setBasicInfo(Double.parseDouble(priceTextField.getText()), descriptionTextField.getText());
+		double price = 0;
+		
+		try {
+			price = Double.parseDouble(priceTextField.getText());
+		} catch (Exception e) {
+			priceTextField.setText("");
+			return;
+		}
+		
+		if (descriptionTextField.getText().equals("")) {
+			descriptionTextField.setText("You must describe your request to the freelancer");
+			descriptionTextField.requestFocus();
+			return;
+		}
+		
+		service.setBasicInfo(price, descriptionTextField.getText());
 	}
 	
 	@Override
