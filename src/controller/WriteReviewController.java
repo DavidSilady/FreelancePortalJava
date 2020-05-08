@@ -41,7 +41,7 @@ public class WriteReviewController {
             return;
 
         currentUser.addReview(gigID,rating,reviewText);
-        thisStage.hide();
+        thisStage.close();
     }
 
     public void init(User user, PastPurchase purchase){

@@ -18,7 +18,7 @@ public class ReviewDetailController {
 
     @FXML
     void exitWindow(ActionEvent event) {
-        thisStage.hide();
+        thisStage.close();
     }
 
     public void init(String text){
