@@ -45,7 +45,7 @@ public class ServiceListingController implements ListablePane {
 			this.priceTextField.setPromptText(service.getPrice() + " $");
 			return;
 		}
-		
+		service.setPrice(price);
 		priceTextField.setText("");
 		priceTextField.setPromptText(price + " $");
 		
@@ -54,10 +54,7 @@ public class ServiceListingController implements ListablePane {
 			descriptionTextField.requestFocus();
 			return;
 		}
-		
-		
-		
-		service.setBasicInfo(price, descriptionTextField.getText());
+		service.setDescription(descriptionTextField.getText());
 	}
 	
 	@Override
