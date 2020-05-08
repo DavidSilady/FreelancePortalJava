@@ -64,22 +64,4 @@ public class SceneManager {
 		stage.show();
 		return fxmlLoader;
 	}
-
-	public FXMLLoader showWindowOnSelectedStage (Event actionEvent, String sceneName, int width, int height, boolean undecorated, Stage stage) throws Exception {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/template/" + sceneName +".fxml"));
-		Parent root = (Parent) fxmlLoader.load();
-		//Stage stage = new Stage();
-		stage.initModality(Modality.APPLICATION_MODAL);
-
-		stage.setTitle("Freelance Portal | " + sceneName);
-		Scene scene = new Scene(root, width, height);
-		if (undecorated) {
-			stage.initStyle(StageStyle.UNDECORATED);
-			scene.setFill(Color.TRANSPARENT); // Fill our scene with nothing
-			stage.initStyle(StageStyle.TRANSPARENT); // Important one!
-		}
-		stage.setScene(scene);
-		stage.show();
-		return fxmlLoader;
-	}
 }

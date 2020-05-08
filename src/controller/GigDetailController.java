@@ -70,8 +70,9 @@ public class GigDetailController {
 	}
 	
 	@FXML
-	void order(ActionEvent event) {
-	
+	void order(ActionEvent event) throws Exception {
+		SceneManager sceneManager = new SceneManager();
+		sceneManager.switchWindow(event, "orderGig");
 	}
 	
 	public void init(Gig gig) throws Exception {

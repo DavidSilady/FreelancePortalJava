@@ -14,19 +14,19 @@ import model.User;
 public class WriteReviewController {
 
     @FXML
-    private Label ReviewNameLabel;
+    private Label reviewNameLabel;
 
     @FXML
     private Label Label1;
 
     @FXML
-    private JFXTextArea ReviewTextArea;
+    private JFXTextArea reviewTextArea;
 
     @FXML
-    private Spinner<Integer> RatingSpinner;
+    private Spinner<Integer> ratingSpinner;
 
     @FXML
-    private JFXButton SaveAndExitButton;
+    private JFXButton saveAndExitButton;
 
     private PastPurchase currentPurchase;
     private User currentUser;
@@ -35,8 +35,8 @@ public class WriteReviewController {
     @FXML
     void saveAndExit(ActionEvent event) {
         int gigID = currentPurchase.getGigID();
-        int rating = RatingSpinner.getValue();
-        String reviewText = ReviewTextArea.getText();
+        int rating = ratingSpinner.getValue();
+        String reviewText = reviewTextArea.getText();
         if (reviewText.isEmpty() || reviewText.equals("Write review here"))
             return;
 
@@ -44,13 +44,13 @@ public class WriteReviewController {
         thisStage.hide();
     }
 
-    public void init(User user, PastPurchase purchase, Stage thisWindow){
+    public void init(User user, PastPurchase purchase){
         this.currentUser = user;
         this.currentPurchase = purchase;
-        this.thisStage = thisWindow;
-        ReviewNameLabel.setText("Review of gig "+ purchase.getGigName() + " from freelancer " + purchase.getAlias());
+        this.thisStage =  (Stage) reviewNameLabel.getScene().getWindow();
+        reviewNameLabel.setText("Review of gig "+ purchase.getGigName() + " from freelancer " + purchase.getAlias());
         SpinnerValueFactory<Integer> possibleRatings = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,5,3);
-        RatingSpinner.setValueFactory(possibleRatings);
+        ratingSpinner.setValueFactory(possibleRatings);
     }
 
 }

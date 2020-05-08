@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="shadowPane" prefHeight="520.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderGigController">
+    <children>
+        <AnchorPane layoutX="24.0" layoutY="15.0" prefHeight="503.0" prefWidth="618.0" style="-fx-background-color: white;" stylesheets="@master.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <AnchorPane fx:id="servicesPane" prefHeight="285.0" prefWidth="600.0" style="-fx-background-color: #ededed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                <Label text="Services" textFill="#ededed" AnchorPane.bottomAnchor="276.8" AnchorPane.leftAnchor="88.0">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <JFXButton fx:id="confrimOrderButton" layoutX="366.0" layoutY="160.0" onAction="#confrimOrder" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: #4da895;" text="Confirm Order" textFill="WHITE" AnchorPane.bottomAnchor="284.8" AnchorPane.rightAnchor="0.39999999999997726" />
+                <Label fx:id="gigNameLabel" text="Gig Name" textFill="#4da895" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label fx:id="categoryLabel" text="Category" textFill="#ededed" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="55.0">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label fx:id="freelancerAliasLabel" text="Freelancer Name" textFill="#4da895" AnchorPane.bottomAnchor="319.4" AnchorPane.leftAnchor="15.0">
+                    <font>
+                        <Font name="System Italic" size="12.0" />
+                    </font>
+                </Label>
+                <JFXButton fx:id="exitWindowButton" onAction="#exitWindow" prefHeight="26.0" prefWidth="58.0" text="X" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <font>
+                        <Font name="Segoe UI Black" size="15.0" />
+                    </font>
+                </JFXButton>
+                <Pane fx:id="dragWindowPane" layoutX="1.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" prefHeight="31.0" prefWidth="502.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="0.0" />
+            <JFXButton fx:id="addServiceButton" layoutX="251.0" layoutY="160.0" onAction="#addService" prefHeight="35.0" prefWidth="106.0" text="Add Service" textFill="WHITE" />
+            </children>
+            <effect>
+                <DropShadow />
+            </effect>
+        </AnchorPane>
+    </children>
+</AnchorPane>

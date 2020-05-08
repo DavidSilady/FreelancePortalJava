@@ -60,10 +60,9 @@ public class PastPurchasesController {
 
             try {
                 SceneManager sceneManager = new SceneManager();
-                Stage newStage = new Stage();
-                FXMLLoader tempLoader = sceneManager.showWindowOnSelectedStage(event, "writeReview",800,600,true, newStage);
+                FXMLLoader tempLoader = sceneManager.showWindow(event, "writeReview",800,600,true);
                 WriteReviewController writeReviewController = tempLoader.getController();
-                writeReviewController.init(currentUser, selectedPurchase,newStage);
+                writeReviewController.init(currentUser, selectedPurchase);
             } catch (Exception ex){;}
         }
     }
