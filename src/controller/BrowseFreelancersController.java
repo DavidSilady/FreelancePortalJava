@@ -1,8 +1,10 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -22,18 +24,42 @@ public class BrowseFreelancersController {
     private TableColumn<Freelancer, String> FreelancerTableColumn;
 
     @FXML
-    private TableColumn<Freelancer, String> AverageRatingTableColumn;
+    private TableColumn<Freelancer, String> AdditionalTableColumn;
 
     @FXML
-    private Label label1;
+    private Label Label1;
+
+    @FXML
+    private JFXButton BestRatingButton;
+
+    @FXML
+    private JFXButton MostLanguagesButton;
 
     private User currentUser;
 
-    public void init(User user){
-        this.currentUser = user;
+    @FXML
+    void showBestRated(ActionEvent event) {
         FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getAlias()));
-        AverageRatingTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getRatingAsString()));
+        AdditionalTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getRatingAsString()));
         ObservableList<Freelancer> freelancers = currentUser.loadBestReviewedFreelancers(10);
         FreelancersTableView.setItems(freelancers);
+        AdditionalTableColumn.setText("Rating");
+        Label1.setText("Table shows freelancers whose gigs are best reviewed");
+        Label1.setVisible(true);
+    }
+
+    @FXML
+    void showMostLanguages(ActionEvent event) {
+        FreelancerTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getAlias()));
+        AdditionalTableColumn.setCellValueFactory(lambda -> new ReadOnlyStringWrapper(lambda.getValue().getLanguagesKnownAsString()));
+        ObservableList<Freelancer> freelancers = currentUser.loadFreelancersWithMostLanguages(10);
+        FreelancersTableView.setItems(freelancers);
+        AdditionalTableColumn.setText("Known languages");
+        Label1.setText("Table shows freelancers who know the most languages");
+        Label1.setVisible(true);
+    }
+
+    public void init(User user){
+        this.currentUser = user;
     }
 }

@@ -49,7 +49,7 @@ public class User {
         this.name = name;
     }
 
-    public void setSurname(String surname) {
+    /*public void setSurname(String surname) {
         this.surname = surname;
     }
 
@@ -59,7 +59,7 @@ public class User {
 
     public void setRegistrationDate(String registrationDate) {
         this.registrationDate = registrationDate;
-    }
+    }*/
 
     public User(){
         ;
@@ -145,7 +145,7 @@ public class User {
         return categories;
     }
 
-    public ArrayList<Listable> findGigByCategory(String category, int page) {
+    /*public ArrayList<Listable> findGigByCategory(String category, int page) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
                 " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
                 " WHERE category_name = '" + category + "' ORDER BY gig_name LIMIT 10 OFFSET " + page * 10);
@@ -175,18 +175,17 @@ public class User {
             gigs.add(new Gig(Integer.parseInt(temp_id), Integer.parseInt(temp_freelancerID), temp_categoryName, temp_gigName, temp_alias));
         }
         return gigs;
-    }
-
+    }*/
+//_____________________________________________________________________BROWSING FREELANCERS_______________________________________________________________
     public ObservableList<Freelancer> loadBestReviewedFreelancers(int quantity) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(
-                "SELECT alias,AVG(rating)  as average_rating FROM freelancers " +
+                "SELECT alias,AVG(rating) as average_rating FROM freelancers " +
                         "INNER JOIN gigs ON freelancers.freelance_id = gigs.freelancer_id " +
                         "INNER JOIN reviews ON reviews.gig_id = gigs.id " +
                         "GROUP BY alias " +
                         "HAVING AVG(rating) > (SELECT AVG(reviews.rating) FROM reviews) " +
                         "ORDER BY average_rating DESC " +
                         "LIMIT " + quantity);
-        
         ObservableList<Freelancer> freelancers = FXCollections.observableArrayList();
         for (ArrayList<String> row : result) {
             String temp_alias = row.get(0);
@@ -196,6 +195,24 @@ public class User {
         return freelancers;
     }
 
+    public ObservableList<Freelancer> loadFreelancersWithMostLanguages(int quantity) {
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(
+                "SELECT DISTINCT temp.alias, temp.languages_known FROM ( " +
+                        "SELECT f.alias, fl.freelancer_id, COUNT(fl.freelancer_id) OVER (PARTITION BY fl.freelancer_id) AS languages_known "+
+                        "FROM freelancer_languages fl INNER JOIN freelancers f on fl.freelancer_id = f.freelance_id "+
+                        "INNER JOIN languages l on fl.language_id = l.id ) temp "+
+                "WHERE languages_known > 1 " +
+                "ORDER BY temp.languages_known DESC " +
+                "LIMIT " + quantity);
+        ObservableList<Freelancer> freelancers = FXCollections.observableArrayList();
+        for (ArrayList<String> row : result) {
+            String temp_alias = row.get(0);
+            String temp_languagesNum = row.get(1);
+            freelancers.add(new Freelancer(temp_alias, Integer.parseInt(temp_languagesNum)));
+        }
+        return freelancers;
+    }
+    //_____________________________________________________________________________________________________________________________________________
     public ObservableList<PastPurchase> loadMyPastPurchases() {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(
                 "SELECT g.gig_name,s.description,f.alias,s.price,o.order_date,s.gig_id FROM services AS s "+

@@ -15,6 +15,7 @@ public class Freelancer extends User {
     private String description;
     ArrayList<String> languages;
     private float averageGigRating;
+    private int languagesKnown;
 
     public String getDescription(){ return this.description;}
     public ArrayList<String> getLanguages() { return this.languages;}
@@ -23,12 +24,22 @@ public class Freelancer extends User {
         return alias;
     }
     public String getRatingAsString(){
-        return String.valueOf(averageGigRating);
+        String result =  String.valueOf(averageGigRating);
+        if (result.length() > 4)
+            result = result.substring(0,4);
+        return result;
     }
+
+    public String getLanguagesKnownAsString() { return String.valueOf(languagesKnown);}
 
     public Freelancer(String alias, float averageGigRating){
         this.alias = alias;
         this.averageGigRating = averageGigRating;
+    }
+
+    public Freelancer(String alias, int languagesKnown){
+        this.alias = alias;
+        this.languagesKnown = languagesKnown;
     }
 
     public Freelancer(User user) {
