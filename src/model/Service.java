@@ -41,7 +41,7 @@ public class Service implements Listable {
 				", '" +
 				this.description +
 				"')";
-		DatabaseDriver.executeQuery(query);
+		DatabaseDriver.executeUpdate(query);
 	}
 	
 	
