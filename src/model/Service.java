@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Service implements Listable {
 	private int id;
 	private int gig_id;
@@ -28,7 +30,18 @@ public class Service implements Listable {
 	}
 	
 	public void createDBListing() {
-	
+		String query = "INSERT INTO orders (gig_id, order_id, invoice_id, price, description)  VALUES (" +
+				this.gig_id +
+				", " +
+				this.order_id +
+				", " +
+				this.invoice_id +
+				", " +
+				this.price +
+				", '" +
+				this.description +
+				"') RETURNING id";
+		ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(query);
 	}
 	
 	

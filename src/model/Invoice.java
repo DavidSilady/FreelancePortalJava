@@ -37,7 +37,11 @@ public class Invoice {
 	}
 	
 	public void createDBListing() {
-		String query = "INSERT INTO orders (customer_id, order_date) VALUES (1, '" + this.date + "', '" + this.billingAddress + "') RETURNING id";
+		String query = "INSERT INTO orders (payment_method_id, payment_date, billing_address) " +
+				"VALUES (1, '"
+				+ this.date + "', '"
+				+ this.billingAddress +
+				"') RETURNING id";
 		ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(query);
 		if (result == null || result.isEmpty())
 			return;

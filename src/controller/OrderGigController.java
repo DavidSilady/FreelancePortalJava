@@ -57,7 +57,7 @@ public class OrderGigController {
 	double xOffset;
 	double yOffset;
 	
-	private User user;
+	private User activeUser;
 	private ArrayList<Listable> services;
 	private ListingContainer servicesContainerController;
 	
@@ -92,14 +92,22 @@ public class OrderGigController {
 			return;
 		}
 		
+		createOrder();
+		
 		new SceneManager().showWindow(event, "orderedPopUp", 300, 160, true);
 		((Stage) confirmOrderButton.getScene().getWindow()).close();
 	}
 	
 	private void createOrder() {
-		Order order = new Order(user.getId(), getDate());
+		Order order = new Order(activeUser.getId(), getDate());
 		order.createDBListing();
+		Invoice invoice = new Invoice(getDate(), billingAddressTextArea.getText());
+		invoice.createDBListing();
 		
+		for(Listable service: this.services) {
+			((Service) service).setIDs(order.getId(), invoice.getId(), this.gig.getId());
+			((Service) service).createDBListing();
+		}
 	}
 	
 	String getDate() {
@@ -117,7 +125,7 @@ public class OrderGigController {
 	
 	public void init(Gig gig, User activeUser) throws Exception {
 		requirementLabel.setOpacity(0.0);
-		this.user = activeUser;
+		this.activeUser = activeUser;
 		this.gig = gig;
 		gigNameLabel.setText(gig.getGigName());
 		categoryLabel.setText(gig.getCategory());

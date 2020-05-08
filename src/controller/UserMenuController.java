@@ -54,14 +54,14 @@ public class UserMenuController {
     void goToBrowseGigs(ActionEvent event) throws Exception {
         SceneManager sceneManager = new SceneManager();
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "browseGigs");
-        ((BrowseGigsController) fxmlLoader.getController()).init(getCurrentUser());
+        ((BrowseGigsController) fxmlLoader.getController()).init(currentUser);
     }
 
     @FXML
     void goToPastPurchases(ActionEvent event) throws Exception {
         SceneManager sceneManager = new SceneManager();
         FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(dynamicPane, "pastPurchases");
-        ((PastPurchasesController) fxmlLoader.getController()).init(getCurrentUser());
+        ((PastPurchasesController) fxmlLoader.getController()).init(currentUser);
     }
 
     @FXML
