@@ -37,7 +37,7 @@ public class Invoice {
 	}
 	
 	public void createDBListing() {
-		String query = "INSERT INTO orders (payment_method_id, payment_date, billing_address) " +
+		String query = "INSERT INTO invoices (payment_method_id, payment_date, billing_address) " +
 				"VALUES (1, '"
 				+ this.date + "', '"
 				+ this.billingAddress +

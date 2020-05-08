@@ -30,18 +30,18 @@ public class Service implements Listable {
 	}
 	
 	public void createDBListing() {
-		String query = "INSERT INTO orders (gig_id, order_id, invoice_id, price, description)  VALUES (" +
+		String query = "INSERT INTO services (gig_id, order_id, invoice_id, price, description) VALUES (" +
 				this.gig_id +
 				", " +
 				this.order_id +
 				", " +
 				this.invoice_id +
 				", " +
-				this.price +
+				Math.ceil(this.price) +
 				", '" +
 				this.description +
-				"') RETURNING id";
-		ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(query);
+				"')";
+		DatabaseDriver.executeQuery(query);
 	}
 	
 	

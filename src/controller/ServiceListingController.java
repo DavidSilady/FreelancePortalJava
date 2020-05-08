@@ -46,13 +46,16 @@ public class ServiceListingController implements ListablePane {
 			return;
 		}
 		
+		priceTextField.setText("");
+		priceTextField.setPromptText(price + " $");
+		
 		if (descriptionTextField.getText().equals("")) {
 			descriptionTextField.setPromptText("You must describe your request to the freelancer");
 			descriptionTextField.requestFocus();
 			return;
 		}
 		
-		priceTextField.setText(price + " $");
+		
 		
 		service.setBasicInfo(price, descriptionTextField.getText());
 	}
