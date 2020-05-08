@@ -49,9 +49,9 @@ public class ReviewsOfMeController {
             try {
                 SceneManager sceneManager = new SceneManager();
                 Stage newStage = new Stage();
-                FXMLLoader tempLoader = sceneManager.showWindowOnSelectedStage(event, "reviewDetail",800,600,true, newStage);
+                FXMLLoader tempLoader = sceneManager.showWindow(event, "reviewDetail",800,600,true);
                 ReviewDetailController reviewDetailController = tempLoader.getController();
-                reviewDetailController.init(selectedReview.getContent(),newStage);
+                reviewDetailController.init(selectedReview.getContent());
             } catch (Exception ex){;}
         }
     }

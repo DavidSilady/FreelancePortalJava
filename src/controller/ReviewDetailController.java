@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 public class ReviewDetailController {
 
     @FXML
-    private TextArea ReviewTextArea;
+    private TextArea reviewTextArea;
 
     @FXML
-    private JFXButton ExitButton;
+    private JFXButton exitButton;
 
     private Stage thisStage;
 
@@ -21,9 +21,9 @@ public class ReviewDetailController {
         thisStage.hide();
     }
 
-    public void init(String text, Stage thisWindow){
-        this.thisStage = thisWindow;
-        ReviewTextArea.setText(text);
+    public void init(String text){
+        this.thisStage =  (Stage) exitButton.getScene().getWindow();
+        reviewTextArea.setText(text);
     }
 
 }
