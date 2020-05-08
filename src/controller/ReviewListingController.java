@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import model.Listable;
 import model.Review;
 import view.ListablePane;
+import view.ListingContainer;
 
 public class ReviewListingController implements ListablePane {
 	
@@ -20,7 +21,7 @@ public class ReviewListingController implements ListablePane {
 	private Review review;
 	
 	@Override
-	public void init (Listable listing) {
+	public void init (Listable listing, ListingContainer parentContainer) {
 		review = (Review) listing;
 		ratingLabel.setText(review.getRatingAsString());
 		reviewText.setText(review.getContent());

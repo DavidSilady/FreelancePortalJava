@@ -9,6 +9,7 @@ import model.Freelancer;
 import model.Gig;
 import model.Listable;
 import view.ListablePane;
+import view.ListingContainer;
 import view.SceneManager;
 
 public class GigListingController implements ListablePane {
@@ -37,7 +38,9 @@ public class GigListingController implements ListablePane {
 	private Freelancer freelancer; // Needed for navigating to freelancer profile
 	private Gig gig;
 	
-	public void init(Listable listing) {
+
+	@Override
+	public void init (Listable listing, ListingContainer parentContainer) {
 		this.gig = (Gig) listing;
 		setLabels();
 	}

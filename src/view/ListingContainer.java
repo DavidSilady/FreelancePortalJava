@@ -29,7 +29,7 @@ public class ListingContainer {
 	@FXML
 	private ArrayList<AnchorPane> listingPanes = new ArrayList<>();
 	
-	// private ArrayList<Listable> listableArray = new ArrayList<>();
+	private ArrayList<Listable> listableArray = new ArrayList<>();
 	
 	public void init(ArrayList<Listable> listableArray) throws Exception {
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -37,7 +37,12 @@ public class ListingContainer {
 		updateListing(listableArray);
 	}
 	
+	public ArrayList<Listable> getListableArray() {
+		return listableArray;
+	}
+	
 	public void updateListing(ArrayList<Listable> listableArray) throws Exception {
+		this.listableArray = listableArray;
 		// scrollPaneChild.getChildren().clear();
 		scrollHBox.getChildren().clear();
 		listingPanes.clear();
@@ -48,7 +53,7 @@ public class ListingContainer {
 			SceneManager sceneManager = new SceneManager();
 			FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(listingPane, listing.getListablePaneName());
 			ListablePane controller = fxmlLoader.getController();
-			controller.init(listing);
+			controller.init(listing, this);
 			listingPanes.add(listingPane);
 		}
 		

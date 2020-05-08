@@ -5,19 +5,18 @@ public class Service implements Listable {
 	private int gig_id;
 	private int order_id;
 	private int invoice_id;
-	private int price;
+	private double price;
 	private String description;
 	
 	public Service() { }
 	
-	public Service(int gig_id, int price, String description) {
+	public Service(int gig_id, double price, String description) {
 		this.gig_id = gig_id;
 		this.price = price;
 		this.description = description;
 	}
 	
-	public void setBasicInfo(int gig_id, int price, String description) {
-		this.gig_id = gig_id;
+	public void setBasicInfo(double price, String description) {
 		this.price = price;
 		this.description = description;
 	}
@@ -66,11 +65,11 @@ public class Service implements Listable {
 		this.invoice_id = invoice_id;
 	}
 	
-	public int getPrice () {
+	public double getPrice () {
 		return price;
 	}
 	
-	public void setPrice (int price) {
+	public void setPrice (double price) {
 		this.price = price;
 	}
 	

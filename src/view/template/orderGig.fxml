@@ -40,6 +40,7 @@
                 </JFXButton>
                 <Pane fx:id="dragWindowPane" layoutX="1.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" prefHeight="31.0" prefWidth="502.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="0.0" />
             <JFXButton fx:id="addServiceButton" layoutX="251.0" layoutY="160.0" onAction="#addService" prefHeight="35.0" prefWidth="106.0" text="Add Service" textFill="WHITE" AnchorPane.bottomAnchor="284.8" AnchorPane.rightAnchor="202.6" />
+            <Label fx:id="requirementLabel" layoutX="366.0" layoutY="143.0" text="Add a service first" />
             </children>
             <effect>
                 <DropShadow />

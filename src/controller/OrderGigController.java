@@ -9,10 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.DatabaseDriver;
-import model.Gig;
-import model.Listable;
-import model.Review;
+import model.*;
 import view.ListingContainer;
 import view.SceneManager;
 
@@ -38,6 +35,9 @@ public class OrderGigController {
 	@FXML
 	private AnchorPane shadowPane;
 	
+	@FXML
+	private Label requirementLabel;
+	
 	private Gig gig;
 	
 	@FXML
@@ -48,6 +48,9 @@ public class OrderGigController {
 	
 	double xOffset;
 	double yOffset;
+	
+	private ArrayList<Listable> services;
+	private ListingContainer servicesContainerController;
 	
 	@FXML
 	void mousePressed (MouseEvent event) {
@@ -69,27 +72,36 @@ public class OrderGigController {
 	}
 	
 	@FXML
-	void confirmOrder(ActionEvent event) {
+	void confirmOrder(ActionEvent event) throws Exception {
+		if (services.isEmpty()) {
+			requirementLabel.setOpacity(1.0);
+			return;
+		}
+		
+		new SceneManager().showWindow(event, "orderedPopUp", 300, 160, true);
 		((Stage) confirmOrderButton.getScene().getWindow()).close();
 	}
 	
 	@FXML
-	void addService(ActionEvent event) {
-	
+	void addService(ActionEvent event) throws Exception {
+		requirementLabel.setOpacity(0.0);
+		services.add(new Service());
+		servicesContainerController.updateListing(services);
 	}
 	
 	public void init(Gig gig) throws Exception {
+		requirementLabel.setOpacity(0.0);
 		this.gig = gig;
 		gigNameLabel.setText(gig.getGigName());
 		categoryLabel.setText(gig.getCategory());
 		freelancerAliasLabel.setText(gig.getFreelancerAlias());
 		
-		ArrayList<Listable> services = new ArrayList<>();
+		this.services = new ArrayList<>();
 		
 		SceneManager sceneManager = new SceneManager();
 		FXMLLoader fxmlLoader = sceneManager.switchDynamicPane(servicesPane, "listingContainer");
-		ListingContainer container = fxmlLoader.getController();
-		container.init(services);
+		this.servicesContainerController = fxmlLoader.getController();
+		servicesContainerController.init(services);
 	}
 	
 	
