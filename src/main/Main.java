@@ -1,6 +1,7 @@
 package main;
 
 import classesORM.CategoryORM;
+import classesORM.UserORM;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,7 +61,7 @@ public class Main extends Application {
         }
     }
     
-    /* Method to  READ all the employees */
+   /*
     public static void listCategories (){
         Session session = ourSessionFactory.openSession();
         Transaction tx = null;
@@ -80,12 +81,32 @@ public class Main extends Application {
         } finally {
             session.close();
         }
+    }*/
+    
+    public static void listUsers (){
+        Session session = ourSessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List categories = session.createQuery("FROM classesORM.UserORM").list();
+            for (Iterator iterator = categories.iterator(); iterator.hasNext();){
+                UserORM userORM = (UserORM) iterator.next();
+                System.out.println("Name: " + userORM.getName());
+                System.out.println("  Registration Date: " + userORM.getRegistrationDate());
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
 
     public static void main(String[] args) throws Exception {
         initHibernate();
-        //listCategories();
+        listUsers();
         launch(args);
     }
 }
