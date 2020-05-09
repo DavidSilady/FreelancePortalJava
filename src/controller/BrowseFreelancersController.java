@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.text.Font;
 import model.Freelancer;
 import model.Gig;
 import model.User;
@@ -45,6 +46,7 @@ public class BrowseFreelancersController {
         FreelancersTableView.setItems(freelancers);
         AdditionalTableColumn.setText("Rating");
         Label1.setText("Table shows freelancers whose gigs are best reviewed");
+        Label1.setFont(new Font("Arial",20));
         Label1.setVisible(true);
     }
 
@@ -56,6 +58,7 @@ public class BrowseFreelancersController {
         FreelancersTableView.setItems(freelancers);
         AdditionalTableColumn.setText("Known languages");
         Label1.setText("Table shows freelancers who know the most languages");
+        Label1.setFont(new Font("Arial",20));
         Label1.setVisible(true);
     }
 
