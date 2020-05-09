@@ -63,7 +63,7 @@ public class ServiceListingController implements ListablePane {
 		this.parentContainer = parentContainer;
 		
 		this.priceTextField.setPromptText(service.getPrice() + " $");
-		this.descriptionTextField.setPromptText(service.getDescription());
+		this.descriptionTextField.setText(service.getDescription());
 	}
 	
 	public void setParentContainer (ListingContainer controller) {

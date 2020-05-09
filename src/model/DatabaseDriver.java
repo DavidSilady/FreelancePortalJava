@@ -53,6 +53,7 @@ public class DatabaseDriver {
                 statement.close();
                 connection.commit();
             } catch (Exception e) {
+                System.out.println("Something went wrong.");
                 connection.rollback();
             }
             connection.close();
@@ -77,6 +78,7 @@ public class DatabaseDriver {
                 statement.close();
                 connection.commit();
             } catch (Exception e) {
+                System.out.println("Something went wrong.");
                 connection.rollback();
             }
             connection.close();
