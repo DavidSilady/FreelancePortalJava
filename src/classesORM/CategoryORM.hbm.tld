@@ -4,10 +4,10 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name = "classesORM.CategoryORM" table = "EMPLOYEE">
+    <class name = "classesORM.CategoryORM" table = "categories">
 
         <meta attribute = "class-description">
-            This class contains the employee detail.
+            This class contains the category detail.
         </meta>
 
         <id name = "id" type = "int" column = "id">

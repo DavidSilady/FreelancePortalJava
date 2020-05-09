@@ -1,8 +1,18 @@
 package classesORM;
 
+import javax.persistence.*;
+
+@Entity
+@Table (name = "categories")
 public class CategoryORM {
+	@Id @GeneratedValue
+	@Column (name = "id")
 	private int id;
+	
+	@Column(name = "category_name")
 	private String categoryName;
+	
+	@Column(name = "description")
 	private String description;
 	
 	public CategoryORM () {

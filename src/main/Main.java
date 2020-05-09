@@ -1,18 +1,18 @@
 package main;
 
+import classesORM.CategoryORM;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.hibernate.HibernateException;
-import org.hibernate.Metamodel;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import javax.persistence.metamodel.EntityType;
+import java.util.Iterator;
+import java.util.List;
 
 public class Main extends Application {
     private static final SessionFactory ourSessionFactory;
@@ -59,10 +59,33 @@ public class Main extends Application {
             session.close();
         }
     }
+    
+    /* Method to  READ all the employees */
+    public static void listCategories (){
+        Session session = ourSessionFactory.openSession();
+        Transaction tx = null;
+        
+        try {
+            tx = session.beginTransaction();
+            List categories = session.createQuery("FROM classesORM.CategoryORM").list();
+            for (Iterator iterator = categories.iterator(); iterator.hasNext();){
+                CategoryORM categoryORM = (CategoryORM) iterator.next();
+                System.out.print("Name: " + categoryORM.getCategoryName());
+                System.out.print("  Description: " + categoryORM.getDescription());
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 
 
     public static void main(String[] args) throws Exception {
         initHibernate();
+        listCategories();
         launch(args);
     }
 }
