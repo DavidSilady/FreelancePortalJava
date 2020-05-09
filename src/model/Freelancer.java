@@ -7,6 +7,7 @@ import javax.management.InstanceAlreadyExistsException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Freelancer extends User {
@@ -58,7 +59,7 @@ public class Freelancer extends User {
         super(email, password);
     }
 
-    public Freelancer(String name, String surname, String email, String password, String registration_date, String alias){
+    public Freelancer(String name, String surname, String email, String password, Date registration_date, String alias){
         super(name, surname, email, password, registration_date);
         this.alias = alias;
     }

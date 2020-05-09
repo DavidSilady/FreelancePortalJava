@@ -1,67 +1,86 @@
 package model;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 
-import javax.management.InstanceAlreadyExistsException;
-import java.util.ArrayList;
+import javax.persistence.*;
 
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
-    private String registrationDate;
+    @Column(name = "registration_date")
+    private Date registrationDate;
 
-    public String getName() {
-        return this.name;
-    }
 
-    public String getSurname() {
-        return this.surname;
-    }
-
-    public int getId() {
+    public int getId () {
         return id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setId(int id) {
+    public void setId (int id) {
         this.id = id;
     }
 
-    public void setName(String name) {
+    public String getName () {
+        return name;
+    }
+
+    public void setName (String name) {
         this.name = name;
     }
 
-    /*public void setSurname(String surname) {
+    public String getSurname () {
+        return surname;
+    }
+
+    public void setSurname (String surname) {
         this.surname = surname;
     }
 
-    public void setEmail(String email) {
+    public String getEmail () {
+        return email;
+    }
+
+    public void setEmail (String email) {
         this.email = email;
     }
 
-    public void setRegistrationDate(String registrationDate) {
-        this.registrationDate = registrationDate;
-    }*/
+    public String getPassword () {
+        return password;
+    }
 
-    public User(){
+    public void setPassword (String password) {
+        this.password = password;
+    }
+
+    public Date getRegistrationDate () {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate (Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+   public User(){
         ;
     }
 
@@ -70,7 +89,7 @@ public class User {
         this.email = email;
     }
 
-    public User(String name, String surname, String email, String password, String registration_date) {
+    public User(String name, String surname, String email, String password, Date registration_date) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -78,7 +97,7 @@ public class User {
         this.registrationDate = registration_date;
     }
 
-    public User(int id, String name, String surname, String email, String password, String registration_date) {
+    public User(int id, String name, String surname, String email, String password, Date registration_date) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -92,8 +111,8 @@ public class User {
     }
 
     public boolean isAlreadyRegistered() throws Exception {
-        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT id FROM users WHERE email = '" + this.email + "'");
-        return !result.isEmpty();
+        List results = ORMDatabaseDriver.selectObjects("FROM User WHERE email = '" + this.email + "'" );
+        return !results.isEmpty();
     }
 
     public boolean register() throws Exception {
@@ -101,38 +120,22 @@ public class User {
             // throw new InstanceAlreadyExistsException();
             return false;
         }
-        DatabaseDriver.executeUpdate("INSERT INTO users(name, surname, email, password, registration_date) VALUES('" + name + "','" + surname + "','" + email + "','" + password + "','" + registrationDate + "')");
+        this.id = ORMDatabaseDriver.insertObject(this);
         return true;
     }
 
     public boolean verify() {
-        try {
-            ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT id,name,surname,email,password,registration_date FROM users WHERE email = '" + this.email + "'");
-            if (result.isEmpty()) {
-                return false;
-            }
+       List<User> result = ORMDatabaseDriver.selectObjects("FROM User WHERE email = '" + this.email + "'" );
+       if (result.isEmpty())
+           return false;
+       else if (!(result.get(0).getPassword().equals(this.password)))
+           return false;
 
-            String temp_id = result.get(0).get(0);
-            String temp_name = result.get(0).get(1);
-            String temp_surname = result.get(0).get(2);
-            String temp_email = result.get(0).get(3);
-            String temp_password = result.get(0).get(4);
-            String temp_date = result.get(0).get(5);
-
-            if (this.password.equals(temp_password)) {
-                this.id = Integer.parseInt(temp_id);
-                this.name = temp_name;
-                this.surname = temp_surname;
-                this.email = temp_email;
-                this.registrationDate = temp_date;
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            System.out.println(e.getClass().getName() + ": " + e.getMessage());
-            return false;
-        }
+       this.id = result.get(0).getId();
+       this.name = result.get(0).getName();
+       this.surname = result.get(0).getSurname();
+       this.registrationDate = result.get(0).getRegistrationDate();
+       return true;
     }
 
     public ArrayList<String> getAllCategories() {
@@ -145,37 +148,6 @@ public class User {
         return categories;
     }
 
-    /*public ArrayList<Listable> findGigByCategory(String category, int page) {
-        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
-                " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
-                " WHERE category_name = '" + category + "' ORDER BY gig_name LIMIT 10 OFFSET " + page * 10);
-        ArrayList<Listable> gigs = new ArrayList<>();
-        for (ArrayList<String> row : result) {
-            String temp_id = row.get(0);
-            String temp_gigName = row.get(1);
-            String temp_categoryName = row.get(2);
-            String temp_alias = row.get(3);
-            String temp_freelancerID = row.get(4);
-            gigs.add(new Gig(Integer.parseInt(temp_id), Integer.parseInt(temp_freelancerID), temp_categoryName, temp_gigName, temp_alias));
-        }
-        return gigs;
-    }
-
-    public ArrayList<Listable> loadAllGigs(int page) {
-        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT g.id,gig_name,category_name,alias,freelancer_id FROM gigs AS g " +
-                " INNER JOIN categories AS c ON g.category_id = c.id INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id ORDER BY gig_name " +
-                "limit 10 offset " + page * 10);
-        ArrayList<Listable> gigs = new ArrayList<>();
-        for (ArrayList<String> row : result) {
-            String temp_id = row.get(0);
-            String temp_gigName = row.get(1);
-            String temp_categoryName = row.get(2);
-            String temp_alias = row.get(3);
-            String temp_freelancerID = row.get(4);
-            gigs.add(new Gig(Integer.parseInt(temp_id), Integer.parseInt(temp_freelancerID), temp_categoryName, temp_gigName, temp_alias));
-        }
-        return gigs;
-    }*/
 //_____________________________________________________________________BROWSING FREELANCERS_______________________________________________________________
     public ObservableList<Freelancer> loadBestReviewedFreelancers(int quantity) {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(

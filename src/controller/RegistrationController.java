@@ -90,10 +90,10 @@ public class RegistrationController {
 		}
 	}
 
-	String getDate() {
+	Date getDate() {
 		Date date = Calendar.getInstance().getTime();
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		return dateFormat.format(date);
+		return date;
 	}
 
 	void parseToDatabase(ActionEvent event, String name, String surname, String email, String password, String alias) throws Exception {
