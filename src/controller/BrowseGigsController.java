@@ -227,7 +227,7 @@ public class BrowseGigsController {
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(query);
         ArrayList<Listable> gigs = new ArrayList<>();
         for (ArrayList<String> row: Objects.requireNonNull(result)) {
-            Double avgRating = 0.0;
+            double avgRating = 0.0;
             try {
                 avgRating = Double.parseDouble(row.get(6));
             } catch (Exception ignored){ }
