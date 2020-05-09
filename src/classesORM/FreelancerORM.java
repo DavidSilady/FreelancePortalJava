@@ -3,7 +3,6 @@ package classesORM;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "freelancers")
 public class FreelancerORM extends UserORM {
 	@Column(name = "freelance_id", unique = true)

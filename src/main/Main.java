@@ -1,6 +1,7 @@
 package main;
 
 import classesORM.CategoryORM;
+import classesORM.FreelancerORM;
 import classesORM.UserORM;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -88,12 +89,16 @@ public class Main extends Application {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            List categories = session.createQuery("FROM classesORM.UserORM").list();
+            List categories = session.createQuery("FROM classesORM.FreelancerORM").list();
+            int counter = 0;
             for (Iterator iterator = categories.iterator(); iterator.hasNext();){
-                UserORM userORM = (UserORM) iterator.next();
-                System.out.println("Name: " + userORM.getName());
+                counter++;
+                FreelancerORM userORM = (FreelancerORM) iterator.next();
+                System.out.print("ID: " + userORM.getId());
+                System.out.print("  Name: " + userORM.getName());
                 System.out.println("  Registration Date: " + userORM.getRegistrationDate());
             }
+            System.out.println("Num found: " + counter);
             tx.commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -105,7 +110,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws Exception {
-        initHibernate();
+        //initHibernate();
         listUsers();
         launch(args);
     }
