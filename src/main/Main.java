@@ -70,8 +70,8 @@ public class Main extends Application {
             List categories = session.createQuery("FROM classesORM.CategoryORM").list();
             for (Iterator iterator = categories.iterator(); iterator.hasNext();){
                 CategoryORM categoryORM = (CategoryORM) iterator.next();
-                System.out.print("Name: " + categoryORM.getCategoryName());
-                System.out.print("  Description: " + categoryORM.getDescription());
+                System.out.println("Name: " + categoryORM.getCategoryName());
+                System.out.println("  Description: " + categoryORM.getDescription());
             }
             tx.commit();
         } catch (HibernateException e) {
@@ -85,7 +85,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception {
         initHibernate();
-        listCategories();
+        //listCategories();
         launch(args);
     }
 }
