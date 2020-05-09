@@ -211,16 +211,17 @@ public class BrowseGigsController {
     }
     
     private ArrayList<Listable> fetchGigs () {
-        String query = "SELECT g.id, f.freelance_id, c.category_name, g.gig_name, f.alias, " +
-                "COUNT(s.id) AS num_sold, AVG(r.rating) AS avg_rating, AVG(r.rating) * COUNT(s.id) AS ratio FROM gigs AS g\n" +
+        String query = "SELECT g.id, f.freelance_id, c.category_name, g.gig_name, f.alias, COUNT(o.id) AS num_sold,  avg_r, avg_r * COUNT(o.id) AS ratio FROM gigs AS g\n" +
                 "INNER JOIN categories c ON g.category_id = c.id\n" +
                 "INNER JOIN freelancers f ON g.freelancer_id = f.freelance_id\n" +
-                "LEFT JOIN reviews r ON g.id = r.gig_id\n" +
+                "LEFT JOIN (SELECT gig_id, avg(rating) avg_r from reviews\n" +
+                "    group by gig_id) r ON g.id = r.gig_id\n" +
                 "LEFT JOIN services s ON g.id = s.gig_id\n" +
+                "JOIN orders o on s.order_id = o.id\n" +
                 "WHERE true \n" +
                 filterNameStatement +
                 categoryConditionStatement + "\n" +
-                "GROUP BY g.id, g.gig_name, c.category_name, f.freelance_id, f.alias\n" +
+                "GROUP BY g.id, g.gig_name, c.category_name, f.freelance_id, f.alias, r.avg_r\n" +
                 orderByStatement + "\n"+
                 "LIMIT 10 OFFSET " + (pageNum - 1) * 10;
         ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(query);
