@@ -236,4 +236,12 @@ public class User {
     public void addReview(int gigID, int rating, String reviewText){
         DatabaseDriver.executeUpdate("INSERT INTO reviews(customer_id,gig_id, content, rating) VALUES('" + this.getId() + "','" + gigID + "','" + reviewText + "','" + rating  + "')");
     }
+    
+    public int getReferencableID() {
+        return this.id;
+    }
+    
+    public String getCustomerType() {
+        return "customer";
+    }
 }

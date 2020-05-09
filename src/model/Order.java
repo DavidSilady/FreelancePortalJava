@@ -5,10 +5,11 @@ import java.util.ArrayList;
 public class Order {
 	private int id;
 	private int customerID;
+	private String customerType; //freelancer/customer
 	private String date;
 	
 	public String getInsertQuery() {
-		return "INSERT INTO orders (customer_id, order_date) VALUES (" + this.customerID + ", '" + date + "') RETURNING id";
+		return "INSERT INTO orders (" + customerType + "_id, order_date) VALUES (" + this.customerID + ", '" + date + "') RETURNING id";
 	}
 	
 	public int getId () {
@@ -35,9 +36,10 @@ public class Order {
 		this.date = date;
 	}
 	
-	public Order(int customerID, String orderDate) {
+	public Order(int customerID, String orderDate, String customerType) {
 		this.customerID = customerID;
 		this.date = orderDate;
+		this.customerType = customerType;
 	}
 	
 	public Order(int id, int customerID, String orderDate) {

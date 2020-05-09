@@ -101,7 +101,7 @@ public class OrderGigController {
 	}
 	
 	private boolean createOrder() {
-		Order order = new Order(activeUser.getId(), getDate());
+		Order order = new Order(activeUser.getReferencableID(), getDate(), activeUser.getCustomerType());
 		Invoice invoice = new Invoice(getDate(), billingAddressTextArea.getText());
 		for(Listable service: this.services) {
 			((Service) service).setGigID(gig.getId());
@@ -137,6 +137,4 @@ public class OrderGigController {
 		this.servicesContainerController = fxmlLoader.getController();
 		servicesContainerController.init(services);
 	}
-	
-	
 }

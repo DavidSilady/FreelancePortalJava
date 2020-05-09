@@ -192,4 +192,36 @@ public class Freelancer extends User {
     }
 
 /// ________________________________________________________________________________________________________________________________________________________________
+    @Override
+    public ObservableList<PastPurchase> loadMyPastPurchases() {
+        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(
+                "SELECT g.gig_name,s.description,f.alias,s.price,o.order_date,s.gig_id FROM services AS s "+
+                        "INNER JOIN orders AS o ON s.order_id = o.id " +
+                        "INNER JOIN gigs AS g ON s.gig_id = g.id " +
+                        "INNER JOIN freelancers AS f ON g.freelancer_id = f.freelance_id " +
+                        "WHERE o.freelancer_id = " + this.freelancerID);
+        ObservableList<PastPurchase> purchases = FXCollections.observableArrayList();
+        for (ArrayList<String> row : result) {
+            String temp_gig_name = row.get(0);
+            String temp_service = row.get(1);
+            String temp_alias = row.get(2);
+            String temp_price = row.get(3);
+            String temp_date = row.get(4);
+            String temp_gig_ID = row.get(5);
+            purchases.add(new PastPurchase(temp_gig_name,temp_service,temp_alias, Integer.parseInt(temp_price), temp_date , Integer.parseInt(temp_gig_ID)));
+        }
+        return purchases;
+    }
+    
+    public void addReview(int gigID, int rating, String reviewText){
+        DatabaseDriver.executeUpdate("INSERT INTO reviews(customer_id, gig_id, content, rating) VALUES('" + this.getId() + "','" + gigID + "','" + reviewText + "','" + rating  + "')");
+    }
+    
+    public int getReferencableID() {
+        return this.freelancerID;
+    }
+    
+    public String getCustomerType() {
+        return "freelancer";
+    }
 }
