@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: transparent;" stylesheets="@master.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PopUpController">
+   <children>
+      <AnchorPane layoutX="20.0" layoutY="16.0" prefHeight="128.0" prefWidth="258.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0">
+         <children>
+            <JFXButton fx:id="exitButton" layoutX="81.0" layoutY="82.0" onAction="#exit" prefHeight="34.0" prefWidth="97.0" text="OK" textFill="WHITE" AnchorPane.bottomAnchor="0.0" />
+            <Label alignment="CENTER" layoutX="60.0" layoutY="14.0" prefHeight="58.0" prefWidth="139.0" text="Order FAILED." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="60.0" layoutY="35.0" prefHeight="58.0" prefWidth="139.0" text="Try again later." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>

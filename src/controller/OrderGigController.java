@@ -92,22 +92,21 @@ public class OrderGigController {
 			return;
 		}
 		
-		createOrder();
-		
-		new SceneManager().showWindow(event, "orderedPopUp", 300, 160, true);
+		if (createOrder()) {
+			new SceneManager().showWindow(event, "orderedPopUp", 300, 160, true);
+		} else {
+			new SceneManager().showWindow(event, "orderFailedPopUp", 300, 160, true);
+		}
 		((Stage) confirmOrderButton.getScene().getWindow()).close();
 	}
 	
-	private void createOrder() {
+	private boolean createOrder() {
 		Order order = new Order(activeUser.getId(), getDate());
-		order.createDBListing();
 		Invoice invoice = new Invoice(getDate(), billingAddressTextArea.getText());
-		invoice.createDBListing();
-		
 		for(Listable service: this.services) {
-			((Service) service).setIDs(order.getId(), invoice.getId(), this.gig.getId());
-			((Service) service).createDBListing();
+			((Service) service).setGigID(gig.getId());
 		}
+		return DatabaseDriver.newOrder(order, invoice, this.services);
 	}
 	
 	String getDate() {

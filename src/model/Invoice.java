@@ -7,6 +7,14 @@ public class Invoice {
 	private String date;
 	private String billingAddress;
 	
+	public String getInsertQuery() {
+		return "INSERT INTO invoices (payment_method_id, payment_date, billing_address) " +
+				"VALUES (1, '"
+				+ this.date + "', '"
+				+ this.billingAddress +
+				"') RETURNING id";
+	}
+	
 	public int getId () {
 		return id;
 	}

@@ -7,8 +7,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -86,6 +84,47 @@ public class DatabaseDriver {
         } catch (Exception e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             //return false;
+        }
+    }
+    
+    public static boolean newOrder(Order order, Invoice invoice, ArrayList<Listable> services) {
+        String orderQuery = order.getInsertQuery();
+        String invoiceQuery = invoice.getInsertQuery();
+
+        try {
+            Connection connection = establishConnection();
+            connection.setAutoCommit(false);
+            try {
+                Statement statement = connection.createStatement();
+                System.out.println(orderQuery);
+                ResultSet orderIDResult = statement.executeQuery(orderQuery);
+                orderIDResult.next();
+                int orderID = orderIDResult.getInt(1);
+                orderIDResult.close();
+                System.out.println(invoiceQuery);
+                ResultSet invoiceIDResult = statement.executeQuery(invoiceQuery);
+                invoiceIDResult.next();
+                int invoiceID = invoiceIDResult.getInt(1);
+                invoiceIDResult.close();
+                for (Listable service: services) {
+                    ((Service) service).setIDs(orderID, invoiceID);
+                    String serviceQuery = ((Service) service).getInsertQuery();
+                    System.out.println(serviceQuery);
+                    statement.executeUpdate(serviceQuery);
+                }
+                statement.close();
+                connection.commit();
+            } catch (Exception e) {
+                System.out.println("Something went wrong.");
+                System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                connection.rollback();
+                return false;
+            }
+            connection.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            return false;
         }
     }
 

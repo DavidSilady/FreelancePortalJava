@@ -1,19 +1,31 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Service implements Listable {
 	private int id;
-	private int gig_id;
-	private int order_id;
-	private int invoice_id;
+	private int gigID;
+	private int orderID;
+	private int invoiceID;
 	private double price = 0;
 	private String description = "";
 	
 	public Service() { }
 	
+	public String getInsertQuery() {
+		return "INSERT INTO services (gig_id, order_id, invoice_id, price, description) VALUES (" +
+				this.gigID +
+				", " +
+				this.orderID +
+				", " +
+				this.invoiceID +
+				", " +
+				(int) Math.ceil(this.price) +
+				", '" +
+				this.description +
+				"')";
+	}
+	
 	public Service(int gig_id, double price, String description) {
-		this.gig_id = gig_id;
+		this.gigID = gig_id;
 		this.price = price;
 		this.description = description;
 	}
@@ -23,19 +35,18 @@ public class Service implements Listable {
 		this.description = description;
 	}
 	
-	public void setIDs(int order_id, int invoice_id, int gig_id) {
-		this.order_id = order_id;
-		this.gig_id = gig_id;
-		this.invoice_id = invoice_id;
+	public void setIDs(int order_id, int invoice_id) {
+		this.orderID = order_id;
+		this.invoiceID = invoice_id;
 	}
 	
 	public void createDBListing() {
 		String query = "INSERT INTO services (gig_id, order_id, invoice_id, price, description) VALUES (" +
-				this.gig_id +
+				this.gigID +
 				", " +
-				this.order_id +
+				this.orderID +
 				", " +
-				this.invoice_id +
+				this.invoiceID +
 				", " +
 				Math.ceil(this.price) +
 				", '" +
@@ -58,28 +69,28 @@ public class Service implements Listable {
 		this.id = id;
 	}
 	
-	public int getGig_id () {
-		return gig_id;
+	public int getGigID () {
+		return gigID;
 	}
 	
-	public void setGig_id (int gig_id) {
-		this.gig_id = gig_id;
+	public void setGigID (int gigID) {
+		this.gigID = gigID;
 	}
 	
-	public int getOrder_id () {
-		return order_id;
+	public int getOrderID () {
+		return orderID;
 	}
 	
-	public void setOrder_id (int order_id) {
-		this.order_id = order_id;
+	public void setOrderID (int orderID) {
+		this.orderID = orderID;
 	}
 	
-	public int getInvoice_id () {
-		return invoice_id;
+	public int getInvoiceID () {
+		return invoiceID;
 	}
 	
-	public void setInvoice_id (int invoice_id) {
-		this.invoice_id = invoice_id;
+	public void setInvoiceID (int invoiceID) {
+		this.invoiceID = invoiceID;
 	}
 	
 	public double getPrice () {

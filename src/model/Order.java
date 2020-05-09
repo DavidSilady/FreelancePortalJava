@@ -3,9 +3,13 @@ package model;
 import java.util.ArrayList;
 
 public class Order {
-	int id;
-	int customerID;
-	String orderDate;
+	private int id;
+	private int customerID;
+	private String date;
+	
+	public String getInsertQuery() {
+		return "INSERT INTO orders (customer_id, order_date) VALUES (" + this.customerID + ", '" + date + "') RETURNING id";
+	}
 	
 	public int getId () {
 		return id;
@@ -23,27 +27,27 @@ public class Order {
 		this.customerID = customerID;
 	}
 	
-	public String getOrderDate () {
-		return orderDate;
+	public String getDate () {
+		return date;
 	}
 	
-	public void setOrderDate (String orderDate) {
-		this.orderDate = orderDate;
+	public void setDate (String date) {
+		this.date = date;
 	}
 	
 	public Order(int customerID, String orderDate) {
 		this.customerID = customerID;
-		this.orderDate = orderDate;
+		this.date = orderDate;
 	}
 	
 	public Order(int id, int customerID, String orderDate) {
 		this.id = id;
 		this.customerID = customerID;
-		this.orderDate = orderDate;
+		this.date = orderDate;
 	}
 	
 	public void createDBListing() {
-		String query = "INSERT INTO orders (customer_id, order_date) VALUES (" + this.customerID + ", '" + orderDate + "') RETURNING id";
+		String query = "INSERT INTO orders (customer_id, order_date) VALUES (" + this.customerID + ", '" + date + "') RETURNING id";
 		ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery(query);
 		if (result == null || result.isEmpty())
 			return;
