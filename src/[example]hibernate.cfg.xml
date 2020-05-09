@@ -33,5 +33,8 @@
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
         <mapping class="classesORM.CategoryORM"/>
+        <mapping class="classesORM.UserORM"/>
+        <mapping class="classesORM.FreelancerORM"/>
+        <mapping class="classesORM.GigORM"/>
     </session-factory>
 </hibernate-configuration>
