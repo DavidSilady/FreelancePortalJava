@@ -1,7 +1,5 @@
 package model;
 
-import javafx.beans.property.StringProperty;
-
 import javax.persistence.*;
 
 @Entity
@@ -35,6 +33,11 @@ public class Gig implements Listable {
     public Gig () {
     }
 
+    public Gig(int freelancerID, int categoryID, String gigName) {
+        this.freelancerID = freelancerID;
+        this.categoryID = categoryID;
+        this.gigName = gigName;
+    }
 
     public Gig(int id, int freelancerID, String category, String gigName) {
         this.id = id;

@@ -2,14 +2,8 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import java.util.ArrayList;
-
 import javax.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 
@@ -147,6 +141,10 @@ public class User {
         }
         return categories;
     }
+    public void addReview(int gigID, int rating, String content){
+        Review review = new Review(this.id,gigID,content,rating);
+        review.setId(ORMDatabaseDriver.insertObject(review));
+    }
 
 //_____________________________________________________________________BROWSING FREELANCERS_______________________________________________________________
     public ObservableList<Freelancer> loadBestReviewedFreelancers(int quantity) {
@@ -205,10 +203,6 @@ public class User {
         return purchases;
     }
 
-    public void addReview(int gigID, int rating, String content){
-        Review review = new Review(this.id,gigID,content,rating);
-        review.setId(ORMDatabaseDriver.insertObject(review));
-    }
     
     public int getReferencableID() {
         return this.id;

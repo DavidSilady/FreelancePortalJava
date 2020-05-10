@@ -2,10 +2,6 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.management.InstanceAlreadyExistsException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -148,13 +144,14 @@ public class Freelancer extends User {
 ///  __________________________________________________________________________________GIGS_________________________________________________________________________
 
     public int getCategoryID(String category) {
-        ArrayList<ArrayList<String>> result = DatabaseDriver.executeQuery("SELECT id FROM categories WHERE category_name = '" + category + "'");
-        return Integer.parseInt(result.get(0).get(0));
+        List<Category> result = ORMDatabaseDriver.selectObjects("FROM Category WHERE category_name = '" + category + "'");
+        return result.get(0).getId();
     }
 
     public void addGig(String gigName, String categoryName) {
         int categoryID = getCategoryID(categoryName);
-        DatabaseDriver.executeUpdate("INSERT INTO gigs(freelancer_id,category_id,gig_name) VALUES('" + String.valueOf(this.freelancerID) + "','" + String.valueOf(categoryID) + "','" + gigName + "')");
+        Gig gig = new Gig(this.freelancerID,categoryID,gigName);
+        ORMDatabaseDriver.insertObject(gig);
     }
 
     public ObservableList<Gig> loadMyGigs() {

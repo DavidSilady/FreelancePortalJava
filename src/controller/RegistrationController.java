@@ -112,6 +112,7 @@ public class RegistrationController {
 				sceneManager.switchScene(event, "login");
 			} else {
 				somethingWrongLabel.setVisible(true);
+				somethingWrongLabel.setText("Email already registered");
 			}
 		}
 		catch (InstanceAlreadyExistsException ex){
