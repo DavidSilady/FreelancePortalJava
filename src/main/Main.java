@@ -62,7 +62,7 @@ public class Main extends Application {
         }
     }
     
-   /*
+   
     public static void listCategories (){
         Session session = ourSessionFactory.openSession();
         Transaction tx = null;
@@ -82,7 +82,7 @@ public class Main extends Application {
         } finally {
             session.close();
         }
-    }*/
+    }
     
     public static void listUsers (){
         Session session = ourSessionFactory.openSession();
