@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Freelancer extends User {
@@ -190,6 +191,11 @@ public class Freelancer extends User {
             my_reviews.add(new Review(temp_user_email, temp_gig_name,Integer.parseInt(temp_rating), temp_content));
         }
         return my_reviews;
+       /* List<Review> result = (ArrayList<Review>) ORMDatabaseDriver.selectObjects("SELECT r.id, r.customer_id,r.gig_id,r.content,r.rating FROM reviews AS r INNER JOIN gigs AS g WHERE g.freelancer_id = " + super.getId());
+        for (Review r : result){
+            System.out.println(r.getContent());
+        }
+        return FXCollections.observableList(result);*/
     }
 
 /// ________________________________________________________________________________________________________________________________________________________________

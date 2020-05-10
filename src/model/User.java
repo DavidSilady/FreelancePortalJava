@@ -205,8 +205,9 @@ public class User {
         return purchases;
     }
 
-    public void addReview(int gigID, int rating, String reviewText){
-        DatabaseDriver.executeUpdate("INSERT INTO reviews(customer_id,gig_id, content, rating) VALUES('" + this.getId() + "','" + gigID + "','" + reviewText + "','" + rating  + "')");
+    public void addReview(int gigID, int rating, String content){
+        Review review = new Review(this.id,gigID,content,rating);
+        review.setId(ORMDatabaseDriver.insertObject(review));
     }
     
     public int getReferencableID() {

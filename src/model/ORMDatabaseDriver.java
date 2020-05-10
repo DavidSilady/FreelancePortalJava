@@ -1,15 +1,9 @@
 package model;
 
-import classesORM.FreelancerORM;
-import classesORM.UserORM;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
-import javax.persistence.Id;
-import javax.persistence.metamodel.EntityType;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ORMDatabaseDriver {
