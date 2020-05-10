@@ -2,14 +2,39 @@ package model;
 
 import javafx.beans.property.StringProperty;
 
+import javax.persistence.*;
+
+@Entity
+@Table (name = "gigs")
 public class Gig implements Listable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "freelancer_id")
     private int freelancerID;
-    private String category;
+
+    @Column(name = "category_id")
+    private int categoryID;
+
+    @Column(name = "gig_name")
     private String gigName;
+
+    @Transient
+    private String category;
+
+    @Transient
     private String freelancerAlias;
+
+    @Transient
     private int numSold;
+
+    @Transient
     private double avgRating;
+
+    public Gig () {
+    }
+
 
     public Gig(int id, int freelancerID, String category, String gigName) {
         this.id = id;
@@ -26,10 +51,6 @@ public class Gig implements Listable {
         this.freelancerAlias = freelancerAlias;
         this.numSold = 0;
         this.avgRating = 1;
-    }
-    
-    public int getId () {
-        return id;
     }
     
     public Gig(int id, int freelancerID, String category, String gigName, String freelancerAlias, int numSold, double avgRating){
@@ -49,7 +70,39 @@ public class Gig implements Listable {
         this.avgRating = 1;
     }
 
-    public String getGigName() { return gigName; }
+    public int getId () {
+        return id;
+    }
+
+    public void setId (int id) {
+        this.id = id;
+    }
+
+    public int getFreelancerId () {
+        return freelancerID;
+    }
+
+    public void setFreelancerId (int freelancerId) {
+        this.freelancerID = freelancerId;
+    }
+
+    public int getCategoryId () {
+        return categoryID;
+    }
+
+    public void setCategoryId (int categoryId) {
+        this.categoryID = categoryId;
+    }
+
+    public String getGigName () {
+        return gigName;
+    }
+
+    public void setGigName (String gigName) {
+        this.gigName = gigName;
+    }
+
+
     public String getCategory() {
         return category;
     }
